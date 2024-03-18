@@ -47,6 +47,7 @@ def plot_epoch_train_validation(model_dir: str):
 
 def plot_epoch_history(model_dir: str, split: str = "val"):
     """Plots epoch training and validation losses."""
+    model_type = Path(model_dir).stem.split("_")[0]
     with open(model_dir + f"/{split}_history.pkl", mode="rb") as f:
         losses = pickle.load(f)
 
@@ -64,6 +65,9 @@ def plot_epoch_history(model_dir: str, split: str = "val"):
             ylabel = "ELBO" if "VAE" in model_dir else "MSE"
         ax.set_ylabel(ylabel)
         ax.legend(loc="upper right")
+        ax.set_title(
+            f"Epoch {split[:1].upper() + split[:1]} History for {model_type}."
+        )
         Path(model_dir + "/plots").mkdir(parents=True, exist_ok=True)
         # save figure
         fig.savefig(model_dir + f"/plots/{split}_{ylabel}.jpg", dpi=300)
