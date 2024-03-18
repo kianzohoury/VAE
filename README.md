@@ -12,11 +12,30 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 6. Pick best VAE and generate new samples from noise, and show lack of guided generation.
 6. Fix this issue with conditional VAE (repeat steps).
 
-## Latent Space Dimensionality
+## Training & Validation
+
 <p align="middle" float="left">
   <img src="output/Autoencoder/validation_MSE.jpg" width="45%" />
   <img src="output/VAE/validation_MSE.jpg" width="45%" />
 </p>
+
+### Effect of Latent Dimensionality on Digit Reconstruction
+<p align="middle" float="left">
+  <img src="output/Autoencoder/class_results_MSE.jpg" width="45%" />
+  <img src="output/VAE/class_results_MSE.jpg" width="45%" />
+</p>
+While increasing the dimensionality of the latent space improves the image
+reconstruction (as measured by MSE) across all digits for vanilla autoencoder 
+models, the same is not true for VAE models; instead, we see that past a latent
+size of 20, the reconstruction task is not meaningfully improved. In fact, the
+reconstruction losses worsen slightly for nearly all digits, which perhaps
+reveals that most of the semantic information of a digit can be compressed in 
+a relatively small latent space (say, no smaller than 2 but no larger than 20).
+
+
+the benefit of increasing the dimensionality
+diminishes 
+
 
 [//]: # ()
 [//]: # (<div style="display: flex; flex-direction: row; justify-content: center">)
