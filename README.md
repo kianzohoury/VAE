@@ -20,6 +20,8 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 </p>
 
 ### Model Selection
+Based on the reconstruction errors of the VAE model on the validation
+split, a latent size of 20 was chosen. 
 <p align="middle" float="left">
   <img src="output/VAE/train_val_latent_20_MSE.jpg" width="45%" />
 </p>
