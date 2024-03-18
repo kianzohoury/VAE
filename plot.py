@@ -66,7 +66,7 @@ def plot_epoch_history(model_dir: str, split: str = "val"):
         ax.set_ylabel(ylabel)
         ax.legend(loc="upper right")
         ax.set_title(
-            f"Epoch {split[:1].upper() + split[:1]} History for {model_type}."
+            f"Epoch {split[:1].upper() + split[1:]} History for {model_type}."
         )
         Path(model_dir + "/plots").mkdir(parents=True, exist_ok=True)
         # save figure
