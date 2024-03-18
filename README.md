@@ -25,21 +25,18 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
   <img src="output/VAE/class_results_MSE.jpg" width="45%" />
 </p>
 
-* Increasing the dimensionality of the latent space improves the image
-reconstruction (as measured by MSE) across all digits for vanilla autoencoder 
-models. By not having to compress information too much, the autoencoder can
-better model the identity function.
+* Increasing the dimensionality of the latent space expectedly decreases image
+reconstruction error across all digits for the vanilla autoencoder. In general,
+increasing the degree of information that needs to be compressed by the encoder
+makes it harder for the decoder to reconstruct the original image. 
 
-* In contrast, for VAE models we see that past a latent size of about 20, the 
-reconstruction task is not meaningfully improved. In fact, the reconstruction 
-losses worsen slightly for nearly all digits, which perhaps reveals that most 
-of the semantic information of a digit can be compressed in a relatively small 
-latent space (say, no smaller than 2 but no larger than 20).
-
-
-
-the benefit of increasing the dimensionality
-diminishes 
+* In contrast, for the VAE we see that higher latent sizes do not meaningfully
+reduce reconstruction error. In fact, the MSE worsens slightly for nearly all 
+digits, which perhaps reveals that either (1) the model is underfitting the data as
+it struggles to generate continuous latent space representations, or (2) the model
+is overfitting to the training data because of the increased capacity. Regardless,
+it seems that most of the semantic information of MNIST digits can be compressed 
+in a relatively small latent space.
 
 
 [//]: # ()
