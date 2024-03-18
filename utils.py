@@ -1,9 +1,19 @@
 
 from typing import Dict, Tuple
 
+import torch.nn as nn
 import torchvision
 from sklearn.model_selection import train_test_split
 from torch.utils.data import Dataset, Subset
+
+from . import vae
+
+
+def init_model(model_type: str, **kwargs) -> nn.Module:
+    """Initializes model."""
+    model_constructor = getattr(vae, model_type)
+    model = model_constructor(**kwargs)
+    return model
 
 
 def load_dataset(

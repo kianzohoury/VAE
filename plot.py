@@ -4,6 +4,10 @@ from pathlib import Path
 
 import matplotlib
 import matplotlib.pyplot as plt
+import torch
+from torch.utils.data import DataLoader
+
+from . import utils
 
 # set backend to SVG
 matplotlib.use('svg')
@@ -55,3 +59,61 @@ def plot_class_performance(model_dir: str):
     ax.legend(loc="upper right")
     # save figure
     fig.savefig(model_dir + f"/plots/class_results_MSE.jpg", dpi=300)
+
+
+def plot_reconstruction_grid(
+    model_dir: str,
+    dataset: str = "mnist",
+    num_samples: int = 7
+):
+    """Plots a grid comparing images with generated reconstructions."""
+    datasets = utils.load_dataset(
+        name=dataset,
+        splits=("test"),
+        val_size=0
+    )
+    # create dataloader
+    test_loader = DataLoader(
+        dataset=datasets["test"],
+        batch_size=num_samples,
+        shuffle=True,
+        pin_memory=True
+    )
+    checkpoints = list(Path(model_dir).rglob("*.pth"))
+    fig, ax = fig, ax = plt.subplots(
+        nrows=len(checkpoints),
+        ncols=num_samples,
+        constrained_layout=True,
+        figsize=(10, 10)
+    )
+
+    img, _ = next(iter(test_loader))
+    for j in range(num_samples):
+        ax[j][0].imshow(img[j].squeeze(0), cmap="gray")
+        ax[j][0].axis("off")
+    ax[0][0].set_title("Original")
+
+    checkpoints = sorted(
+        checkpoints, key=lambda file: file.stem.split("_")[-1]
+    )
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    for i, checkpoint in enumerate(checkpoints):
+        state_dict = torch.load(checkpoint, map_location=device)
+        model_type = state_dict["config"].pop("model_type")
+
+        # initialize model
+        model = utils.init_model(model_type, **state_dict["config"]).to(device)
+        num_latent = state_dict["config"]["num_latent"]
+        model.load_state_dict(state_dict["model"])
+        model.eval()
+        gen_img = model(img.to(device))
+        if isinstance(gen_img, tuple):
+            gen_img = gen_img[0]
+        gen_img = gen_img.detach().cpu()
+        for j in range(num_samples):
+            ax[j][i + 1].imshow(gen_img[j].squeeze(0), cmap="gray")
+            ax[j][i + 1].axis("off")
+        ax[0][i + 1].set_title(num_latent)
+
+    fig.suptitle("Latent dimension")
+    fig.savefig(f"{model_dir}/plots/reconstruction_grid.jpg")

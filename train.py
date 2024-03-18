@@ -21,13 +21,6 @@ LR = 1e-3
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 
-def init_model(model_type: str, **kwargs) -> nn.Module:
-    """Initializes model."""
-    model_constructor = getattr(vae, model_type)
-    model = model_constructor(**kwargs)
-    return model
-
-
 def test_model(model: nn.Module, test_loader):
     """Tests model."""
     total_loss = defaultdict(float)
@@ -88,8 +81,10 @@ def test_across_classes(
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
             state_dict = torch.load(checkpoint, map_location=DEVICE)
             model_type = state_dict["config"].pop("model_type")
-            # initialize model and optimizer
-            model = init_model(model_type, **state_dict["config"]).to(DEVICE)
+            # initialize model
+            model = utils.init_model(
+                model_type, **state_dict["config"]
+            ).to(DEVICE)
             num_latent = state_dict["config"]["num_latent"]
             model.load_state_dict(state_dict["model"])
 
@@ -161,7 +156,7 @@ def run_training(
         # initialize model and optimizer
         model_config = dict(config)
         model_config["num_latent"] = num_latent
-        model = init_model(**model_config).to(DEVICE)
+        model = utils.init_model(**model_config).to(DEVICE)
         optim = AdamW(model.parameters(), LR)
         print(f"Starting training for z-dim={num_latent}.")
 
