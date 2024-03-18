@@ -196,7 +196,7 @@ def plot_reconstructed_digits(
             nrows=2,
             ncols=10,
             constrained_layout=True,
-            figsize=(2, 10)
+            figsize=(10, 2)
         )
         for class_idx in range(10):
             indices = []
