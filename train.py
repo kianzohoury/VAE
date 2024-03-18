@@ -64,6 +64,8 @@ def load_dataset(
         )
         split_data["val"] = Subset(split_data["train"], val_indices)
         split_data["train"] = Subset(split_data["train"], train_indices)
+
+    print(len(split_data["val"]), len(split_data["train"]))
     return split_data
 
 
@@ -122,8 +124,6 @@ def test_across_classes(
             shuffle=True,
             pin_memory=True
         )
-
-        print(len(test_loader))
 
         print(f"Starting testing for class {class_idx}...")
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
