@@ -26,7 +26,7 @@ split, a latent size of 20 was chosen.
   <img src="output/VAE/train_val_latent_20_MSE.jpg" width="45%" />
 </p>
 
-## Effect of Latent Dimensionality on Digit Reconstruction
+## Effect of Latent Space Dimensionality on Digit Reconstruction
 <p align="middle" float="left">
   <img src="output/Autoencoder/class_results_MSE.jpg" width="48%" />
   <img src="output/VAE/class_results_MSE.jpg" width="48%" />
