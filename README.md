@@ -13,9 +13,16 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 6. Fix this issue with conditional VAE (repeat steps).
 
 ## Vanilla Autoencoder
-![img](output/Autoencoder/validation_MSE.jpg)
-![img](output/Autoencoder/class_results_MSE.jpg)
-![img](output/Autoencoder/reconstruction_grid.jpg)
+<div style="display: flex; justify-content: center">
+    <img src="output/Autoencoder/validation_MSE.jpg" width=50%/>
+    <img src="output/VAE/validation_MSE.jpg" width=50%/>
+</div>
+
+[//]: # (![img]&#40;output/Autoencoder/validation_MSE.jpg&#41;)
+
+[//]: # (![img]&#40;output/Autoencoder/class_results_MSE.jpg&#41;)
+
+[//]: # (![img]&#40;output/Autoencoder/reconstruction_grid.jpg&#41;)
 
 ## VAE
 ![img](output/VAE/validation_MSE.jpg)
