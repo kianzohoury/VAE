@@ -12,15 +12,21 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 6. Pick best VAE and generate new samples from noise, and show lack of guided generation.
 6. Fix this issue with conditional VAE (repeat steps).
 
-## Model Selection
+## Latent Space Dimensionality
 <div style="display: flex; flex-direction: row; justify-content: center">
     <p align="center">
-        <img src="output/Autoencoder/validation_MSE.jpg" width=40%/>
+        <img src="output/Autoencoder/validation_MSE.jpg" width=30%/>
     </p>
     <p align="center">
-        <img src="output/VAE/validation_MSE.jpg" width=40%/>
+        <img src="output/VAE/validation_MSE.jpg" width=30%/>
     </p>
-    <figcaption>Validation losses for Autoencoders (left) and VAE (right). </figcaption>
+    <p align="center">
+        <img src="output/ConditionalVAE/validation_MSE.jpg" width=30%/>
+    </p>
+    <figcaption>
+        Validation losses for Autoencoders (left), VAE (middle), and 
+        ConditionalVAE (right). 
+    </figcaption>
 </div>
 
 <div style="display: flex; justify-content: center">
@@ -28,6 +34,8 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
     <img src="output/VAE/class_results_MSE.jpg" width=40%/>
 </div>
 
+
+## Choosing Optimal Latent Space Dimensionality
 
 [//]: # (![img]&#40;output/Autoencoder/validation_MSE.jpg&#41;)
 
