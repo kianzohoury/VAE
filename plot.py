@@ -28,7 +28,6 @@ def plot_epoch_train_validation(model_dir: str):
             ax.plot(val_losses[loss_term][latent_size], label="val")
             ax.plot(train_losses[loss_term][latent_size], label="train")
 
-
             ax.set_xlabel("Epoch")
             if loss_term == "recon_loss":
                 ylabel = "MSE"
@@ -46,15 +45,15 @@ def plot_epoch_train_validation(model_dir: str):
             )
 
 
-def plot_epoch_validation(model_dir: str):
-    """Plots epoch validation loss."""
-    with open(model_dir + "/val_history.pkl", mode="rb") as f:
-        val_losses = pickle.load(f)
+def plot_epoch_history(model_dir: str, split: str = "val"):
+    """Plots epoch training and validation losses."""
+    with open(model_dir + f"/{split}_history.pkl", mode="rb") as f:
+        losses = pickle.load(f)
 
-    for loss_term in val_losses:
+    for loss_term in losses:
         fig, ax = plt.subplots(1, 1)
-        for latent_size in val_losses[loss_term]:
-            ax.plot(val_losses[loss_term][latent_size], label=latent_size)
+        for latent_size in losses[loss_term]:
+            ax.plot(losses[loss_term][latent_size], label=latent_size)
 
         ax.set_xlabel("Epoch")
         if loss_term == "recon_loss":
@@ -67,7 +66,7 @@ def plot_epoch_validation(model_dir: str):
         ax.legend(loc="upper right")
         Path(model_dir + "/plots").mkdir(parents=True, exist_ok=True)
         # save figure
-        fig.savefig(model_dir + f"/plots/validation_{ylabel}.jpg", dpi=300)
+        fig.savefig(model_dir + f"/plots/{split}_{ylabel}.jpg", dpi=300)
 
 
 def plot_class_performance(model_dir: str):
