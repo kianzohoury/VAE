@@ -58,7 +58,11 @@ def plot_class_performance(model_dir: str):
         ax.scatter(latent_dims, results_arr, label=class_idx)
     ax.set_xlabel("Latent dimension")
     ax.set_ylabel(ylabel)
-    ax.legend(loc="upper center", ncol=len(class_results))
+    ax.legend(
+        loc="upper center",
+        nrow=2,
+        ncol=len(class_results) // 2,
+    )
     ax.set_title(
         f"Reconstruction Error for {model_type} Across Latent Dimensions"
     )
