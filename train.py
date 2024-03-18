@@ -128,7 +128,9 @@ def test_across_classes(
             state_dict = torch.load(checkpoint, map_location=DEVICE)
 
             # initialize model and optimizer
-            model = init_model(**state_dict["config"]["model_type"]).to(DEVICE)
+            model = init_model(
+                state_dict["config"].pop("model_type"), **state_dict["config"]
+            ).to(DEVICE)
             num_latent = state_dict["config"]["num_latent"]
             model.load_state_dict(state_dict["model"])
 
