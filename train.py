@@ -204,7 +204,7 @@ def run_training(
         Path(f"{output_dir}/{model_type}").mkdir(exist_ok=True, parents=True)
         torch.save(
             {"model": model.cpu().state_dict(), "config": model_config},
-            f=f"{model_type}/{model_type}_latent_{num_latent}.pth",
+            f=f"{output_dir}/{model_type}/{model_type}_latent_{num_latent}.pth",
         )
 
     # save epoch history
