@@ -12,14 +12,14 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 6. Pick best VAE and generate new samples from noise, and show lack of guided generation.
 6. Fix this issue with conditional VAE (repeat steps).
 
-## Training & Validation
 
+## Training & Validation
 <p align="middle" float="left">
   <img src="output/Autoencoder/validation_MSE.jpg" width="45%" />
   <img src="output/VAE/validation_MSE.jpg" width="45%" />
 </p>
 
-### Effect of Latent Dimensionality on Digit Reconstruction
+## Effect of Latent Dimensionality on Digit Reconstruction
 <p align="middle" float="left">
   <img src="output/Autoencoder/class_results_MSE.jpg" width="45%" />
   <img src="output/VAE/class_results_MSE.jpg" width="45%" />
@@ -38,6 +38,10 @@ is overfitting to the training data because of the increased capacity. Regardles
 it seems that most of the semantic information of MNIST digits can be compressed 
 in a relatively small latent space.
 
+* Another important observation is that some digits are harder to reconstruction
+than others. We see that digits 1 and 7 are easiest to reconstruct, since they
+are both composed of straight lines, and digits 2 and 8 are hardest, as they
+are more complex (loops and curves).
 
 [//]: # ()
 [//]: # (<div style="display: flex; flex-direction: row; justify-content: center">)
