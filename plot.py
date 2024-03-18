@@ -112,10 +112,8 @@ def plot_reconstruction_grid(
         model.eval()
 
         if model_type == "ConditionalVAE":
-            label = nn.functional.one_hot(label, num_classes)
-            print(label.shape, img.shape)
-            print(type(model))
-            gen_img = model(img.to(device), label.to(device))
+            y = nn.functional.one_hot(label, num_classes)
+            gen_img = model(img.to(device), y.to(device))
         else:
             gen_img = model(img.to(device))
         if isinstance(gen_img, tuple):
