@@ -26,11 +26,18 @@ carried using AdamW [], with a learning rate of 1e-3 and default weight decay pa
 Training and validation losses were recorded for each epoch.
 
 <p align="middle" float="left">
-  <img src="output/Autoencoder/validation_MSE.jpg" width="45%" />
-  <img src="output/VAE/validation_MSE.jpg" width="45%" />
+  <img src="output/Autoencoder/train_MSE.jpg" width="45%" />
+  <img src="output/VAE/train_MSE.jpg" width="45%" />
 </p>
-<p style="text-align: center;"> <i>Epoch-wise MSE loss recorded on validation data for the vanilla autoencoder 
-    (left) and VAE (right) across all latent sizes.</i>
+<p style="text-align: center;"> <i>Epoch-wise MSE loss recorded on training data 
+for the vanilla autoencoder (left) and VAE (right) across all latent sizes.</i>
+</p>
+<p align="middle" float="left">
+  <img src="output/Autoencoder/val_MSE.jpg" width="45%" />
+  <img src="output/VAE/val_MSE.jpg" width="45%" />
+</p>
+<p style="text-align: center;"> <i>Epoch-wise MSE loss recorded on validation data 
+for the vanilla autoencoder (left) and VAE (right) across all latent sizes.</i>
 </p>
 
 ### Effect of Latent Space Dimensionality on Digit Reconstruction
