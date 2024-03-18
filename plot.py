@@ -94,8 +94,9 @@ def plot_reconstruction_grid(
     ax[0][0].set_title("Original")
 
     checkpoints = sorted(
-        checkpoints, key=lambda file: file.stem.split("_")[-1]
+        checkpoints, key=lambda file: int(file.stem.split("_")[-1])
     )
+
     device = "cuda" if torch.cuda.is_available() else "cpu"
     for i, checkpoint in enumerate(checkpoints):
         state_dict = torch.load(checkpoint, map_location=device)
