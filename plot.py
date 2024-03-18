@@ -49,10 +49,9 @@ def plot_class_performance(model_dir: str):
             )
             latent_dims.append(latent_num)
 
-        print(latent_dims, results_arr)
         ax.plot(latent_dims, results_arr, label=class_idx)
         ax.set_xlabel("Latent dimensions")
         ax.set_ylabel(ylabel)
         ax.legend(loc="upper right")
         # save figure
-        fig.savefig(model_dir + f"/plots/class_results_MSE.jpg", dpi=300)
+        fig.savefig(model_dir + f"/plots/class_{class_idx}_MSE.jpg", dpi=300)
