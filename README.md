@@ -14,8 +14,12 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 
 ## Model Selection
 <div style="display: flex; flex-direction: row; justify-content: center">
-    <img src="output/Autoencoder/validation_MSE.jpg" width=40%/>
-    <img src="output/VAE/validation_MSE.jpg" width=40%/>
+    <p align="center">
+        <img src="output/Autoencoder/validation_MSE.jpg" width=80%/>
+    </p>
+    <p align="center">
+        <img src="output/VAE/validation_MSE.jpg" width=80%/>
+    </p>
     <figcaption>Validation losses for Autoencoders (left) and VAE (right). </figcaption>
 </div>
 
