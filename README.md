@@ -13,21 +13,42 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 6. Fix this issue with conditional VAE (repeat steps).
 
 ## Latent Space Dimensionality
-<div style="display: flex; flex-direction: row; justify-content: center">
-    <p align="center">
-        <img src="output/Autoencoder/validation_MSE.jpg" width=30%/>
-    </p>
-    <p align="center">
-        <img src="output/VAE/validation_MSE.jpg" width=30%/>
-    </p>
-    <p align="center">
-        <img src="output/ConditionalVAE/validation_MSE.jpg" width=30%/>
-    </p>
-    <figcaption>
-        Validation losses for Autoencoders (left), VAE (middle), and 
-        ConditionalVAE (right). 
-    </figcaption>
-</div>
+<p float="left">
+  <img src="output/Autoencoder/validation_MSE.jpg" width="100" />
+  <img src="output/VAE/validation_MSE.jpg" width="100" /> 
+  <img src="output/ConditionalVAE/validation_MSE.jpg" width="100" />
+</p>
+
+[//]: # ()
+[//]: # (<div style="display: flex; flex-direction: row; justify-content: center">)
+
+[//]: # (    <p align="center">)
+
+[//]: # (        <img src="output/Autoencoder/validation_MSE.jpg" width=30%/>)
+
+[//]: # (    </p>)
+
+[//]: # (    <p align="center">)
+
+[//]: # (        <img src="output/VAE/validation_MSE.jpg" width=30%/>)
+
+[//]: # (    </p>)
+
+[//]: # (    <p align="center">)
+
+[//]: # (        <img src="output/ConditionalVAE/validation_MSE.jpg" width=30%/>)
+
+[//]: # (    </p>)
+
+[//]: # (    <figcaption>)
+
+[//]: # (        Validation losses for Autoencoders &#40;left&#41;, VAE &#40;middle&#41;, and )
+
+[//]: # (        ConditionalVAE &#40;right&#41;. )
+
+[//]: # (    </figcaption>)
+
+[//]: # (</div>)
 
 <div style="display: flex; justify-content: center">
     <img src="output/Autoencoder/class_results_MSE.jpg" width=40%/>
