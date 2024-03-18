@@ -155,7 +155,6 @@ def plot_vae_decoding_grid(
         z = torch.randn((num_samples, num_latent)).to(device)
 
         gen_img = model.decode(z).view(num_samples, *img_dim).detach().cpu()
-        gen_img = gen_img.detach().cpu()
         for j in range(num_samples):
             ax[j][i].imshow(gen_img[j], cmap="gray")
             ax[j][i].axis("off")
