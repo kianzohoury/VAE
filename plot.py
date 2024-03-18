@@ -46,9 +46,7 @@ def plot_class_performance(model_dir: str):
             results_arr.append(class_results[class_idx][loss_term][latent_num])
             latent_dims.append(latent_num)
 
-        ax.plot(
-            latent_dims, class_results[class_idx][loss_term], label=class_idx
-        )
+        ax.plot(latent_dims, results_arr, label=class_idx)
         ax.set_xlabel("Latent dimensions")
         ax.set_ylabel(ylabel)
         ax.legend(loc="upper right")
