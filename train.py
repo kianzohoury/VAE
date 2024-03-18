@@ -201,7 +201,7 @@ def run_training(
                     print(f"Val: {loss_term}={round(loss_val, 3)}")
 
         print("Saving model...")
-        Path(f"{output_dir}/{model_type}").mkdir(exist_ok=True)
+        Path(f"{output_dir}/{model_type}").mkdir(exist_ok=True, parents=True)
         torch.save(
             {"model": model.cpu().state_dict(), "config": model_config},
             f=f"{model_type}/{model_type}_latent_{num_latent}.pth",
