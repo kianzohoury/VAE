@@ -15,6 +15,37 @@ from . import utils
 matplotlib.use('svg')
 
 
+def plot_epoch_train_validation(model_dir: str):
+    """Plots epoch training and validation loss together."""
+    with open(model_dir + "/train_history.pkl", mode="rb") as f:
+        train_losses = pickle.load(f)
+    with open(model_dir + "/val_history.pkl", mode="rb") as f:
+        val_losses = pickle.load(f)
+
+    for loss_term in val_losses:
+        for latent_size in val_losses[loss_term]:
+            fig, ax = plt.subplots(1, 1)
+            ax.plot(val_losses[loss_term][latent_size], label="val")
+            ax.plot(train_losses[loss_term][latent_size], label="train")
+
+
+            ax.set_xlabel("Epoch")
+            if loss_term == "recon_loss":
+                ylabel = "MSE"
+            elif loss_term == "kl_loss":
+                ylabel = "KL Divergence"
+            else:
+                ylabel = "ELBO" if "VAE" in model_dir else "MSE"
+            ax.set_ylabel(ylabel)
+            ax.legend(loc="upper right")
+            Path(model_dir + "/plots").mkdir(parents=True, exist_ok=True)
+            # save figure
+            fig.savefig(
+                model_dir + f"/plots/train_val_latent_{latent_size}_{ylabel}.jpg",
+                dpi=300
+            )
+
+
 def plot_epoch_validation(model_dir: str):
     """Plots epoch validation loss."""
     with open(model_dir + "/val_history.pkl", mode="rb") as f:
