@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 def plot_epoch_validation(model_dir: str):
     """Plots epoch validation loss."""
-    with open(model_dir + "/epoch_history.pkl", mode="rb") as f:
+    with open(model_dir + "/val_history.pkl", mode="rb") as f:
         val_losses = pickle.load(f)
 
     for loss_term in val_losses:
