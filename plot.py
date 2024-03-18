@@ -42,7 +42,7 @@ def plot_class_performance(model_dir: str):
         ylabel = "MSE"
         fig, ax = plt.subplots(1, 1)
         latent_dims, results_arr = [], []
-        print(class_results[class_idx][loss_term])
+        print(class_results[class_idx].values())
         for latent_num in sorted(class_results[class_idx][loss_term]):
             results_arr.append(class_results[class_idx][loss_term][latent_num])
             latent_dims.append(latent_num)
