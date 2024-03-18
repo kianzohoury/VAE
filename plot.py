@@ -34,7 +34,7 @@ def plot_epoch_validation(model_dir: str):
 
 
 def plot_class_performance(model_dir: str):
-    with open(model_dir + "/class_results_valid.pkl", mode="rb") as f:
+    with open(model_dir + "/class_results_val.pkl", mode="rb") as f:
         class_results = pickle.load(f)
 
     for class_idx in class_results:
