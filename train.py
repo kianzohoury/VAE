@@ -126,11 +126,9 @@ def test_across_classes(
         print(f"Starting testing for class {class_idx}...")
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
             state_dict = torch.load(checkpoint, map_location=DEVICE)
-
+            model_type = state_dict["config"].pop("model_type")
             # initialize model and optimizer
-            model = init_model(
-                state_dict["config"].pop("model_type"), **state_dict["config"]
-            ).to(DEVICE)
+            model = init_model(model_type, **state_dict["config"]).to(DEVICE)
             num_latent = state_dict["config"]["num_latent"]
             model.load_state_dict(state_dict["model"])
 
@@ -138,7 +136,7 @@ def test_across_classes(
             test_loss = test_model(model, test_loader)
             for loss_term, loss_val in test_loss.items():
                 test_losses[class_idx][loss_term][num_latent].append(loss_val)
-                print(f"{loss_term}: {round(loss_val, 3)}")
+                print(f"{model_type}, {loss_term}: {round(loss_val, 3)}")
 
     # save test results
     print("Saving test results...")
