@@ -14,8 +14,8 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 
 ## Vanilla Autoencoder
 <div style="display: flex; flex-direction: row; justify-content: center">
-    <img src="output/Autoencoder/validation_MSE.jpg" width=50%/>
-    <img src="output/VAE/validation_MSE.jpg" width=50%/>
+    <img src="output/Autoencoder/validation_MSE.jpg" width=40%/>
+    <img src="output/VAE/validation_MSE.jpg" width=40%/>
 </div>
 
 [//]: # (![img]&#40;output/Autoencoder/validation_MSE.jpg&#41;)
