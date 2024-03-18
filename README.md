@@ -120,3 +120,5 @@ split, a latent size of 20 was chosen.
 ![img](output/VAE/class_results_MSE.jpg)
 ![img](output/VAE/reconstruction_grid.jpg)
 ![img](output/VAE/decoding_grid.jpg)
+
+![img](output/VAE/VAE_latent_20_reconstruction_grid.jpg)
