@@ -38,10 +38,10 @@ def plot_class_performance(model_dir: str):
     with open(model_dir + "/class_results_val.pkl", mode="rb") as f:
         class_results = pickle.load(f)
 
+    fig, ax = plt.subplots(1, 1)
+    loss_term = "loss" if model_type == "Autoencoder" else "recon_loss"
+    ylabel = "MSE"
     for class_idx in class_results:
-        loss_term = "loss" if model_type == "Autoencoder" else "recon_loss"
-        ylabel = "MSE"
-        fig, ax = plt.subplots(1, 1)
         latent_dims, results_arr = [], []
         for latent_num in sorted(class_results[class_idx][loss_term]):
             results_arr.append(
@@ -50,8 +50,8 @@ def plot_class_performance(model_dir: str):
             latent_dims.append(latent_num)
 
         ax.plot(latent_dims, results_arr, label=class_idx)
-        ax.set_xlabel("Latent dimensions")
-        ax.set_ylabel(ylabel)
-        ax.legend(loc="upper right")
-        # save figure
-        fig.savefig(model_dir + f"/plots/class_{class_idx}_MSE.jpg", dpi=300)
+    ax.set_xlabel("Latent dimensions")
+    ax.set_ylabel(ylabel)
+    ax.legend(loc="upper right")
+    # save figure
+    fig.savefig(model_dir + f"/plots/class_results_MSE.jpg", dpi=300)
