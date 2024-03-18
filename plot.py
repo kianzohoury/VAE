@@ -169,8 +169,9 @@ def plot_reconstruction_grid(
 
 
 def plot_reconstructed_digits(
-    model_dir: str,
-    dataset: str = "mnist"
+    checkpoint: str,
+    output_dir: str,
+    dataset: str = "mnist",
 ):
     """Plots a grid comparing images with generated reconstructions."""
     datasets = utils.load_dataset(
@@ -180,57 +181,56 @@ def plot_reconstructed_digits(
     )
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    for checkpoint in list(Path(model_dir).rglob("*.pth")):
-        state_dict = torch.load(checkpoint, map_location=device)
-        model_type = state_dict["config"].pop("model_type")
+    state_dict = torch.load(checkpoint, map_location=device)
+    model_type = state_dict["config"].pop("model_type")
 
-        # initialize model
-        model = utils.init_model(model_type, **state_dict["config"]).to(
-            device)
-        num_latent = state_dict["config"]["num_latent"]
-        num_classes = 10
-        model.load_state_dict(state_dict["model"])
-        model.eval()
+    # initialize model
+    model = utils.init_model(model_type, **state_dict["config"]).to(
+        device)
+    num_latent = state_dict["config"]["num_latent"]
+    num_classes = 10
+    model.load_state_dict(state_dict["model"])
+    model.eval()
 
-        fig, ax = plt.subplots(
-            nrows=2,
-            ncols=10,
-            constrained_layout=True,
-            figsize=(10, 2)
+    fig, ax = plt.subplots(
+        nrows=2,
+        ncols=10,
+        constrained_layout=True,
+        figsize=(10, 2)
+    )
+    for class_idx in range(10):
+        indices = []
+        for idx, sample in enumerate(datasets["test"]):
+            if sample[-1] == class_idx:
+                indices.append(idx)
+
+        # create dataloader
+        test_loader = DataLoader(
+            dataset=torch.utils.data.Subset(datasets["test"], indices),
+            batch_size=1,
+            shuffle=True,
+            pin_memory=True
         )
-        for class_idx in range(10):
-            indices = []
-            for idx, sample in enumerate(datasets["test"]):
-                if sample[-1] == class_idx:
-                    indices.append(idx)
 
-            # create dataloader
-            test_loader = DataLoader(
-                dataset=torch.utils.data.Subset(datasets["test"], indices),
-                batch_size=1,
-                shuffle=True,
-                pin_memory=True
-            )
+        img, label = next(iter(test_loader))
+        ax[0][class_idx].imshow(img[0].squeeze(0), cmap="gray")
+        ax[0][class_idx].axis("off")
 
-            img, label = next(iter(test_loader))
-            ax[0][class_idx].imshow(img[0].squeeze(0), cmap="gray")
-            ax[0][class_idx].axis("off")
+        if model_type == "ConditionalVAE":
+            y = nn.functional.one_hot(label, num_classes)
+            gen_img = model(img.to(device), y.to(device))
+        else:
+            gen_img = model(img.to(device))
+        if isinstance(gen_img, tuple):
+            gen_img = gen_img[0]
+        gen_img = gen_img.detach().cpu()
+        ax[1][class_idx].imshow(gen_img[0].squeeze(0), cmap="gray")
+        ax[1][class_idx].axis("off")
 
-            if model_type == "ConditionalVAE":
-                y = nn.functional.one_hot(label, num_classes)
-                gen_img = model(img.to(device), y.to(device))
-            else:
-                gen_img = model(img.to(device))
-            if isinstance(gen_img, tuple):
-                gen_img = gen_img[0]
-            gen_img = gen_img.detach().cpu()
-            ax[1][class_idx].imshow(gen_img[0].squeeze(0), cmap="gray")
-            ax[1][class_idx].axis("off")
-
-        fig.suptitle(f"{'Digits' if dataset == 'mnist' else 'Class'}")
-        fig.savefig(
-            f"{model_dir}/plots/{model_type}_latent_{num_latent}_reconstruction_grid.jpg"
-        )
+    fig.suptitle(f"{'Digits' if dataset == 'mnist' else 'Class'}")
+    fig.savefig(
+        f"{output_dir}/{Path(checkpoint.stem)}_reconstruction_grid.jpg"
+    )
 
 
 def plot_vae_decoding_grid(
