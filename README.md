@@ -29,9 +29,10 @@ Training and validation losses were recorded for each epoch.
   <img src="output/Autoencoder/validation_MSE.jpg" width="45%" />
   <img src="output/VAE/validation_MSE.jpg" width="45%" />
 </p>
-<p> <i>Epoch-wise MSE loss recorded on validation data for the vanilla autoencoder 
+<p style="text-align: center;"> <i>Epoch-wise MSE loss recorded on validation data for the vanilla autoencoder 
     (left) and VAE (right) </i>
 </p>
+
 ### Effect of Latent Space Dimensionality on Digit Reconstruction
 <p align="middle" float="left">
   <img src="output/Autoencoder/class_results_MSE.jpg" width="48%" />
