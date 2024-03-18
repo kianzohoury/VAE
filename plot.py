@@ -229,7 +229,7 @@ def plot_reconstructed_digits(
 
     fig.suptitle(f"{'Digits' if dataset == 'mnist' else 'Class'}")
     fig.savefig(
-        f"{output_dir}/{Path(checkpoint.stem)}_reconstruction_grid.jpg"
+        f"{output_dir}/{Path(checkpoint).stem}_reconstruction_grid.jpg"
     )
 
 
