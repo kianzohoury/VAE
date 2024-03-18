@@ -17,6 +17,12 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 <p align="middle" float="left">
   <img src="output/Autoencoder/validation_MSE.jpg" width="45%" />
   <img src="output/VAE/validation_MSE.jpg" width="45%" />
+  <img src="output/VAE/train_val_latent_20_MSE.jpg" width="45%" />
+</p>
+
+### Model Selection
+<p align="middle" float="left">
+  <img src="output/VAE/train_val_latent_20_MSE.jpg" width="45%" />
 </p>
 
 ## Effect of Latent Dimensionality on Digit Reconstruction
