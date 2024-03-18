@@ -19,7 +19,7 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
   <img src="output/VAE/validation_MSE.jpg" width="45%" />
 </p>
 
-### Model Selection
+### Model Selection: Choosing Optimal Latent Space Dimensionality 
 Based on the reconstruction errors of the VAE model on the validation
 split, a latent size of 20 was chosen. 
 <p align="middle" float="left">
