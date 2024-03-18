@@ -151,14 +151,15 @@ def plot_vae_decoding_grid(
         model.load_state_dict(state_dict["model"])
         model.eval()
 
+        # sample z ~ N(0, 1)
         z = torch.randn((num_samples, num_latent)).to(device)
 
         gen_img = model.decode(z).view(num_samples, *img_dim).detach().cpu()
         gen_img = gen_img.detach().cpu()
         for j in range(num_samples):
-            ax[j][i + 1].imshow(gen_img[j].squeeze(0), cmap="gray")
-            ax[j][i + 1].axis("off")
-        ax[0][i + 1].set_title(num_latent)
+            ax[j][i].imshow(gen_img[j], cmap="gray")
+            ax[j][i].axis("off")
+        ax[0][i].set_title(num_latent)
 
     fig.suptitle("Latent dimension")
     fig.savefig(f"{model_dir}/plots/decoding_grid.jpg")
