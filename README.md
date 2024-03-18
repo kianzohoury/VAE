@@ -24,13 +24,13 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
   <img src="output/Autoencoder/class_results_MSE.jpg" width="45%" />
   <img src="output/VAE/class_results_MSE.jpg" width="45%" />
 </p>
-Increasing the dimensionality of the latent space improves the image
+
+* Increasing the dimensionality of the latent space improves the image
 reconstruction (as measured by MSE) across all digits for vanilla autoencoder 
 models. By not having to compress information too much, the autoencoder can
 better model the identity function.
 
-
-In contrast, for VAE models we see that past a latent size of about 20, the 
+* In contrast, for VAE models we see that past a latent size of about 20, the 
 reconstruction task is not meaningfully improved. In fact, the reconstruction 
 losses worsen slightly for nearly all digits, which perhaps reveals that most 
 of the semantic information of a digit can be compressed in a relatively small 
@@ -73,10 +73,7 @@ diminishes
 
 [//]: # (</div>)
 
-<div style="display: flex; justify-content: center">
-    <img src="output/Autoencoder/class_results_MSE.jpg" width=40%/>
-    <img src="output/VAE/class_results_MSE.jpg" width=40%/>
-</div>
+
 
 
 ## Choosing Optimal Latent Space Dimensionality
