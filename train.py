@@ -72,7 +72,7 @@ def test_model(model: nn.Module, test_loader):
     total_loss = defaultdict(float)
     model.eval()
     for idx, (img, label) in enumerate(test_loader, 1):
-        img = img.to(model.device)
+        img = img.to(DEVICE)
 
         if isinstance(model, "ConditionalVAE"):
             loss = model.training_step(img, label)
