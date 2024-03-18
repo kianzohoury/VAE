@@ -19,6 +19,6 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 
 ## VAE
 ![img](output/VAE/validation_MSE.jpg)
-![img](output/VAE/validation_KL Divergence.jpg)
+![img](output/VAE/validation_KL_Divergence.jpg)
 ![img](output/VAE/class_results_MSE.jpg)
 ![img](output/VAE/reconstruction_grid.jpg)
