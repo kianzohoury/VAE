@@ -1,5 +1,6 @@
 import pickle
 from collections import defaultdict
+from functools import partial
 from pathlib import Path
 from typing import Dict, Tuple
 
@@ -106,7 +107,7 @@ def test_across_classes(
             val_size=0.1
         )
 
-    test_losses = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    test_losses = defaultdict(partial(defaultdict, partial(defaultdict, list)))
     for class_idx in range(NUM_CLASSES):
         indices = []
         for idx, sample in enumerate(datasets["test"]):
@@ -189,8 +190,8 @@ def run_training(
         config["num_classes"] = NUM_CLASSES
 
     # keep track of metrics across all models
-    train_losses = defaultdict(lambda: defaultdict(list))
-    val_losses = defaultdict(lambda: defaultdict(list))
+    train_losses = defaultdict(partial(defaultdict, list))
+    val_losses = defaultdict(partial(defaultdict, list))
 
     # simple hyperparameter search over latent dimensions
     for num_latent in LATENT_SEARCH_SPACE:
