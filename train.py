@@ -81,7 +81,11 @@ def test_model(model: nn.Module, test_loader):
         # aggregate losses
         for loss_term, loss_val in loss.items():
             total_loss[loss_term] += loss_val.item()
-    return total_loss / len(test_loader)
+
+    # average each loss term
+    for loss_term, loss_val in total_loss.items():
+        total_loss[loss_term] /= len(test_loader)
+    return total_loss
 
 
 def test_across_classes(
