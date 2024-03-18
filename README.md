@@ -38,7 +38,7 @@ is overfitting to the training data because of the increased capacity. Regardles
 it seems that most of the semantic information of MNIST digits can be compressed 
 in a relatively small latent space.
 
-* Another important observation is that some digits are harder to reconstruction
+* __Some digits are harder.__ Another important observation is that some digits are harder to reconstruction
 than others. We see that digits 1 and 7 are easiest to reconstruct, since they
 are both composed of straight lines, and digits 2 and 8 are hardest, as they
 are more complex (loops and curves).
