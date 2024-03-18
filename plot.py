@@ -188,8 +188,7 @@ def plot_reconstructed_digits(
         model = utils.init_model(model_type, **state_dict["config"]).to(
             device)
         num_latent = state_dict["config"]["num_latent"]
-        print(state_dict["config"])
-        num_classes = state_dict["config"]["num_classes"]
+        num_classes = 10
         model.load_state_dict(state_dict["model"])
         model.eval()
 
