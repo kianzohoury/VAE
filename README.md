@@ -71,7 +71,7 @@ split, a latent size of 20 was chosen.
   <img src="output/VAE/train_val_latent_20_MSE.jpg" width="45%" />
 </p>
 
-### Visualizing Reconstructions
+## Visualizing Reconstructions
 ![img](output/VAE/VAE_latent_20_reconstruction_grid.jpg)
 
 [//]: # ()
