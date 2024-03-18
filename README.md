@@ -11,3 +11,14 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 5. For each AE VAE pair, compare reconstruction losses.
 6. Pick best VAE and generate new samples from noise, and show lack of guided generation.
 6. Fix this issue with conditional VAE (repeat steps).
+
+## Vanilla Autoencoder
+![img](output/Autoencoder/validation_MSE.jpg)
+![img](output/Autoencoder/class_results_MSE.jpg)
+![img](output/Autoencoder/reconstruction_grid.jpg)
+
+## VAE
+![img](output/VAE/validation_MSE.jpg)
+![img](output/VAE/validation_KL Divergence.jpg)
+![img](output/VAE/class_results_MSE.jpg)
+![img](output/VAE/reconstruction_grid.jpg)
