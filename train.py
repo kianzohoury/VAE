@@ -99,8 +99,8 @@ def test_across_classes(
 
     # save test results
     print("Saving test results...")
-    pkl_filename = f"./{model_dir}/class_results_test.pkl" if is_test else \
-        f"./{model_dir}/class_results_val.pkl"
+    pkl_filename = f"{model_dir}/class_results_test.pkl" if is_test else \
+        f"{model_dir}/class_results_val.pkl"
     with open(pkl_filename, mode="wb") as f:
         pickle.dump(test_losses, f)
     print("Finished testing.")
@@ -110,7 +110,8 @@ def run_training(
     model_type,
     dataset: str = "mnist",
     validate: bool = True,
-    num_epochs: int = 20
+    num_epochs: int = 20,
+    output_dir: str = "./output"
 ):
     """Trains given model type for each latent representation size."""
     datasets = utils.load_dataset(
@@ -200,7 +201,7 @@ def run_training(
                     print(f"Val: {loss_term}={round(loss_val, 3)}")
 
         print("Saving model...")
-        Path(f"./{model_type}").mkdir(exist_ok=True)  # make directory
+        Path(f"{output_dir}/{model_type}").mkdir(exist_ok=True)
         torch.save(
             {"model": model.cpu().state_dict(), "config": model_config},
             f=f"{model_type}/{model_type}_latent_{num_latent}.pth",
@@ -208,8 +209,8 @@ def run_training(
 
     # save epoch history
     print("Saving loss history...")
-    with open(f"./{model_type}/train_history.pkl", mode="wb") as f:
+    with open(f"{output_dir}/{model_type}/train_history.pkl", mode="wb") as f:
         pickle.dump(train_losses, f)
-    with open(f"./{model_type}/val_history.pkl", mode="wb") as f:
+    with open(f"{output_dir}/{model_type}/val_history.pkl", mode="wb") as f:
         pickle.dump(val_losses, f)
     print("Finished training.")
