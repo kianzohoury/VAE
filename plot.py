@@ -206,7 +206,7 @@ def plot_reconstructed_digits(
 
             # create dataloader
             test_loader = DataLoader(
-                dataset=torch.utils.Subset(datasets["test"], indices),
+                dataset=torch.utils.data.Subset(datasets["test"], indices),
                 batch_size=1,
                 shuffle=True,
                 pin_memory=True
