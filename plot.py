@@ -2,7 +2,11 @@ import pickle
 from collections import defaultdict
 from pathlib import Path
 
+import matplotlib
 import matplotlib.pyplot as plt
+
+# set backend to SVG
+matplotlib.use('svg')
 
 
 def plot_epoch_validation(model_dir: str):
