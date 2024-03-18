@@ -44,7 +44,9 @@ def plot_class_performance(model_dir: str):
         fig, ax = plt.subplots(1, 1)
         latent_dims, results_arr = [], []
         for latent_num in sorted(class_results[class_idx][loss_term]):
-            results_arr.append(class_results[class_idx][loss_term][latent_num])
+            results_arr.append(
+                class_results[class_idx][loss_term][latent_num][0]
+            )
             latent_dims.append(latent_num)
 
         print(latent_dims, results_arr)
