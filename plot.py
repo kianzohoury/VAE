@@ -19,7 +19,7 @@ def plot_epoch_validation(model_dir: str):
         for latent_size in val_losses[loss_term]:
             ax.plot(val_losses[loss_term][latent_size], label=latent_size)
 
-        ax.set_xlabel("Epochs")
+        ax.set_xlabel("Epoch")
         if loss_term == "recon_loss":
             ylabel = "MSE"
         elif loss_term == "kl_loss":
@@ -50,7 +50,7 @@ def plot_class_performance(model_dir: str):
             latent_dims.append(latent_num)
 
         ax.plot(latent_dims, results_arr, label=class_idx)
-    ax.set_xlabel("Latent dimensions")
+    ax.set_xlabel("Latent dimension")
     ax.set_ylabel(ylabel)
     ax.legend(loc="upper right")
     # save figure
