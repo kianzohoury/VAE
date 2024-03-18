@@ -55,7 +55,7 @@ def plot_class_performance(model_dir: str):
             )
             latent_dims.append(latent_num)
 
-        ax.plot(latent_dims, results_arr, label=class_idx)
+        ax.scatter(latent_dims, results_arr, label=class_idx)
     ax.set_xlabel("Latent dimension")
     ax.set_ylabel(ylabel)
     ax.legend(loc="upper right")
@@ -129,6 +129,49 @@ def plot_reconstruction_grid(
 
 
 def plot_vae_decoding_grid(
+    model_dir: str,
+    img_dim: Tuple[int, ...],
+    num_samples: int = 7,
+):
+    """Plots a grid comparing decoder outputs."""
+
+    checkpoints = list(Path(model_dir).rglob("*.pth"))
+    fig, ax = plt.subplots(
+        nrows=num_samples,
+        ncols=len(checkpoints),
+        constrained_layout=True,
+        figsize=(10, 10)
+    )
+    checkpoints = sorted(
+        checkpoints, key=lambda file: int(file.stem.split("_")[-1])
+    )
+
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    for i, checkpoint in enumerate(checkpoints):
+        state_dict = torch.load(checkpoint, map_location=device)
+        model_type = state_dict["config"].pop("model_type")
+
+        # initialize model
+        model = utils.init_model(model_type, **state_dict["config"]).to(
+            device)
+        num_latent = state_dict["config"]["num_latent"]
+        model.load_state_dict(state_dict["model"])
+        model.eval()
+
+        # sample z ~ N(0, 1)
+        z = torch.randn((num_samples, num_latent)).to(device)
+
+        gen_img = model.decode(z).view(num_samples, *img_dim).detach().cpu()
+        for j in range(num_samples):
+            ax[j][i].imshow(gen_img[j], cmap="gray")
+            ax[j][i].axis("off")
+        ax[0][i].set_title(num_latent)
+
+    fig.suptitle("Latent dimension")
+    fig.savefig(f"{model_dir}/plots/decoding_grid.jpg")
+
+
+def plot_conditional_vae_decoding_grid(
     model_dir: str,
     img_dim: Tuple[int, ...],
     num_samples: int = 7,
