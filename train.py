@@ -141,7 +141,7 @@ def run_training(
         val_loader = None
 
     config = {
-        "num_features": 28 * 28 if dataset == "mnist" else 32 * 32,
+        "num_features": 28 * 28 if dataset == "mnist" else 32 * 32 * 3,
         "model_type": model_type
     }
     if model_type == "ConditionalVAE":
