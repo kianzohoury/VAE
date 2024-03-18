@@ -231,7 +231,7 @@ def plot_reconstructed_digits(
 
     fig.suptitle(f"{'Digits' if dataset == 'mnist' else 'Class'}")
     fig.savefig(
-        f"{model_dir}/plots/model_type_latent_{num_latent}_reconstruction_grid.jpg"
+        f"{model_dir}/plots/{model_type}_latent_{num_latent}_reconstruction_grid.jpg"
     )
 
 
