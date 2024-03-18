@@ -19,13 +19,6 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
   <img src="output/VAE/validation_MSE.jpg" width="45%" />
 </p>
 
-### Model Selection: Choosing Optimal Latent Space Dimensionality 
-Based on the reconstruction errors of the VAE model on the validation
-split, a latent size of 20 was chosen. 
-<p align="middle" float="left">
-  <img src="output/VAE/train_val_latent_20_MSE.jpg" width="45%" />
-</p>
-
 ## Effect of Latent Space Dimensionality on Digit Reconstruction
 <p align="middle" float="left">
   <img src="output/Autoencoder/class_results_MSE.jpg" width="48%" />
@@ -49,6 +42,14 @@ in a relatively small latent space.
 than others. We see that digits 1 and 7 are easiest to reconstruct, since they
 are both composed of straight lines, and digits 2 and 8 are hardest, as they
 are more complex (loops and curves).
+
+### Model Selection: Choosing Optimal Latent Space Dimensionality 
+Based on the reconstruction errors of the VAE model on the validation
+split, a latent size of 20 was chosen. 
+<p align="middle" float="left">
+  <img src="output/VAE/train_val_latent_20_MSE.jpg" width="45%" />
+</p>
+
 
 [//]: # ()
 [//]: # (<div style="display: flex; flex-direction: row; justify-content: center">)
