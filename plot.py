@@ -80,10 +80,9 @@ def plot_reconstruction_grid(
         pin_memory=True
     )
     checkpoints = list(Path(model_dir).rglob("*.pth"))
-    print(len(checkpoints))
-    fig, ax = fig, ax = plt.subplots(
-        nrows=len(checkpoints),
+    fig, ax = plt.subplots(
         ncols=num_samples,
+        nrows=len(checkpoints),
         constrained_layout=True,
         figsize=(10, 10)
     )
