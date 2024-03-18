@@ -60,7 +60,6 @@ def plot_class_performance(model_dir: str):
     ax.set_ylabel(ylabel)
     ax.legend(
         loc="upper center",
-        nrow=2,
         ncol=len(class_results) // 2,
     )
     ax.set_title(
