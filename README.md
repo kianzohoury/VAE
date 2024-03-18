@@ -19,7 +19,7 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
   <img src="output/VAE/validation_MSE.jpg" width="45%" />
 </p>
 
-## Effect of Latent Space Dimensionality on Digit Reconstruction
+### Effect of Latent Space Dimensionality on Digit Reconstruction
 <p align="middle" float="left">
   <img src="output/Autoencoder/class_results_MSE.jpg" width="48%" />
   <img src="output/VAE/class_results_MSE.jpg" width="48%" />
