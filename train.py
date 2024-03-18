@@ -97,7 +97,10 @@ def test_across_classes(
             test_loss = test_model(model, test_loader)
             for loss_term, loss_val in test_loss.items():
                 test_losses[class_idx][loss_term][num_latent].append(loss_val)
-                print(f"{model_type}, {loss_term}: {round(loss_val, 3)}")
+                print(
+                    f"{model_type} (z-dim={num_latent}, "
+                    f"{loss_term}: {round(loss_val, 3)}"
+                )
 
     # save test results
     print("Saving test results...")
