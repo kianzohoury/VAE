@@ -23,6 +23,7 @@ def plot_epoch_validation(model_dir: str):
         else:
             ylabel = "ELBO" if "VAE" in model_dir else "MSE"
         ax.set_ylabel(ylabel)
+        ax.legend(loc="upper right")
         Path(model_dir + "/plots").mkdir(parents=True, exist_ok=True)
         # save figure
         fig.savefig(model_dir + f"/plots/validation_{ylabel}.jpg", dpi=300)
@@ -39,5 +40,6 @@ def plot_class_performance(model_dir: str):
         ax.plot(class_results[class_idx][loss_term], label=class_idx)
         ax.set_xlabel("Latent dimensions")
         ax.set_ylabel(ylabel)
+        ax.legend(loc="upper right")
         # save figure
         fig.savefig(model_dir + f"/plots/class_results_MSE.jpg", dpi=300)
