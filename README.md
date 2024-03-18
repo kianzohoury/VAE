@@ -14,9 +14,8 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 
 ## Latent Space Dimensionality
 <p float="left">
-  <img src="output/Autoencoder/validation_MSE.jpg" width="280" />
-  <img src="output/VAE/validation_MSE.jpg" width="280" /> 
-  <img src="output/ConditionalVAE/validation_MSE.jpg" width="280" />
+  <img src="output/Autoencoder/validation_MSE.jpg" width="350" />
+  <img src="output/VAE/validation_MSE.jpg" width="350" />
 </p>
 
 [//]: # ()
