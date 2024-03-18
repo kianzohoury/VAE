@@ -29,6 +29,7 @@ reconstruction (as measured by MSE) across all digits for vanilla autoencoder
 models. By not having to compress information too much, the autoencoder can
 better model the identity function.
 
+
 In contrast, for VAE models we see that past a latent size of about 20, the 
 reconstruction task is not meaningfully improved. In fact, the reconstruction 
 losses worsen slightly for nearly all digits, which perhaps reveals that most 
