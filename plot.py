@@ -188,6 +188,7 @@ def plot_reconstructed_digits(
         model = utils.init_model(model_type, **state_dict["config"]).to(
             device)
         num_latent = state_dict["config"]["num_latent"]
+        print(state_dict["config"])
         num_classes = state_dict["config"]["num_classes"]
         model.load_state_dict(state_dict["model"])
         model.eval()
@@ -212,7 +213,6 @@ def plot_reconstructed_digits(
                 pin_memory=True
             )
 
-
             img, label = next(iter(test_loader))
             ax[0][class_idx].imshow(img[0].squeeze(0), cmap="gray")
             ax[0][class_idx].axis("off")
@@ -231,7 +231,9 @@ def plot_reconstructed_digits(
             ax[1][class_idx].set_title("Reconstruction")
 
     fig.suptitle(f"{'Digits' if dataset == 'mnist' else 'Class'}")
-    fig.savefig(f"{model_dir}/plots/{model_type}_reconstruction_grid.jpg")
+    fig.savefig(
+        f"{model_dir}/plots/model_type_latent_{num_latent}_reconstruction_grid.jpg"
+    )
 
 
 def plot_vae_decoding_grid(
