@@ -14,6 +14,16 @@ based on val reconstruction error. Plot line graphs for each digit (MSE on y, la
 
 
 ## Training & Validation
+A vanilla autoencoder (baseline) and VAE were trained on the MNIST
+dataset, which contains handwritten digits labeled 0 through 9 (totaling 10 classes). 
+The original training set consists of 60k images, each as 28 x 28, 8-bit unsigned
+gray scale images. From this set, 10% were randomly chosen for validation (6k images)
+to guide model selection. Each model was configured with a different latent size 
+(i.e. 2, 5, 10, 20, 50, or 100). Training was conducted for 50 epochs on 
+a single NVIDIA V100 GPU, utilizing batch sizes of 1024. Note that images were 
+first converted to floating point tensors in the range (0, 1). Optimization was 
+carried using AdamW [], with a learning rate of 1e-3 and default weight decay parameters.
+
 <p align="middle" float="left">
   <img src="output/Autoencoder/validation_MSE.jpg" width="45%" />
   <img src="output/VAE/validation_MSE.jpg" width="45%" />
