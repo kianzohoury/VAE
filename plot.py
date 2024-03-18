@@ -6,6 +6,7 @@ from typing import Tuple
 import matplotlib
 import matplotlib.pyplot as plt
 import torch
+import torch.nn as nn
 from torch.utils.data import DataLoader
 
 from . import utils
@@ -106,10 +107,12 @@ def plot_reconstruction_grid(
         # initialize model
         model = utils.init_model(model_type, **state_dict["config"]).to(device)
         num_latent = state_dict["config"]["num_latent"]
+        num_classes = state_dict["config"]["num_classes"]
         model.load_state_dict(state_dict["model"])
         model.eval()
 
         if model_type == "ConditionalVAE":
+            label = nn.functional.one_hot(label, num_classes).to(device)
             gen_img = model(img.to(device), label.to(device))
         else:
             gen_img = model(img.to(device))

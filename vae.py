@@ -4,26 +4,6 @@ from typing import Any, Dict, Tuple
 import torch
 import torch.nn as nn
 
-# # vectorize labels for conditional VAE
-# if model_type == "ConditionalVAE":
-#     label = nn.functional.one_hot(
-#         label, num_classes=NUM_CLASSES
-#     ).to(DEVICE)
-#
-# # generate image
-# gen_img, mu, log_var = model(img, label)
-#
-# # compute loss
-# kl_loss_term = kl_loss(mu, log_var)
-# recon_loss_term = nn.functional.mse_loss(gen_img, img, reduction="sum")
-# loss = kl_loss_term + recon_loss_term
-#
-# # backprop + update parameters
-# loss.backward()
-# optim.step()
-#
-# # clear gradient
-# optim.zero_grad()
 
 class Autoencoder(nn.Module):
     """Vanilla autoencoder implemented with MLPs."""
