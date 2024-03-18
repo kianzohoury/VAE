@@ -34,20 +34,19 @@ def plot_epoch_validation(model_dir: str):
 
 
 def plot_class_performance(model_dir: str):
+    model_type = Path(model_dir).stem.split("_")[0]
     with open(model_dir + "/class_results_val.pkl", mode="rb") as f:
         class_results = pickle.load(f)
 
     for class_idx in class_results:
-        loss_term = "loss" if model_dir == "Autoencoder" else "recon_loss"
+        loss_term = "loss" if model_type == "Autoencoder" else "recon_loss"
         ylabel = "MSE"
         fig, ax = plt.subplots(1, 1)
         latent_dims, results_arr = [], []
-        print(class_results[class_idx][loss_term])
         for latent_num in sorted(class_results[class_idx][loss_term]):
             results_arr.append(class_results[class_idx][loss_term][latent_num])
             latent_dims.append(latent_num)
 
-        print(latent_dims, results_arr)
         ax.plot(latent_dims, results_arr, label=class_idx)
         ax.set_xlabel("Latent dimensions")
         ax.set_ylabel(ylabel)
