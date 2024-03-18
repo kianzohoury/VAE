@@ -106,19 +106,17 @@ def test_across_classes(
             splits=("train", "val"),
             val_size=0.1
         )
-
+    test_dataset = datasets["test"] if is_test else datasets["val"]
     test_losses = defaultdict(partial(defaultdict, partial(defaultdict, list)))
     for class_idx in range(NUM_CLASSES):
         indices = []
-        for idx, sample in enumerate(datasets["test"]):
+        for idx, sample in enumerate(test_dataset):
             if sample[-1] == class_idx:
                 indices.append(idx)
 
         # create dataloader
-        subset = Subset(datasets["test"], indices) if is_test else \
-            Subset(datasets["val"], indices)
         test_loader = DataLoader(
-            dataset=subset,
+            dataset=Subset(test_dataset, indices),
             batch_size=BATCH_SIZE,
             num_workers=NUM_WORKERS,
             shuffle=True,
