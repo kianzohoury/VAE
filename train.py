@@ -64,8 +64,6 @@ def load_dataset(
         )
         split_data["val"] = Subset(split_data["train"], val_indices)
         split_data["train"] = Subset(split_data["train"], train_indices)
-
-    print(len(split_data["val"]), len(split_data["train"]))
     return split_data
 
 
@@ -240,7 +238,7 @@ def run_training(
                 validation_loss = test_model(model, val_loader)
                 for loss_term, loss_val in validation_loss.items():
                     val_losses[loss_term][num_latent].append(loss_val)
-                    print(f"{loss_term}: {round(loss_val, 3)}")
+                    print(f"Val: {loss_term}={round(loss_val, 3)}")
 
         print("Saving model...")
         Path(f"./{model_type}").mkdir(exist_ok=True)  # make directory
