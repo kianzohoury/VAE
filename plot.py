@@ -88,7 +88,7 @@ def plot_reconstruction_grid(
         figsize=(10, 10)
     )
 
-    img, _ = next(iter(test_loader))
+    img, label = next(iter(test_loader))
     for j in range(num_samples):
         ax[j][0].imshow(img[j].squeeze(0), cmap="gray")
         ax[j][0].axis("off")
@@ -108,7 +108,11 @@ def plot_reconstruction_grid(
         num_latent = state_dict["config"]["num_latent"]
         model.load_state_dict(state_dict["model"])
         model.eval()
-        gen_img = model(img.to(device))
+
+        if model_type == "ConditionalVAE":
+            gen_img = model(img.to(device), label.to(device))
+        else:
+            gen_img = model(img.to(device))
         if isinstance(gen_img, tuple):
             gen_img = gen_img[0]
         gen_img = gen_img.detach().cpu()
