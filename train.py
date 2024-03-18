@@ -16,7 +16,6 @@ from . import vae
 
 LATENT_SEARCH_SPACE = [2, 5, 10, 20, 50, 100]
 NUM_CLASSES = 10  # same for MNIST and CIFAR-10
-NUM_EPOCHS = 20
 BATCH_SIZE = 1024
 NUM_WORKERS = 4
 LR = 1e-3
@@ -149,7 +148,12 @@ def test_across_classes(
     print("Finished testing.")
 
 
-def run_training(model_type, dataset: str = "mnist", validate: bool = True):
+def run_training(
+    model_type,
+    dataset: str = "mnist",
+    validate: bool = True,
+    num_epochs: int = 20
+):
     """Trains given model type for each latent representation size."""
     datasets = load_dataset(
         name=dataset,
@@ -199,10 +203,10 @@ def run_training(model_type, dataset: str = "mnist", validate: bool = True):
         print(f"Starting training for z-dim={num_latent}.")
 
         model.train()
-        for epoch in range(NUM_EPOCHS):
+        for epoch in range(num_epochs):
             total_loss = defaultdict(float)
             with tqdm(train_loader) as tq:
-                tq.set_description(f"Epoch [{epoch + 1}/{NUM_EPOCHS}]")
+                tq.set_description(f"Epoch [{epoch + 1}/{num_epochs}]")
                 for idx, (img, label) in enumerate(tq, 1):
                     img = img.to(DEVICE)
 
