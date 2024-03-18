@@ -123,6 +123,8 @@ def test_across_classes(
             pin_memory=True
         )
 
+        print(len(test_loader))
+
         print(f"Starting testing for class {class_idx}...")
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
             state_dict = torch.load(checkpoint, map_location=DEVICE)
