@@ -74,7 +74,7 @@ def test_model(model: nn.Module, test_loader):
     for idx, (img, label) in enumerate(test_loader, 1):
         img = img.to(DEVICE)
 
-        if isinstance(model, "ConditionalVAE"):
+        if isinstance(model, vae.ConditionalVAE):
             loss = model.training_step(img, label)
         else:
             loss = model.training_step(img)
