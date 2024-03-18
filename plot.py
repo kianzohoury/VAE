@@ -229,10 +229,10 @@ def plot_reconstructed_digits(
             ax[1][class_idx].axis("off")
             ax[1][class_idx].set_title("Reconstruction")
 
-    fig.suptitle(f"{'Digits' if dataset == 'mnist' else 'Class'}")
-    fig.savefig(
-        f"{model_dir}/plots/{model_type}_latent_{num_latent}_reconstruction_grid.jpg"
-    )
+        fig.suptitle(f"{'Digits' if dataset == 'mnist' else 'Class'}")
+        fig.savefig(
+            f"{model_dir}/plots/{model_type}_latent_{num_latent}_reconstruction_grid.jpg"
+        )
 
 
 def plot_vae_decoding_grid(
