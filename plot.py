@@ -59,6 +59,9 @@ def plot_class_performance(model_dir: str):
     ax.set_xlabel("Latent dimension")
     ax.set_ylabel(ylabel)
     ax.legend(loc="upper right")
+    ax.set_title(
+        f"Reconstruction Error for {model_dir} Across Latent Dimensions"
+    )
     # save figure
     fig.savefig(model_dir + f"/plots/class_results_MSE.jpg", dpi=300)
 
