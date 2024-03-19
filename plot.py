@@ -217,10 +217,10 @@ def plot_comparison(
         img, label = next(iter(test_loader))
         if dataset == "mnist":
             ax[0][class_idx].imshow(
-                img.moveaxis(0, -1)[0], cmap="gray"
+                img.moveaxis(0, 3)[0], cmap="gray"
             )
         else:
-            ax[0][class_idx].imshow(img.moveaxis(0, -1)[0], cmap=None)
+            ax[0][class_idx].imshow(img.moveaxis(0, 3)[0], cmap=None)
 
         ax[0][class_idx].set_xticks([])
         ax[0][class_idx].set_yticks([])
@@ -234,7 +234,7 @@ def plot_comparison(
             gen_img = gen_img[0]
 
         gen_img = gen_img.detach().cpu()
-        gen_img = gen_img.moveaxis(0, -1)[0]
+        gen_img = gen_img.moveaxis(0, 3)[0]
 
         if dataset == "mnist":
             ax[1][class_idx].imshow(gen_img, cmap="gray")
