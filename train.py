@@ -65,6 +65,10 @@ def test_by_class(
         print(f"Starting testing for class {class_idx}...")
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
             model = utils.load_from_checkpoint(checkpoint, device=device)
+
+            print(type(model))
+            print(vars(model))
+            print(model.__name__)
             num_latent = model.num_latent
 
             # test
