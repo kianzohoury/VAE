@@ -359,6 +359,8 @@ def plot_tsne(
             gen_img = model(img.to(device), y.to(device))
         else:
             gen_img = model(img.to(device))
+        if isinstance(gen_img, tuple):
+            gen_img = gen_img[0]
 
         gen_img = gen_img.view(bsize, -1).detach().cpu()
         X_hat.append(gen_img)
