@@ -14,6 +14,10 @@ class Autoencoder(nn.Module):
         num_latent: int = 100
     ):
         super(Autoencoder, self).__init__()
+        self.num_features = num_features
+        self.num_hidden = num_hidden
+        self.num_latent = num_latent
+
         self.encoder = nn.Sequential(
             nn.Linear(num_features, num_hidden),
             nn.ReLU(),
@@ -64,7 +68,11 @@ class VAE(nn.Module):
         kl_weight: float = 1.0
     ):
         super(VAE, self).__init__()
+        self.num_features = num_features
+        self.num_hidden = num_hidden
+        self.num_latent = num_latent
         self.kl_weight = kl_weight
+
         self.encoder = nn.Sequential(
             nn.Linear(num_features, num_hidden),
             nn.ReLU(),
@@ -134,7 +142,7 @@ class ConditionalVAE(nn.Module):
     """Simple variational autoencoder using MLPs."""
     def __init__(
         self,
-        num_classes: int,
+        num_classes: int = 10,
         num_features: int = 28 * 28,
         num_hidden: int = 28 * 28,
         num_latent: int = 100,
@@ -142,9 +150,14 @@ class ConditionalVAE(nn.Module):
     ):
         super(ConditionalVAE, self).__init__()
         self.num_classes = num_classes
-        self.kl_weight = kl_weight
+        # increase feature and hidden dimensionality by size of
+        # the label vector
         num_features += num_classes
         num_hidden += num_classes
+        self.num_features = num_features
+        self.num_hidden = num_hidden
+        self.num_latent = num_latent
+        self.kl_weight = kl_weight
 
         self.encoder = nn.Sequential(
             nn.Linear(num_features, num_hidden),

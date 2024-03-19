@@ -1,14 +1,15 @@
+
 import pickle
 from collections import defaultdict
 from functools import partial
 from pathlib import Path
-from typing import Tuple, Union
+from typing import Dict, Tuple, Union
 
 import torch
 import torch.nn as nn
 
 from torch.optim import AdamW
-from torch.utils.data import Dataset, DataLoader, Subset
+from torch.utils.data import DataLoader, Subset
 from tqdm import tqdm
 
 from . import utils, vae
@@ -18,7 +19,7 @@ from . import utils, vae
 ###############################################################################
 
 
-def test(model: nn.Module, test_loader: DataLoader) -> torch.Tensor:
+def test(model: nn.Module, test_loader: DataLoader) -> Dict[str, torch.Tensor]:
     """Runs testing (or validation) and returns the loss."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
     total_loss = defaultdict(float)
@@ -40,72 +41,44 @@ def test(model: nn.Module, test_loader: DataLoader) -> torch.Tensor:
     return total_loss
 
 
-def test_across_classes(
+def test_by_class(
     model_dir: str,
-    dataset: str = "mnist",
-    is_test: bool = False,
+    mnist_root: str = "./mnist",
     batch_size: int = 1024,
     num_workers: int = 4
 ) -> None:
-    """Tests models separately for each class (e.g. digits in MNIST)."""
+    """Tests models separately for each class (i.e. digits in MNIST)."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    if is_test:
-        datasets = utils.load_dataset(
-            name=dataset,
-            splits=("test"),
-            val_size=0
-        )
-    else:
-        # use validation set (necessary for model selection, and to keep
-        # test set independent of this process)
-        datasets = utils.load_dataset(
-            name=dataset,
-            splits=("train", "val"),
-            val_size=0.1
-        )
-    test_dataset = datasets["test"] if is_test else datasets["val"]
+
+    # load dataset
+    dataset = utils.load_dataset_splits(root=mnist_root, splits=["test"])
     test_losses = defaultdict(partial(defaultdict, partial(defaultdict, list)))
 
     for class_idx in range(10):
-        indices = []
-        for idx, sample in enumerate(test_dataset):
-            if sample[-1] == class_idx:
-                indices.append(idx)
-
-        # create dataloader
-        test_loader = DataLoader(
-            dataset=Subset(test_dataset, indices),
+        digit_subset = utils.filter_by_digit(dataset["test"], digit=class_idx)
+        test_loader = utils.create_dataloaders(
+            dataset_splits={"test": digit_subset},
             batch_size=batch_size,
-            num_workers=num_workers,
-            shuffle=True,
-            pin_memory=True
+            num_workers=num_workers
         )
 
         print(f"Starting testing for class {class_idx}...")
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
-            state_dict = torch.load(checkpoint, map_location=device)
-            model_type = state_dict["config"].pop("model_type")
-            # initialize model
-            model = utils.init_model(
-                model_type, **state_dict["config"]
-            ).to(device)
-            num_latent = state_dict["config"]["num_latent"]
-            model.load_state_dict(state_dict["model"])
+            model = utils.load_from_checkpoint(checkpoint, device=device)
+            num_latent = model.num_latent
 
             # test
-            test_loss = test(model, test_loader)
+            test_loss = test(model, test_loader["test"])
             for loss_term, loss_val in test_loss.items():
                 test_losses[class_idx][loss_term][num_latent].append(loss_val)
                 print(
-                    f"{model_type} (z-dim={num_latent}), "
+                    f"{model.__name__} (z-dim={num_latent}), "
                     f"{loss_term}: {round(loss_val, 3)}"
                 )
 
     # save test results
     print("Saving test results...")
-    pkl_filename = f"{model_dir}/class_results_test.pkl" if is_test else \
-        f"{model_dir}/class_results_val.pkl"
-    with open(pkl_filename, mode="wb") as f:
+    with open(f"{model_dir}/class_results_test.pkl" , mode="wb") as f:
         pickle.dump(test_losses, f)
     print("Finished testing.")
 
@@ -115,8 +88,8 @@ def test_across_classes(
 ###############################################################################
 
 def train(
-    model_type: str = "VAE",
-    dataset: str = "mnist",
+    mnist_root: str = "./mnist",
+    model_type: str = "ConditionalVAE",
     validate: bool = True,
     latent_size: Union[int, Tuple] = 20,
     kl_weight: float = 1.0,
@@ -128,44 +101,17 @@ def train(
 ) -> None:
     """Trains given model type for each latent representation size."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    datasets = utils.load_dataset(
-        name=dataset,
-        splits=("train", "val") if validate else ("train",),
-        val_size=0 if not validate else 0.1)
 
-    # create dataloaders
-    train_loader = DataLoader(
-        datasets["train"],
-        batch_size=batch_size,
-        num_workers=num_workers,
-        shuffle=True,
-        pin_memory=True,
-        drop_last=True
+    # load dataset
+    dataset = utils.load_dataset_splits(
+        root=mnist_root,
+        splits=["train", "val"] if validate else ["train"],
+        val_size=0 if not validate else 0.1
     )
-    if validate:
-        val_loader = DataLoader(
-            datasets["val"],
-            batch_size=batch_size,
-            num_workers=num_workers,
-            shuffle=True,
-            pin_memory=True,
-            drop_last=True
-        )
-    else:
-        val_loader = None
-
-    # store configuration args for easy model loading
-    config = {
-        "num_features": 28 * 28 if dataset == "mnist" else 32 * 32 * 3,
-        "model_type": model_type
-    }
-    # number of classes is the same for MNIST and CIFAR10
-    if model_type == "ConditionalVAE":
-        config["num_classes"] = 10
-
-    # set KL Divergence weight
-    if "VAE" in model_type:
-        config["kl_weight"] = kl_weight
+    # get dataloaders
+    dataloaders = utils.create_dataloaders(
+        dataset_splits=dataset, batch_size=batch_size, num_workers=num_workers
+    )
 
     # keep track of metrics across all models
     train_losses = defaultdict(partial(defaultdict, list))
@@ -180,17 +126,21 @@ def train(
         else list(latent_size)
     for num_latent in latent_search_space:
 
+        config = {
+            "model_type": model_type,
+            "latent_size": latent_size,
+            "kl_weight": kl_weight  # only applies for ConditionalVAE
+        }
+
         # initialize model and optimizer
-        model_config = dict(config)
-        model_config["num_latent"] = num_latent
-        model = utils.init_model(**model_config).to(device)
+        model = utils.init_model(model_type=model_type, config=config)
         optim = AdamW(model.parameters(), lr)
         print(f"Starting training for z-dim={num_latent}.")
 
         model.train()
         for epoch in range(num_epochs):
             total_loss = defaultdict(float)
-            with tqdm(train_loader) as tq:
+            with tqdm(dataloaders["train"]) as tq:
                 tq.set_description(f"Epoch [{epoch + 1}/{num_epochs}]")
                 for idx, (img, label) in enumerate(tq, 1):
                     img = img.to(device)
@@ -221,14 +171,14 @@ def train(
 
             # run validation
             if validate:
-                validation_loss = test(model, val_loader)
+                validation_loss = test(model, dataloaders["val"])
                 for loss_term, loss_val in validation_loss.items():
                     val_losses[loss_term][num_latent].append(loss_val)
                     print(f"Val: {loss_term}={round(loss_val, 3)}")
 
         print("Saving model...")
         torch.save(
-            {"model": model.cpu().state_dict(), "config": model_config},
+            {"model": model.cpu().state_dict(), "config": config},
             f=f"{str(output_path)}/{model_type}_latent_{num_latent}.pth",
         )
 
