@@ -217,7 +217,7 @@ def plot_comparison(
         img, label = next(iter(test_loader))
         b, c, h, w = img.size()
         img = img.view(b, h, w, c)
-        ax[0][class_idx].imshow(img[0].squeeze(-1), cmap="gray")
+        ax[0][class_idx].imshow(img[0], cmap="gray")
         ax[0][class_idx].set_xticks([])
         ax[0][class_idx].set_yticks([])
 
