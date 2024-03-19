@@ -131,8 +131,8 @@ into the latent space. Can we somehow encode the digit class into the latent spa
 in order to generate a specific digit? The answer is yes! By slightly modifying
 the architecture of the VAE, we can allow the encoder and decoder to both 
 accept an additional vector. We simply one-hot encode the label and concatenate both
-the input x and latent variable z, with the vectorized label. This allows us to
-generate a new sample from a specific class. 
+the input x and latent variable z, with the vectorized label. By doing so, we
+can generate a new sample from a specific class. 
 
 ## Choosing Optimal Latent Space Dimensionality
 
