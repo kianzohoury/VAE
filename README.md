@@ -1,7 +1,8 @@
 # Variational Autoencoders for Image Generation
-note that we don't need normalization since the network is very shallow
-
-here we can use log_var or var, doesn't matter
+The goal of this project is to explore and better understand variational
+autoencoders (VAEs), and how they are used for image generation in practice. In this
+document, we will briefly describe VAEs, before walking through the implementation,
+training (& validation), testing, and visualization.
 
 ## Introduction
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
