@@ -231,7 +231,7 @@ def plot_comparison(
             gen_img = gen_img[0]
 
         gen_img = gen_img.detach().cpu()
-        gen_img = gen_img.moveaxis(0, -1)[0].squeeze(-1)
+        gen_img = gen_img.moveaxis(0, -1)[0]
         ax[1][class_idx].imshow(gen_img, cmap="gray")
         ax[1][class_idx].set_xticks([])
         ax[1][class_idx].set_yticks([])
