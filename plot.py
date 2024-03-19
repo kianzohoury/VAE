@@ -222,6 +222,8 @@ def plot_comparison(
         else:
             ax[0][class_idx].imshow(img.moveaxis(0, 3)[0], cmap=None)
 
+        print(img.moveaxis(0, 3).shape)
+
         ax[0][class_idx].set_xticks([])
         ax[0][class_idx].set_yticks([])
 
