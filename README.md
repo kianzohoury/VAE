@@ -107,6 +107,16 @@ decoder, from unseen test data:
   <i>Original MNIST images (top) and the reconstructed images (bottom) for the VAE.</i>
 </p>
 
+### Decoder-Only Image Reconstructions
+What happens when we want to generate a new MNIST-like image? Well, we actually
+don't need the encoder, and can feed a sample z ~ N(0, 1) to the decoder directly
+to reconstruct an image from z:
+<p align="middle" float="left">
+  <img src="output/VAE/vae_decodings.jpg" width="100%" />
+</p>
+<p style="text-align: center;"> 
+  <i>Generated MNIST images using the decoder portion of the VAE.</i>
+</p>
 ## Choosing Optimal Latent Space Dimensionality
 
 [//]: # (![img]&#40;output/Autoencoder/validation_MSE.jpg&#41;)
