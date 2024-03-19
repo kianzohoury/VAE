@@ -96,9 +96,9 @@ split, a latent size of 20 was chosen.
 </p>
 
 ## Visualizing Image Reconstructions
-We visualize the generative capabilities of the VAE model (with latent size of 20). 
-Below, the images are reconstructed from unseen test data and compared with the
-original images.
+We can visualize the generative capabilities of the VAE model (selected with a 
+latent size of 20). Below, the images are reconstructed using both the encoder and
+decoder, from unseen test data:
 
 <p align="middle" float="left">
   <img src="output/VAE/comparison_1.jpg" width="100%" />
