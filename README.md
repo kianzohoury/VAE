@@ -133,12 +133,18 @@ distributions in the latent space, representing a "mixture" of more than one dig
 ### Guided Image Generation with ConditionalVAEs
 Up until this point, the MNIST labels were not incorporated into the training 
 process, and so the relationship between images and their labels could not be encoded
-into the latent space. Can we somehow encode the digit classes into the latent space,
-such that specific digit can be generated on command? The answer is yes! By slightly modifying
+into the latent space. Can we somehow encode digit classes into the latent space,
+such that specific digits can be generated on command? The answer is yes! By slightly modifying
 the architecture of the VAE, we can allow the encoder and decoder to both 
-accept an additional vector. We simply one-hot encode the label and concatenate both
-the input x and latent variable z, with the vectorized label. By doing so, we
-can generate a new sample from each class like so:
+accept an additional vector y. We simply one-hot encode the label and concatenate both
+the input x and latent variable z, with the vectorized label. 
+* __Modification__: We train the encoder to compress [x, z] together. Like before,
+enc([x, z]) outputs a probability distribution given by mu and sigma. Using
+the reparameterization trick, we sample z ~ eps * sigma + mu, but this time, we
+feed the decoder [z, y], and the output x' = dec([z, y]).
+
+By doing so, we can generate a new sample x' belonging to the class represented
+by y, like so:
 
 <p align="middle" float="left">
   <img src="output/ConditionalVAE/conditional_vae_decodings.jpg" width="100%" />
