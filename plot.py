@@ -5,8 +5,11 @@ from typing import Optional, Tuple
 
 import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
 import torch
 import torch.nn as nn
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
 from torch.utils.data import DataLoader, Subset
 
 from . import utils
@@ -241,7 +244,7 @@ def plot_new_samples(
     title: str = "Generated Images",
     save_path: str = "./decodings.jpg"
 ):
-    """Plots a grid comparing decoder outputs."""
+    """Plots a grid of generated samples."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # load model
@@ -310,4 +313,76 @@ def plot_new_samples(
                 ax[i][j].axis("off")
 
     fig.suptitle(title)
+    fig.savefig(save_path, dpi=300)
+
+
+def plot_tsne(
+    checkpoint: str,
+    save_path: str = "./tsne.jpg",
+    dataset: str = "mnist",
+    batch_size: int = 1024,
+    num_workers: int = 4
+):
+    """Plots t-SNE."""
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    datasets = utils.load_dataset(
+        name=dataset,
+        splits=("test"),
+        val_size=0
+    )
+    # create dataloader
+    test_loader = DataLoader(
+        dataset=datasets["test"],
+        batch_size=batch_size,
+        num_workers=num_workers,
+        shuffle=True,
+        pin_memory=True
+    )
+
+    # load model
+    state_dict = torch.load(checkpoint, map_location=device)
+    model_type = state_dict["config"].pop("model_type")
+    model = utils.init_model(model_type, **state_dict["config"]).to(device)
+    model.load_state_dict(state_dict["model"])
+    model.eval()
+
+    pca = PCA(n_components=50)
+    tsne = TSNE(n_components=2)
+
+    X_hat, Y = [], []
+    model.eval()
+    for idx, (img, label) in enumerate(test_loader, 0):
+        bsize = img.shape[0]
+
+        if model_type == "ConditionalVAE":
+            y = nn.functional.one_hot(label, 10)
+            gen_img = model(img.to(device), y.to(device))
+        else:
+            gen_img = model(img.to(device))
+
+        gen_img = gen_img.view(bsize, -1).detach().cpu()
+        X_hat.append(gen_img)
+        Y.append(label)
+
+    X_hat = np.concatenate(X_hat, 0)
+    Y = np.concatenate(Y, 0)
+
+    # reduce dimensionality with PCA
+    features = pca.fit_transform(X_hat)
+
+    # reduce dimensionality again with t-SNE
+    features = tsne.fit_transform(features)
+    labeled_features = {idx: [] for idx in range(10)}
+    for x_hat, y in zip(features, Y):
+        labeled_features[y].append(x_hat)
+
+    # plot embeddings
+    fig, ax = plt.subplots(1, 1)
+    for y, x in labeled_features.items():
+        x_stack = np.stack(x, 0)
+        ax.scatter(x_stack[:, 0], x_stack[:, 1], label=y)
+    ax.set_xlabel("Dimension 1")
+    ax.set_ylabel("Dimension 2")
+    plt.legend(loc="upper right")
+    plt.title(f"t-SNE for {model_type}")
     fig.savefig(save_path, dpi=300)
