@@ -2,6 +2,7 @@ import pickle
 from collections import defaultdict
 from functools import partial
 from pathlib import Path
+from typing import Tuple, Union
 
 import torch
 import torch.nn as nn
@@ -12,21 +13,18 @@ from tqdm import tqdm
 
 from . import utils, vae
 
-
-LATENT_SEARCH_SPACE = [2, 5, 10, 20, 50, 100]
-NUM_CLASSES = 10  # same for MNIST and CIFAR-10
-BATCH_SIZE = 1024
-NUM_WORKERS = 4
-LR = 1e-3
-DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+###############################################################################
+#                                 Testing                                     #
+###############################################################################
 
 
-def test_model(model: nn.Module, test_loader):
-    """Tests model."""
+def test(model: nn.Module, test_loader: DataLoader) -> torch.Tensor:
+    """Runs testing (or validation) and returns the loss."""
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     total_loss = defaultdict(float)
     model.eval()
     for idx, (img, label) in enumerate(test_loader, 1):
-        img = img.to(DEVICE)
+        img = img.to(device)
 
         if isinstance(model, vae.ConditionalVAE):
             loss = model.training_step(img, label)
@@ -43,9 +41,14 @@ def test_model(model: nn.Module, test_loader):
 
 
 def test_across_classes(
-    model_dir: str, dataset: str = "mnist", is_test: bool = False
-):
+    model_dir: str,
+    dataset: str = "mnist",
+    is_test: bool = False,
+    batch_size: int = 1024,
+    num_workers: int = 4
+) -> None:
     """Tests models separately for each class (e.g. digits in MNIST)."""
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     if is_test:
         datasets = utils.load_dataset(
             name=dataset,
@@ -62,7 +65,8 @@ def test_across_classes(
         )
     test_dataset = datasets["test"] if is_test else datasets["val"]
     test_losses = defaultdict(partial(defaultdict, partial(defaultdict, list)))
-    for class_idx in range(NUM_CLASSES):
+
+    for class_idx in range(10):
         indices = []
         for idx, sample in enumerate(test_dataset):
             if sample[-1] == class_idx:
@@ -71,25 +75,25 @@ def test_across_classes(
         # create dataloader
         test_loader = DataLoader(
             dataset=Subset(test_dataset, indices),
-            batch_size=BATCH_SIZE,
-            num_workers=NUM_WORKERS,
+            batch_size=batch_size,
+            num_workers=num_workers,
             shuffle=True,
             pin_memory=True
         )
 
         print(f"Starting testing for class {class_idx}...")
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
-            state_dict = torch.load(checkpoint, map_location=DEVICE)
+            state_dict = torch.load(checkpoint, map_location=device)
             model_type = state_dict["config"].pop("model_type")
             # initialize model
             model = utils.init_model(
                 model_type, **state_dict["config"]
-            ).to(DEVICE)
+            ).to(device)
             num_latent = state_dict["config"]["num_latent"]
             model.load_state_dict(state_dict["model"])
 
             # test
-            test_loss = test_model(model, test_loader)
+            test_loss = test(model, test_loader)
             for loss_term, loss_val in test_loss.items():
                 test_losses[class_idx][loss_term][num_latent].append(loss_val)
                 print(
@@ -106,24 +110,33 @@ def test_across_classes(
     print("Finished testing.")
 
 
-def run_training(
-    model_type,
+###############################################################################
+#                                 Training                                    #
+###############################################################################
+
+def train(
+    model_type: str = "VAE",
     dataset: str = "mnist",
     validate: bool = True,
+    latent_size: Union[int, Tuple] = 20,
     num_epochs: int = 20,
+    lr: float = 1e-3,
+    batch_size: int = 1024,
+    num_workers: int = 4,
     output_dir: str = "./output"
-):
+) -> None:
     """Trains given model type for each latent representation size."""
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     datasets = utils.load_dataset(
         name=dataset,
-        splits=("train", "val") if validate else ("train"),
+        splits=("train", "val") if validate else ("train",),
         val_size=0 if not validate else 0.1)
 
     # create dataloaders
     train_loader = DataLoader(
         datasets["train"],
-        batch_size=BATCH_SIZE,
-        num_workers=NUM_WORKERS,
+        batch_size=batch_size,
+        num_workers=num_workers,
         shuffle=True,
         pin_memory=True,
         drop_last=True
@@ -131,8 +144,8 @@ def run_training(
     if validate:
         val_loader = DataLoader(
             datasets["val"],
-            batch_size=BATCH_SIZE,
-            num_workers=NUM_WORKERS,
+            batch_size=batch_size,
+            num_workers=num_workers,
             shuffle=True,
             pin_memory=True,
             drop_last=True
@@ -140,25 +153,33 @@ def run_training(
     else:
         val_loader = None
 
+    # store configuration args for easy model loading
     config = {
         "num_features": 28 * 28 if dataset == "mnist" else 32 * 32 * 3,
         "model_type": model_type
     }
+    # number of classes is the same for MNIST and CIFAR10
     if model_type == "ConditionalVAE":
-        config["num_classes"] = NUM_CLASSES
+        config["num_classes"] = 10
 
     # keep track of metrics across all models
     train_losses = defaultdict(partial(defaultdict, list))
     val_losses = defaultdict(partial(defaultdict, list))
 
+    # create output directory to store checkpoints and results
+    output_path = Path(f"{output_dir}/{model_type}")
+    output_path.mkdir(exist_ok=True, parents=True)
+
     # simple hyperparameter search over latent dimensions
-    for num_latent in LATENT_SEARCH_SPACE:
+    latent_search_space = [latent_size] if isinstance(latent_size, int) \
+        else list(latent_size)
+    for num_latent in latent_search_space:
 
         # initialize model and optimizer
         model_config = dict(config)
         model_config["num_latent"] = num_latent
-        model = utils.init_model(**model_config).to(DEVICE)
-        optim = AdamW(model.parameters(), LR)
+        model = utils.init_model(**model_config).to(device)
+        optim = AdamW(model.parameters(), lr)
         print(f"Starting training for z-dim={num_latent}.")
 
         model.train()
@@ -167,7 +188,7 @@ def run_training(
             with tqdm(train_loader) as tq:
                 tq.set_description(f"Epoch [{epoch + 1}/{num_epochs}]")
                 for idx, (img, label) in enumerate(tq, 1):
-                    img = img.to(DEVICE)
+                    img = img.to(device)
 
                     if model_type == "ConditionalVAE":
                         loss = model.training_step(img, label)
@@ -195,22 +216,21 @@ def run_training(
 
             # run validation
             if validate:
-                validation_loss = test_model(model, val_loader)
+                validation_loss = validate(model, val_loader)
                 for loss_term, loss_val in validation_loss.items():
                     val_losses[loss_term][num_latent].append(loss_val)
                     print(f"Val: {loss_term}={round(loss_val, 3)}")
 
         print("Saving model...")
-        Path(f"{output_dir}/{model_type}").mkdir(exist_ok=True, parents=True)
         torch.save(
             {"model": model.cpu().state_dict(), "config": model_config},
-            f=f"{output_dir}/{model_type}/{model_type}_latent_{num_latent}.pth",
+            f=f"{str(output_path)}_latent_{num_latent}.pth",
         )
 
     # save epoch history
     print("Saving loss history...")
-    with open(f"{output_dir}/{model_type}/train_history.pkl", mode="wb") as f:
+    with open(f"{str(output_path)}/train_history.pkl", mode="wb") as f:
         pickle.dump(train_losses, f)
-    with open(f"{output_dir}/{model_type}/val_history.pkl", mode="wb") as f:
+    with open(f"{str(output_path)}/val_history.pkl", mode="wb") as f:
         pickle.dump(val_losses, f)
     print("Finished training.")
