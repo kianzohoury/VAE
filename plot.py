@@ -17,6 +17,19 @@ from . import utils
 # set backend to SVG
 matplotlib.use('svg')
 
+CIFAR10_CLASSES = {
+    0: 'airplane',
+    1: 'automobile',
+    2: 'bird',
+    3: 'cat',
+    4: 'deer',
+    5: 'dog',
+    6: 'frog',
+    7: 'horse',
+    8: 'ship',
+    9: 'truck'
+}
+
 
 def plot_epoch_train_validation(model_dir: str):
     """Plots epoch training and validation loss together."""
@@ -222,9 +235,13 @@ def plot_comparison(
         else:
             ax[0][class_idx].imshow(img.moveaxis(1, -1)[0], cmap=None)
 
-
         ax[0][class_idx].set_xticks([])
         ax[0][class_idx].set_yticks([])
+
+        if dataset == "cifar10":
+            ax[0][class_idx].set_title(CIFAR10_CLASSES[class_idx])
+        else:
+            ax[0][class_idx].set_title([class_idx])
 
         if model_type == "ConditionalVAE":
             y = nn.functional.one_hot(label, 10)
@@ -308,7 +325,10 @@ def plot_new_samples(
                 ax[j][class_idx].set_xticks([])
                 ax[j][class_idx].set_yticks([])
 
-            ax[0][class_idx].set_title(class_idx)
+            if img_dim == (3, 32, 32) == "cifar10":
+                ax[0][class_idx].set_title(CIFAR10_CLASSES[class_idx])
+            else:
+                ax[0][class_idx].set_title(class_idx)
     else:
         # sample z ~ N(0, 1)
         z = torch.randn(
