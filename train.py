@@ -119,7 +119,7 @@ def train(
     dataset: str = "mnist",
     validate: bool = True,
     latent_size: Union[int, Tuple] = 20,
-    num_epochs: int = 20,
+    num_epochs: int = 50,
     lr: float = 1e-3,
     batch_size: int = 1024,
     num_workers: int = 4,
