@@ -223,7 +223,6 @@ def plot_comparison(
             y = nn.functional.one_hot(label, 10)
             gen_img = model(img.to(device), y.to(device))
         else:
-            print(img.shape)
             gen_img = model(img.to(device))
         if isinstance(gen_img, tuple):
             gen_img = gen_img[0]
