@@ -31,7 +31,7 @@ def load_from_checkpoint(checkpoint: str, device: str = "cpu") -> nn.Module:
 
     # initialize model
     model_type = Path(checkpoint).stem.split("_")[0]
-    model = init_model(model_type, **state_dict["config"]).to(device)
+    model = init_model(model_type, **state_dict["config"], device=device)
     model.load_state_dict(state_dict["model"])
     return model
 
