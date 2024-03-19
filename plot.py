@@ -215,6 +215,7 @@ def plot_comparison(
         )
 
         img, label = next(iter(test_loader))
+        print(img.shape)
         b, c, h, w = img.size()
         img = img.view(b, h, w, c)
         ax[0][class_idx].imshow(img[0], cmap="gray")
