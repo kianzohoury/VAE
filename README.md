@@ -66,8 +66,18 @@ Training and validation losses were recorded for each epoch.
 
 ### Effect of Latent Space Dimensionality on Digit Reconstruction
 <p align="middle" float="left">
-  <img src="output/Autoencoder/class_results_MSE.jpg" width="48%" />
-  <img src="output/VAE/class_results_MSE.jpg" width="48%" />
+  <img src="output/Autoencoder/class_results_MSE.jpg" width="70%" />
+</p>
+<p style="text-align: center;"> 
+  <i>Image reconstruction errors for each digit across different latent dimensions 
+    for the Autoencoder.</i>
+</p>
+<p align="middle" float="left">
+  <img src="output/VAE/class_results_MSE.jpg" width="70%" />
+</p>
+<p style="text-align: center;"> 
+  <i>Image reconstruction errors for each digit across different latent dimensions 
+    for the VAE.</i>
 </p>
 
 * Increasing the dimensionality of the latent space expectedly decreases image
