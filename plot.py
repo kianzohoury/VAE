@@ -379,7 +379,7 @@ def plot_tsne(
     model.load_state_dict(state_dict["model"])
     model.eval()
 
-    pca = PCA(n_components=50)
+    pca = PCA(n_components=min(model["config"]["num_features"], 20))
     tsne = TSNE(n_components=2)
 
     Z, Y = [], []
