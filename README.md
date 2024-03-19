@@ -110,10 +110,13 @@ decoder, namely, x' = dec(enc(x)), from unseen test data x:
   </i>
 </p>
 
+* __Fuzziness__: we see that the digits appear "fuzzy," which is expected because
+of the probabilistic nature of the VAE.
+
 ### Decoder-Only Image Reconstruction (Generation)
 What happens when we want to generate a new MNIST-like image? Well, we actually
 don't need the encoder, and can feed a sample z ~ N(0, 1) to the decoder directly
-to reconstruct an image from z:
+to reconstruct an image, namely x' = dec(z):
 <p align="middle" float="left">
   <img src="output/VAE/vae_decodings.jpg" width="100%" />
 </p>
