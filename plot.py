@@ -98,8 +98,6 @@ def plot_reconstructed_digits(
     # load dataset
     dataset = utils.load_dataset_splits(root=mnist_root, splits=["test"])
 
-
-
     # load model
     model = utils.load_from_checkpoint(checkpoint, device=device)
     model.eval()
