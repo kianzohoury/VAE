@@ -153,3 +153,18 @@ by y, like so:
 <p style="text-align: center;"> 
   <i>Generated MNIST images using the decoder portion of the Conditional VAE.</i>
 </p>
+
+### Visualizing the Latent Space
+
+<p align="middle" float="left">
+  <img src="output/VAE/tsne.jpg" width="70%" />
+</p>
+<p style="text-align: center;"> 
+  <i>Clusters of digit classes using t-SNE (dimension=2) for the VAE.</i>
+</p>
+<p align="middle" float="left">
+  <img src="output/ConditionalVAE/tsne.jpg" width="70%" />
+</p>
+<p style="text-align: center;"> 
+  <i>Clusters of digit classes using t-SNE (dimension=2) for the ConditionalVAE.</i>
+</p>
