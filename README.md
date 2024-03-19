@@ -105,7 +105,9 @@ decoder, from unseen test data:
   <img src="output/VAE/comparison_1.jpg" width="100%" />
 </p>
 <p style="text-align: center;"> 
-  <i>Original MNIST images (top) and the reconstructed images (bottom) for the VAE.</i>
+  <i>Original MNIST images (top) and the reconstructed images (bottom) using
+    both the encoder and decoder portions of the VAE.
+  </i>
 </p>
 
 ### Decoder-Only Image Reconstruction (Generation)
