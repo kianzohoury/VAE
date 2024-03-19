@@ -216,7 +216,7 @@ def train(
 
             # run validation
             if validate:
-                validation_loss = validate(model, val_loader)
+                validation_loss = test(model, val_loader)
                 for loss_term, loss_val in validation_loss.items():
                     val_losses[loss_term][num_latent].append(loss_val)
                     print(f"Val: {loss_term}={round(loss_val, 3)}")
