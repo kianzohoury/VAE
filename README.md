@@ -178,13 +178,20 @@ by y, like so:
 ### Visualizing the Latent Space
 
 <p align="middle" float="left">
-  <img src="output/VAE/tsne.jpg" width="70%" />
+  <img src="output/Autoencoder/tsne_autoencoder.jpg" width="70%" />
+</p>
+<p style="text-align: center;"> 
+  <i>Clusters of digit classes using t-SNE (dimension=2) for the Autoencoder.</i>
+</p>
+
+<p align="middle" float="left">
+  <img src="output/VAE/tsne_vae.jpg" width="70%" />
 </p>
 <p style="text-align: center;"> 
   <i>Clusters of digit classes using t-SNE (dimension=2) for the VAE.</i>
 </p>
 <p align="middle" float="left">
-  <img src="output/ConditionalVAE/tsne.jpg" width="70%" />
+  <img src="output/ConditionalVAE/tsne_conditional_vae.jpg" width="70%" />
 </p>
 <p style="text-align: center;"> 
   <i>Clusters of digit classes using t-SNE (dimension=2) for the ConditionalVAE.</i>
