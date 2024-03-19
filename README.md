@@ -4,10 +4,6 @@ autoencoders (VAEs), and how they are used for image generation in practice. In 
 document, we will briefly describe VAEs, before walking through the implementation,
 training (& validation), testing, and visualization.
 
-<p align="middle" float="left">
-  <img src="https://en.wikipedia.org/wiki/Variational_autoencoder#/media/File:VAE_Basic.png" width="48%" />
-</p>
-
 ## Introduction
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
 generative models that aim to model an underlying distribution of real-world 
@@ -24,14 +20,25 @@ the distance (or dissimilarity) between two probabilities distributions, and
 effectively encourages the modeled latent distributions to be close to standard 
 normal.
 
+<p align="middle" float="left">
+  <img src="output/VAE_Basic.png" width="100%" />
+</p>
+
 ## Implementation
 Model design and training were implemented in PyTorch.
+
 ### Architecture
 The encoder and decoders use only linear layers and ReLU activations. To enable
 differentiability, we use the "reparameterization trick," which allows sampling
 from the latent distribution z ~ p_theta(z|x). The output is normalized between 
 [0, 1.0] using the sigmoid function. Note that since the network is shallow,
 additional normalization (e.g. batch normalization) is not necessary.
+
+### Reparameterization Trick
+
+<p align="middle" float="left">
+  <img src="output/Reparameterized_Variational_Autoencoder.png" width="100%" />
+</p>
 
 ### Loss
 * __Reconstruction Loss__: To compare generated images with ground truth (original images),
