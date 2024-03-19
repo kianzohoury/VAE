@@ -117,6 +117,11 @@ to reconstruct an image from z:
 <p style="text-align: center;"> 
   <i>Generated MNIST images using the decoder portion of the VAE.</i>
 </p>
+
+Here, we see that the images produced are pretty good, but some reconstructions 
+are not legible. This is due to the fact that the VAE does not know which digit to produce,
+since up until this point, the labels were not incorporated into the training process.
+
 ## Choosing Optimal Latent Space Dimensionality
 
 [//]: # (![img]&#40;output/Autoencoder/validation_MSE.jpg&#41;)
