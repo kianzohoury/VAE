@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader, Dataset, Subset, Dataset
 from . import vae
 
 
-def init_model(model_type: str, **kwargs) -> nn.Module:
+def init_model(model_type: str, device: str = "cpu", **kwargs) -> nn.Module:
     """Initializes model."""
     filtered_kwargs = {}
     model_constructor = getattr(vae, model_type)
@@ -21,7 +21,7 @@ def init_model(model_type: str, **kwargs) -> nn.Module:
     for key, val in kwargs.items():
         if key in params:
             filtered_kwargs[key] = val
-    model = model_constructor(**filtered_kwargs)
+    model = model_constructor(**filtered_kwargs).to(device)
     return model
 
 
