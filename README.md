@@ -95,7 +95,8 @@ split, a latent size of 20 was chosen.
   <img src="output/VAE/train_val_latent_20_MSE.jpg" width="45%" />
 </p>
 
-## Visualizing Image Reconstructions
+# Visualizations
+### Image Reconstructions
 We can visualize the generative capabilities of the VAE model (selected with a 
 latent size of 20). Below, the images are reconstructed using both the encoder and
 decoder, from unseen test data:
