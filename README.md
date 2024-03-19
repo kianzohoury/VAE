@@ -1,4 +1,4 @@
-# Variational Autoencoders for Image Generation
+# Conditional Variational Autoencoders for MNIST Digit Generation
 The goal of this project is to explore and better understand variational
 autoencoders (VAEs), and how they are used for image generation in practice. In this
 document, we will briefly describe VAEs, before walking through the implementation,
