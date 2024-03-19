@@ -4,12 +4,29 @@ note that we don't need normalization since the network is very shallow
 here we can use log_var or var, doesn't matter
 
 ## Introduction
-Variational autoencoders (VAEs) are a class...
-
+Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
+generative models that aim to model an underlying distribution of real-world 
+data. Coupled with their ability to learn deep representations of such data, 
+VAEs are capable of generating entirely new data points using variational 
+inference. Unlike traditional autoencoders, which deterministically reconstruct 
+outputs from discrete latent representations, VAEs probabilistically generate 
+outputs, by sampling from a continuous latent space. For any given input x, 
+the encoder of a VAE attempts to learn a mapping of x to a probability 
+distribution, which is assumed to be Gaussian (i.e. roughly standard normal). 
+This property, sometimes referred to as latent space regularization, is 
+achieved by incorporating Kullback-Leibler (KL) Divergence, which measures 
+the distance (or dissimilarity) between two probabilities distributions, and 
+effectively encourages the modeled latent distributions to be close to standard 
+normal.
 
 ## Implementation
-Models are implemented in PyTorch.
+Model design and training were implemented in PyTorch.
 ### Architecture
+The encoder and decoders use only linear layers and ReLU activations. To enable
+differentiability, we use the "reparameterization trick," which allows sampling
+from the latent distribution z ~ p_theta(z|x). The output is normalized between 
+[0, 1.0] using the sigmoid function. Note that since the network is shallow,
+additional normalization (e.g. batch normalization) is not necessary.
 
 ### Loss
 * __Reconstruction Loss__: To compare generated images with ground truth (original images),
@@ -27,7 +44,7 @@ gray scale images. From this set, 10% were randomly chosen for validation (6k im
 to guide model selection. Each model was configured with a different latent size 
 (i.e. 2, 5, 10, 20, 50, or 100). Training was conducted for 50 epochs on 
 a single NVIDIA V100 GPU, utilizing batch sizes of 1024. Note that images were 
-first converted to floating point tensors in the range (0, 1). Optimization was 
+first converted to floating point tensors in the range [0, 1.0]. Optimization was 
 carried using AdamW [], with a learning rate of 1e-3 and default weight decay parameters.
 Training and validation losses were recorded for each epoch.
 
