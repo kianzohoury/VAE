@@ -134,18 +134,3 @@ accept an additional vector. We simply one-hot encode the label and concatenate 
 the input x and latent variable z, with the vectorized label. By doing so, we
 can generate a new sample from a specific class. 
 
-## Choosing Optimal Latent Space Dimensionality
-
-[//]: # (![img]&#40;output/Autoencoder/validation_MSE.jpg&#41;)
-
-[//]: # (![img]&#40;output/Autoencoder/class_results_MSE.jpg&#41;)
-
-[//]: # (![img]&#40;output/Autoencoder/reconstruction_grid.jpg&#41;)
-
-## VAE
-![img](output/VAE/validation_MSE.jpg)
-![img](output/VAE/validation_KL_Divergence.jpg)
-![img](output/VAE/class_results_MSE.jpg)
-![img](output/VAE/reconstruction_grid.jpg)
-![img](output/VAE/decoding_grid.jpg)
-
