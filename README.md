@@ -50,15 +50,15 @@ carried using AdamW [], with a learning rate of 1e-3 and default weight decay pa
 Training and validation losses were recorded for each epoch.
 
 <p align="middle" float="left">
-  <img src="output/Autoencoder/train_MSE.jpg" width="45%" />
-  <img src="output/Autoencoder/val_MSE.jpg" width="45%" />
+  <img src="output/Autoencoder/train_MSE.jpg" width="48%" />
+  <img src="output/Autoencoder/val_MSE.jpg" width="48%" />
 </p>
 <p style="text-align: center;"> 
   <i>Training (left) and validation (right) losses recorded for the vanilla autoencoder.</i>
 </p>
 <p align="middle" float="left">
-  <img src="output/VAE/train_MSE.jpg" width="45%" />
-  <img src="output/VAE/val_MSE.jpg" width="45%" />
+  <img src="output/VAE/train_MSE.jpg" width="48%" />
+  <img src="output/VAE/val_MSE.jpg" width="48%" />
 </p>
 <p style="text-align: center;"> 
   <i>Training (left) and validation (right) losses recorded for the VAE.</i>
@@ -168,3 +168,5 @@ by y, like so:
 <p style="text-align: center;"> 
   <i>Clusters of digit classes using t-SNE (dimension=2) for the ConditionalVAE.</i>
 </p>
+
+## Bonus: CIFAR-10
