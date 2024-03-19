@@ -234,7 +234,7 @@ def plot_comparison(
 
 def plot_new_samples(
     checkpoint: str,
-    img_dim: Tuple[int, ...],
+    img_dim: Tuple[int, ...] = (28, 28, 1),
     grid_size: Tuple = (10, 2),
     title: str = "Generated Images",
     save_path: str = "./decodings.jpg"
