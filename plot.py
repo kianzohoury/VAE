@@ -1,7 +1,7 @@
 
 import pickle
 from pathlib import Path
-from typing import Tuple
+from typing import Optional, Tuple
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -235,83 +235,75 @@ def plot_comparison(
 def plot_new_samples(
     checkpoint: str,
     img_dim: Tuple[int, ...] = (28, 28, 1),
-    grid_size: Tuple = (10, 2),
+    classes: Optional[Tuple[int]] = None,
+    num_samples: int = 1,
+    num_cols: int = 10,
     title: str = "Generated Images",
     save_path: str = "./decodings.jpg"
 ):
     """Plots a grid comparing decoder outputs."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    fig, ax = plt.subplots(
-        nrows=grid_size[1],
-        ncols=grid_size[0],
-        constrained_layout=True,
-        figsize=grid_size
-    )
-
     # load model
     state_dict = torch.load(checkpoint, map_location=device)
     model_type = state_dict["config"].pop("model_type")
+
+    if "VAE" not in model_type:
+        raise ValueError("Model must be a VAE.")
+    elif model_type == "VAE":
+        classes = None
+    elif classes is None:
+        classes = 10
+
     model = utils.init_model(model_type, **state_dict["config"]).to(device)
     model.load_state_dict(state_dict["model"])
     model.eval()
 
     # number of samples to generate
-    num_samples = grid_size[0] * grid_size[1]
+    num_samples = len(classes) * num_samples
 
-    # sample z ~ N(0, 1)
-    z = torch.randn(
-        (num_samples, state_dict["config"]["num_latent"])
-    ).to(device)
+    fig, ax = plt.subplots(
+        nrows=num_samples,
+        ncols=10,
+        constrained_layout=True,
+        figsize=(num_samples, 10)
+    )
 
-    gen_img = model.decode(z).view(num_samples, *img_dim).detach().cpu()
-    for i in range(grid_size[1]):
-        for j in range(grid_size[0]):
-            ax[i][j].imshow(gen_img[grid_size[0] * i + j], cmap="gray")
-            ax[i][j].axis("off")
+    # conditional VAE generation
+    if classes is not None:
+        for class_idx in classes:
+            # sample z ~ N(0, 1)
+            z = torch.randn(
+                (num_samples, state_dict["config"]["num_latent"])
+            ).to(device)
+
+            y = nn.functional.one_hot(class_idx, 10)
+            gen_img = model.decode(torch.cat([z, y], dim=1)).view(
+                num_samples, *img_dim
+            ).detach().cpu()
+
+            for j in range(num_samples):
+                ax[j][class_idx].imshow(gen_img[j], cmap="gray")
+                ax[j][class_idx].axis("off")
+                ax[j][class_idx].set_xticks([])
+                ax[j][class_idx].set_yticks([])
+
+            ax[0][class_idx].set_title(class_idx)
+    else:
+        # sample z ~ N(0, 1)
+        z = torch.randn(
+            (num_samples, state_dict["config"]["num_latent"])
+        ).to(device)
+
+        gen_img = model.decode(z).view(
+            num_samples, *img_dim
+        ).detach().cpu()
+
+        num_rows = num_samples // num_cols
+        for i in range(num_rows):
+            for j in range(num_cols):
+                ax[i][j].imshow(gen_img[num_cols * i + j], cmap="gray")
+                ax[i][j].axis("off")
 
     fig.suptitle(title)
     fig.savefig(save_path, dpi=300)
-
-
-def plot_conditional_vae_decoding_grid(
-    model_dir: str,
-    img_dim: Tuple[int, ...],
-    num_samples: int = 7,
-):
-    """Plots a grid comparing decoder outputs."""
-
-    checkpoints = list(Path(model_dir).rglob("*.pth"))
-    fig, ax = plt.subplots(
-        nrows=num_samples,
-        ncols=len(checkpoints),
-        constrained_layout=True,
-        figsize=(10, 10)
-    )
-    checkpoints = sorted(
-        checkpoints, key=lambda file: int(file.stem.split("_")[-1])
-    )
-
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    for i, checkpoint in enumerate(checkpoints):
-        state_dict = torch.load(checkpoint, map_location=device)
-        model_type = state_dict["config"].pop("model_type")
-
-        # initialize model
-        model = utils.init_model(model_type, **state_dict["config"]).to(
-            device)
-        num_latent = state_dict["config"]["num_latent"]
-        model.load_state_dict(state_dict["model"])
-        model.eval()
-
-        # sample z ~ N(0, 1)
-        z = torch.randn((num_samples, num_latent)).to(device)
-
-        gen_img = model.decode(z).view(num_samples, *img_dim).detach().cpu()
-        for j in range(num_samples):
-            ax[j][i].imshow(gen_img[j], cmap="gray")
-            ax[j][i].axis("off")
-        ax[0][i].set_title(num_latent)
-
-    fig.suptitle("Latent dimension")
-    fig.savefig(f"{model_dir}/plots/decoding_grid.jpg")
