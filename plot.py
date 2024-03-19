@@ -267,7 +267,7 @@ def plot_new_samples(
     gen_img = model.decode(z).view(num_samples, *img_dim).detach().cpu()
     for i in range(grid_size[1]):
         for j in range(grid_size[0]):
-            ax[i][j].imshow(gen_img[grid_size[1] * i + j], cmap="gray")
+            ax[i][j].imshow(gen_img[grid_size[0] * i + j], cmap="gray")
             ax[i][j].axis("off")
 
     fig.suptitle(title)
