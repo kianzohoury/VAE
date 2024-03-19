@@ -95,41 +95,10 @@ split, a latent size of 20 was chosen.
   <img src="output/VAE/train_val_latent_20_MSE.jpg" width="45%" />
 </p>
 
-## Visualizing Reconstructions
-![img](output/VAE/VAE_latent_20_reconstruction_grid.jpg)
-
-[//]: # ()
-[//]: # (<div style="display: flex; flex-direction: row; justify-content: center">)
-
-[//]: # (    <p align="center">)
-
-[//]: # (        <img src="output/Autoencoder/validation_MSE.jpg" width=30%/>)
-
-[//]: # (    </p>)
-
-[//]: # (    <p align="center">)
-
-[//]: # (        <img src="output/VAE/validation_MSE.jpg" width=30%/>)
-
-[//]: # (    </p>)
-
-[//]: # (    <p align="center">)
-
-[//]: # (        <img src="output/ConditionalVAE/validation_MSE.jpg" width=30%/>)
-
-[//]: # (    </p>)
-
-[//]: # (    <figcaption>)
-
-[//]: # (        Validation losses for Autoencoders &#40;left&#41;, VAE &#40;middle&#41;, and )
-
-[//]: # (        ConditionalVAE &#40;right&#41;. )
-
-[//]: # (    </figcaption>)
-
-[//]: # (</div>)
-
-
+## Visualizing Image Reconstructions
+<p align="middle" float="left">
+  <img src="output/VAE/comparison_1.jpg" width="100%" />
+</p>
 
 
 ## Choosing Optimal Latent Space Dimensionality
