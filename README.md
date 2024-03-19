@@ -107,7 +107,7 @@ decoder, from unseen test data:
   <i>Original MNIST images (top) and the reconstructed images (bottom) for the VAE.</i>
 </p>
 
-### Decoder-Only Image Reconstructions
+### Decoder-Only Image Reconstruction (Generation)
 What happens when we want to generate a new MNIST-like image? Well, we actually
 don't need the encoder, and can feed a sample z ~ N(0, 1) to the decoder directly
 to reconstruct an image from z:
@@ -124,7 +124,7 @@ to produce, as it is only responsible for reconstructing an image from the sampl
 noise vector z. Because of this lack of information, z can lie somewhere in-between 
 distributions in the latent space, representing a "mixture" of more than one digit.
 
-### Guided Image Reconstructions with ConditionalVAEs
+### Guided Image Generation with ConditionalVAEs
 Up until this point, the MNIST labels were not incorporated into the training 
 process, and so the relationship between images and their labels were not encoded
 into the latent space. Can we somehow encode the digit class into the latent space
