@@ -96,7 +96,7 @@ split, a latent size of 20 was chosen.
 </p>
 
 # Visualizations
-### Image Reconstructions
+### Image Reconstruction
 We can visualize the generative capabilities of the VAE model (selected with a 
 latent size of 20). Below, the images are reconstructed using both the encoder and
 decoder, from unseen test data:
@@ -116,11 +116,11 @@ to reconstruct an image from z:
   <img src="output/VAE/vae_decodings.jpg" width="100%" />
 </p>
 <p style="text-align: center;"> 
-  <i>Generated MNIST images using the decoder portion of the VAE.</i>
+  <i>Generated MNIST images using only the decoder portion of the VAE.</i>
 </p>
 
-Here, we see that the images produced are pretty good, but some reconstructions 
-are not legible. This is due to the fact that the VAE does not know which digits 
+Here, we see that the images produced are fairly decent, but some reconstructions 
+are not identifiable. This is due to the fact that the VAE does not know which digits 
 to produce, as it is only responsible for reconstructing an image from the sampled 
 noise vector z. Because of this lack of information, z can lie somewhere in-between 
 distributions in the latent space, representing a "mixture" of more than one digit.
