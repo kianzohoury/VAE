@@ -195,6 +195,8 @@ def plot_comparison(
         constrained_layout=True,
         figsize=(10, 2)
     )
+    ax[0][0].set_ylabel("Original")
+    ax[1][0].set_ylabel("Generated")
     for class_idx in range(10):
         indices = []
         for idx, sample in enumerate(datasets["test"]):
