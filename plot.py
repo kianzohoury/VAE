@@ -214,7 +214,8 @@ def plot_comparison(
 
         img, label = next(iter(test_loader))
         ax[0][class_idx].imshow(img[0].squeeze(0), cmap="gray")
-        # ax[0][class_idx].axis("off")
+        ax[0][class_idx].set_xticks([])
+        ax[0][class_idx].set_yticks([])
 
         if model_type == "ConditionalVAE":
             y = nn.functional.one_hot(label, 10)
@@ -225,7 +226,8 @@ def plot_comparison(
             gen_img = gen_img[0]
         gen_img = gen_img.detach().cpu()
         ax[1][class_idx].imshow(gen_img[0].squeeze(0), cmap="gray")
-        # ax[1][class_idx].axis("off")
+        ax[1][class_idx].set_xticks([])
+        ax[1][class_idx].set_yticks([])
 
     fig.suptitle(f"{'Digit' if dataset == 'mnist' else 'Class'}")
     fig.savefig(save_path, dpi=300)
