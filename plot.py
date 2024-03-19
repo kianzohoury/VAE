@@ -217,7 +217,7 @@ def plot_comparison(
         img, label = next(iter(test_loader))
         print(img.shape)
         b, c, h, w = img.size()
-        img = img.view(b, h, w, c)
+        img = img.reshape((b, h, w, c))
         ax[0][class_idx].imshow(img[0], cmap="gray")
         ax[0][class_idx].set_xticks([])
         ax[0][class_idx].set_yticks([])
@@ -229,8 +229,11 @@ def plot_comparison(
             gen_img = model(img.to(device))
         if isinstance(gen_img, tuple):
             gen_img = gen_img[0]
+
         gen_img = gen_img.detach().cpu()
-        ax[1][class_idx].imshow(gen_img[0].squeeze(0), cmap="gray")
+        b, c, h, w = gen_img.size()
+        gen_img = gen_img.view(b, h, w, c)
+        ax[1][class_idx].imshow(gen_img[0], cmap="gray")
         ax[1][class_idx].set_xticks([])
         ax[1][class_idx].set_yticks([])
 
