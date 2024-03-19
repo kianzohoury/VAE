@@ -124,13 +124,6 @@ to produce, as it is only responsible for reconstructing an image from the sampl
 noise vector z. Because of this lack of information, z can lie somewhere in-between 
 distributions in the latent space, representing a "mixture" of more than one digit.
 
-<p align="middle" float="left">
-  <img src="output/ConditionalVAE/conditional_vae_decodings.jpg" width="100%" />
-</p>
-<p style="text-align: center;"> 
-  <i>Generated MNIST images using the decoder portion of the Conditional VAE.</i>
-</p>
-
 ### Guided Image Generation with ConditionalVAEs
 Up until this point, the MNIST labels were not incorporated into the training 
 process, and so the relationship between images and their labels were not encoded
@@ -139,5 +132,11 @@ in order to generate a specific digit? The answer is yes! By slightly modifying
 the architecture of the VAE, we can allow the encoder and decoder to both 
 accept an additional vector. We simply one-hot encode the label and concatenate both
 the input x and latent variable z, with the vectorized label. By doing so, we
-can generate a new sample from a specific class. 
+can generate a new sample from each class like so:
 
+<p align="middle" float="left">
+  <img src="output/ConditionalVAE/conditional_vae_decodings.jpg" width="100%" />
+</p>
+<p style="text-align: center;"> 
+  <i>Generated MNIST images using the decoder portion of the Conditional VAE.</i>
+</p>
