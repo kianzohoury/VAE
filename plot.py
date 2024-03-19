@@ -253,7 +253,7 @@ def plot_new_samples(
     elif model_type == "VAE":
         classes = None
     elif classes is None:
-        classes = 10
+        classes = list(range(10))
 
     model = utils.init_model(model_type, **state_dict["config"]).to(device)
     model.load_state_dict(state_dict["model"])
@@ -261,12 +261,13 @@ def plot_new_samples(
 
     # number of samples to generate
     num_samples = len(classes) * num_samples
+    num_cols = min(num_cols, len(classes))
 
     fig, ax = plt.subplots(
         nrows=num_samples,
-        ncols=10,
+        ncols=num_cols,
         constrained_layout=True,
-        figsize=(num_samples, 10)
+        figsize=(num_samples, num_cols)
     )
 
     # conditional VAE generation
