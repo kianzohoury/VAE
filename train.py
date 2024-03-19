@@ -133,7 +133,7 @@ def train(
         }
 
         # initialize model and optimizer
-        model = utils.init_model(**config)
+        model = utils.init_model(**config, device=device)
         optim = AdamW(model.parameters(), lr)
         print(f"Starting training for z-dim={num_latent}.")
 
