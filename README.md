@@ -141,7 +141,7 @@ the input x and latent variable z, with the vectorized label.
 * __Modification__: We train the encoder to compress [x, z] together. Like before,
 enc([x, z]) outputs a probability distribution given by mu and sigma. Using
 the reparameterization trick, we sample z ~ eps * sigma + mu, but this time, we
-feed the decoder [z, y], and the output x' = dec([z, y]).
+feed the decoder [z, y], and the resulting output becomes x' = dec([z, y]).
 
 By doing so, we can generate a new sample x' belonging to the class represented
 by y, like so:
