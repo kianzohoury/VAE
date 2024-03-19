@@ -96,10 +96,16 @@ split, a latent size of 20 was chosen.
 </p>
 
 ## Visualizing Image Reconstructions
+We visualize the generative capabilities of the VAE model (with latent size of 20). 
+Below, the images are reconstructed from unseen test data and compared with the
+original images.
+
 <p align="middle" float="left">
   <img src="output/VAE/comparison_1.jpg" width="100%" />
 </p>
-
+<p style="text-align: center;"> 
+  <i>Original MNIST images (top) and the reconstructed images (bottom) for the VAE.</i>
+</p>
 
 ## Choosing Optimal Latent Space Dimensionality
 
