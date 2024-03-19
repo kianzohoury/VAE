@@ -54,7 +54,7 @@ def plot_epoch_history(model_dir: str, split: str = "val") -> None:
         fig.savefig(model_dir + f"/plots/{split}_{ylabel}.jpg", dpi=300)
 
 
-def plot_mse_per_class(model_dir: str) -> None:
+def plot_mse_by_class(model_dir: str) -> None:
     """Plots MSE values for each digit and latent size as a scatter plot."""
     model_type = Path(model_dir).stem.split("_")[0]
 
