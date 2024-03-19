@@ -382,28 +382,30 @@ def plot_tsne(
     pca = PCA(n_components=50)
     tsne = TSNE(n_components=2)
 
-    X_hat, Y = [], []
+    Z, Y = [], []
     model.eval()
     for idx, (img, label) in enumerate(test_loader, 0):
         bsize = img.shape[0]
 
         if model_type == "ConditionalVAE":
             y = nn.functional.one_hot(label, 10)
-            gen_img = model(img.to(device), y.to(device))
+            mu, log_var = model.encode(img.to(device), y.to(device))
+            z = model.reparameterize(mu, log_var)
+        elif model_type == "VAE":
+            mu, log_var = model.encode(img.to(device), y.to(device))
+            z = model.reparameterize(mu, log_var)
         else:
-            gen_img = model(img.to(device))
-        if isinstance(gen_img, tuple):
-            gen_img = gen_img[0]
+            z = model.encode(img.to(device))
 
-        gen_img = gen_img.view(bsize, -1).detach().cpu()
-        X_hat.append(gen_img)
+        z = z.view(bsize, -1).detach().cpu()
+        Z.append(z)
         Y.append(label)
 
-    X_hat = np.concatenate(X_hat, 0)
+    Z = np.concatenate(Z, 0)
     Y = np.concatenate(Y, 0)
 
     # reduce dimensionality with PCA
-    features = pca.fit_transform(X_hat)
+    features = pca.fit_transform(Z)
 
     # reduce dimensionality again with t-SNE
     features = tsne.fit_transform(features)
@@ -413,9 +415,9 @@ def plot_tsne(
 
     # plot embeddings
     fig, ax = plt.subplots(1, 1)
-    for y, x in labeled_features.items():
-        x_stack = np.stack(x, 0)
-        ax.scatter(x_stack[:, 0], x_stack[:, 1], label=y)
+    for y, z in labeled_features.items():
+        z_stack = np.stack(z, 0)
+        ax.scatter(z_stack[:, 0], z_stack[:, 1], label=y)
     ax.set_xlabel("Dimension 1")
     ax.set_ylabel("Dimension 2")
     plt.legend(loc="upper right")
