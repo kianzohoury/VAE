@@ -119,6 +119,7 @@ def train(
     dataset: str = "mnist",
     validate: bool = True,
     latent_size: Union[int, Tuple] = 20,
+    kl_weight: float = 1.0,
     num_epochs: int = 50,
     lr: float = 1e-3,
     batch_size: int = 1024,
@@ -161,6 +162,10 @@ def train(
     # number of classes is the same for MNIST and CIFAR10
     if model_type == "ConditionalVAE":
         config["num_classes"] = 10
+
+    # set KL Divergence weight
+    if "VAE" in model_type:
+        config["kl_weight"] = kl_weight
 
     # keep track of metrics across all models
     train_losses = defaultdict(partial(defaultdict, list))

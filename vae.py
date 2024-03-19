@@ -60,9 +60,11 @@ class VAE(nn.Module):
         self,
         num_features: int = 28 * 28,
         num_hidden: int = 28 * 28,
-        num_latent: int = 100
+        num_latent: int = 100,
+        kl_weight: float = 1.0
     ):
         super(VAE, self).__init__()
+        self.kl_weight = kl_weight
         self.encoder = nn.Sequential(
             nn.Linear(num_features, num_hidden),
             nn.ReLU(),
@@ -120,7 +122,7 @@ class VAE(nn.Module):
         x_hat, mu, log_var = self.forward(x)
         recon_loss = nn.functional.mse_loss(x_hat, x, reduction="sum")
         kl_loss = kl_div_loss(mu, log_var)
-        loss = recon_loss + kl_loss
+        loss = recon_loss + self.kl_weight * kl_loss
         return {
             "loss": loss,
             "recon_loss": recon_loss,
@@ -135,10 +137,12 @@ class ConditionalVAE(nn.Module):
         num_classes: int,
         num_features: int = 28 * 28,
         num_hidden: int = 28 * 28,
-        num_latent: int = 100
+        num_latent: int = 100,
+        kl_weight: float = 1.0
     ):
         super(ConditionalVAE, self).__init__()
         self.num_classes = num_classes
+        self.kl_weight = kl_weight
         num_features += num_classes
         num_hidden += num_classes
 
@@ -209,7 +213,7 @@ class ConditionalVAE(nn.Module):
         x_hat, mu, log_var = self.forward(x, y)
         recon_loss = nn.functional.mse_loss(x_hat, x, reduction="sum")
         kl_loss = kl_div_loss(mu, log_var)
-        loss = recon_loss + kl_loss
+        loss = recon_loss + self.kl_weight * kl_loss
         return {
             "loss": loss,
             "recon_loss": recon_loss,
