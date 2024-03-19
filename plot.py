@@ -7,7 +7,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import torch
 import torch.nn as nn
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Subset
 
 from . import utils
 
@@ -168,12 +168,12 @@ def plot_reconstruction_grid(
     fig.savefig(f"{model_dir}/plots/reconstruction_grid.jpg")
 
 
-def plot_reconstructed_digits(
+def plot_comparison(
     checkpoint: str,
-    output_dir: str,
+    save_path: str = "./comparison.jpg",
     dataset: str = "mnist",
 ):
-    """Plots a grid comparing images with generated reconstructions."""
+    """Plots generated images against their original images in a grid."""
     datasets = utils.load_dataset(
         name=dataset,
         splits=("test"),
@@ -181,14 +181,11 @@ def plot_reconstructed_digits(
     )
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    # load model
     state_dict = torch.load(checkpoint, map_location=device)
     model_type = state_dict["config"].pop("model_type")
-
-    # initialize model
-    model = utils.init_model(model_type, **state_dict["config"]).to(
-        device)
-    num_latent = state_dict["config"]["num_latent"]
-    num_classes = 10
+    model = utils.init_model(model_type, **state_dict["config"]).to(device)
     model.load_state_dict(state_dict["model"])
     model.eval()
 
@@ -206,7 +203,7 @@ def plot_reconstructed_digits(
 
         # create dataloader
         test_loader = DataLoader(
-            dataset=torch.utils.data.Subset(datasets["test"], indices),
+            dataset=Subset(datasets["test"], indices),
             batch_size=1,
             shuffle=True,
             pin_memory=True
@@ -217,7 +214,7 @@ def plot_reconstructed_digits(
         ax[0][class_idx].axis("off")
 
         if model_type == "ConditionalVAE":
-            y = nn.functional.one_hot(label, num_classes)
+            y = nn.functional.one_hot(label, 10)
             gen_img = model(img.to(device), y.to(device))
         else:
             gen_img = model(img.to(device))
@@ -228,9 +225,7 @@ def plot_reconstructed_digits(
         ax[1][class_idx].axis("off")
 
     fig.suptitle(f"{'Digits' if dataset == 'mnist' else 'Class'}")
-    fig.savefig(
-        f"{output_dir}/{Path(checkpoint).stem}_reconstruction_grid.jpg"
-    )
+    fig.savefig(save_path, dpi=300)
 
 
 def plot_vae_decoding_grid(
