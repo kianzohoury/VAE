@@ -128,12 +128,12 @@ def train(
 
         config = {
             "model_type": model_type,
-            "latent_size": latent_size,
+            "latent_size": num_latent,
             "kl_weight": kl_weight  # only applies for ConditionalVAE
         }
 
         # initialize model and optimizer
-        model = utils.init_model(model_type=model_type, config=config)
+        model = utils.init_model(model_type=model_type, **config)
         optim = AdamW(model.parameters(), lr)
         print(f"Starting training for z-dim={num_latent}.")
 

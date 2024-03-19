@@ -17,13 +17,10 @@ def init_model(model_type: str, **kwargs) -> nn.Module:
     filtered_kwargs = {}
     model_constructor = getattr(vae, model_type)
     params = set(inspect.signature(model_constructor).parameters.keys())
-    print(params)
-    print(kwargs)
     # filter out irrelevant arguments
     for key, val in kwargs.items():
         if key in params:
             filtered_kwargs[key] = val
-    print(filtered_kwargs)
     model = model_constructor(filtered_kwargs)
     return model
 
