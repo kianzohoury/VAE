@@ -4,6 +4,10 @@ autoencoders (VAEs), and how they are used for image generation in practice. In 
 document, we will briefly describe VAEs, before walking through the implementation,
 training (& validation), testing, and visualization.
 
+<p align="middle" float="left">
+  <img src="https://en.wikipedia.org/wiki/Variational_autoencoder#/media/File:VAE_Basic.png" width="48%" />
+</p>
+
 ## Introduction
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
 generative models that aim to model an underlying distribution of real-world 
