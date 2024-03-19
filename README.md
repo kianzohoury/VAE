@@ -124,6 +124,13 @@ to produce, as it is only responsible for reconstructing an image from the sampl
 noise vector z. Because of this lack of information, z can lie somewhere in-between 
 distributions in the latent space, representing a "mixture" of more than one digit.
 
+<p align="middle" float="left">
+  <img src="output/ConditionalVAE/conditional_vae_decodings.jpg" width="100%" />
+</p>
+<p style="text-align: center;"> 
+  <i>Generated MNIST images using the decoder portion of the Conditional VAE.</i>
+</p>
+
 ### Guided Image Generation with ConditionalVAEs
 Up until this point, the MNIST labels were not incorporated into the training 
 process, and so the relationship between images and their labels were not encoded
