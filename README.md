@@ -121,13 +121,18 @@ to reconstruct an image from z:
 Here, we see that the images produced are pretty good, but some reconstructions 
 are not legible. This is due to the fact that the VAE does not know which digits 
 to produce, as it is only responsible for reconstructing an image from the sampled 
-noise vector z. Because of this lack of information, z can lie somewhere inbetween 
+noise vector z. Because of this lack of information, z can lie somewhere in-between 
 distributions in the latent space, representing a "mixture" of more than one digit.
 
 ### Guided Image Reconstructions with ConditionalVAEs
 Up until this point, the MNIST labels were not incorporated into the training 
 process, and so the relationship between images and their labels were not encoded
-into the latent space.
+into the latent space. Can we somehow encode the digit class into the latent space
+in order to generate a specific digit? The answer is yes! By slightly modifying
+the architecture of the VAE, we can allow the encoder and decoder to both 
+accept an additional vector. We simply one-hot encode the label and concatenate both
+the input x and latent variable z, with the vectorized label. This allows us to
+generate a new sample from a specific class. 
 
 ## Choosing Optimal Latent Space Dimensionality
 
