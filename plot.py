@@ -386,18 +386,19 @@ def plot_tsne(
     model.eval()
     for idx, (img, label) in enumerate(test_loader, 0):
         bsize = img.shape[0]
+        img = img.view(bsize, -1).to(device)
 
         if model_type == "ConditionalVAE":
             y = nn.functional.one_hot(label, 10)
-            mu, log_var = model.encode(img.to(device), y.to(device))
+            mu, log_var = model.encode(img, y.to(device))
             z = model.reparameterize(mu, log_var)
         elif model_type == "VAE":
-            mu, log_var = model.encode(img.to(device), y.to(device))
+            mu, log_var = model.encode(img, y.to(device))
             z = model.reparameterize(mu, log_var)
         else:
-            z = model.encode(img.to(device))
+            z = model.encode(img)
 
-        z = z.view(bsize, -1).detach().cpu()
+        z = z.detach().cpu()
         Z.append(z)
         Y.append(label)
 
