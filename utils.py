@@ -18,7 +18,7 @@ def init_model(model_type: str, **kwargs) -> nn.Module:
     model_constructor = getattr(vae, model_type)
     params = set(inspect.signature(model_constructor).parameters.keys())
     print(params)
-    print(**kwargs)
+    print(kwargs)
     # filter out irrelevant arguments
     for key, val in kwargs.items():
         if key in params:
