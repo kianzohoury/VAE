@@ -192,10 +192,12 @@ def plot_comparison(
     fig, ax = plt.subplots(
         nrows=2,
         ncols=10,
-        constrained_layout=True
+        constrained_layout=True,
+        figsize=(10, 2)
     )
     ax[0][0].set_ylabel("Original")
     ax[1][0].set_ylabel("Generated")
+
     for class_idx in range(10):
         indices = []
         for idx, sample in enumerate(datasets["test"]):
@@ -212,7 +214,7 @@ def plot_comparison(
 
         img, label = next(iter(test_loader))
         ax[0][class_idx].imshow(img[0].squeeze(0), cmap="gray")
-        ax[0][class_idx].axis("off")
+        # ax[0][class_idx].axis("off")
 
         if model_type == "ConditionalVAE":
             y = nn.functional.one_hot(label, 10)
@@ -223,7 +225,7 @@ def plot_comparison(
             gen_img = gen_img[0]
         gen_img = gen_img.detach().cpu()
         ax[1][class_idx].imshow(gen_img[0].squeeze(0), cmap="gray")
-        ax[1][class_idx].axis("off")
+        # ax[1][class_idx].axis("off")
 
     fig.suptitle(f"{'Digit' if dataset == 'mnist' else 'Class'}")
     fig.savefig(save_path, dpi=300)
