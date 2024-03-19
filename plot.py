@@ -192,8 +192,7 @@ def plot_comparison(
     fig, ax = plt.subplots(
         nrows=2,
         ncols=10,
-        constrained_layout=True,
-        figsize=(10, 2)
+        constrained_layout=True
     )
     ax[0][0].set_ylabel("Original")
     ax[1][0].set_ylabel("Generated")
@@ -226,7 +225,7 @@ def plot_comparison(
         ax[1][class_idx].imshow(gen_img[0].squeeze(0), cmap="gray")
         ax[1][class_idx].axis("off")
 
-    fig.suptitle(f"{'Digits' if dataset == 'mnist' else 'Class'}")
+    fig.suptitle(f"{'Digit' if dataset == 'mnist' else 'Class'}")
     fig.savefig(save_path, dpi=300)
 
 
