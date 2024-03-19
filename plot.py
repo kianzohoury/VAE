@@ -281,7 +281,7 @@ def plot_new_samples(
             y = nn.functional.one_hot(
                 torch.Tensor([class_idx] * num_samples).view(num_samples, 1).long(),
                 num_classes=10
-            )
+            ).to(device)
             gen_img = model.decode(torch.cat([z, y], dim=1)).view(
                 num_samples, *img_dim
             ).detach().cpu()
