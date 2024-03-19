@@ -267,7 +267,7 @@ def plot_comparison(
 
 def plot_new_samples(
     checkpoint: str,
-    img_dim: Tuple[int, ...] = (28, 28, 1),
+    img_dim: Tuple[int, ...] = (1, 28, 28),
     classes: Optional[Tuple[int]] = None,
     num_samples: int = 1,
     num_cols: int = 10,
@@ -317,15 +317,18 @@ def plot_new_samples(
             ).to(device)
             gen_img = model.decode(z, y).view(
                 num_samples, *img_dim
-            ).detach().cpu()
+            ).moveaxis(1, -1).detach().cpu()
 
             for j in range(num_samples):
-                ax[j][class_idx].imshow(gen_img[j], cmap="gray")
+                if img_dim == (32, 32, 3):
+                    ax[j][class_idx].imshow(gen_img[j], cmap=None)
+                else:
+                    ax[j][class_idx].imshow(gen_img[j], cmap="gray")
                 ax[j][class_idx].axis("off")
                 ax[j][class_idx].set_xticks([])
                 ax[j][class_idx].set_yticks([])
 
-            if img_dim == (3, 32, 32) == "cifar10":
+            if img_dim == (3, 32, 32):
                 ax[0][class_idx].set_title(CIFAR10_CLASSES[class_idx])
             else:
                 ax[0][class_idx].set_title(class_idx)
@@ -337,7 +340,7 @@ def plot_new_samples(
 
         gen_img = model.decode(z).view(
             num_samples, *img_dim
-        ).detach().cpu()
+        ).moveaxis(1, -1).detach().cpu()
 
         num_rows = num_samples // num_cols
         for i in range(num_rows):
