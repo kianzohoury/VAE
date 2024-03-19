@@ -124,7 +124,7 @@ to reconstruct an image, namely x' = dec(z):
   <i>Generated MNIST images using only the decoder portion of the VAE.</i>
 </p>
 
-Here, we see that the images produced are fairly decent, but some reconstructions 
+* __Digits are randomly generated__: here, we see that the images produced are fairly decent, but some reconstructions 
 are not identifiable. This is due to the fact that the VAE does not know which digits 
 to produce, as it is only responsible for reconstructing an image from the sampled 
 noise vector z. Because of this lack of information, z can lie somewhere in-between 
