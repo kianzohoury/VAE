@@ -224,7 +224,7 @@ def train(
         print("Saving model...")
         torch.save(
             {"model": model.cpu().state_dict(), "config": model_config},
-            f=f"{str(output_path)}_latent_{num_latent}.pth",
+            f=f"{str(output_path)}/{model_type}_latent_{num_latent}.pth",
         )
 
     # save epoch history
