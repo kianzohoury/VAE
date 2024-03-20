@@ -167,7 +167,8 @@ of the probabilistic nature of the VAE.
 The process for decoder-only generation is exactly the same as that in Method 1,
 except for the fact that instead of compressing x into its latent representation z,
 we generate a noise vector z ~ N(0, 1), which simulates sampling from the latent 
-space (under the assumption that it is roughly standard normal). 
+space (under the assumption that it is roughly standard normal). In fact, we
+don't even have an x to work with, so there is nothing to feed the encoder!
 
 How do we specify which digit we want to generate? While we can only do this
 with Conditional VAEs, we simply feed the one-hot label corresponding to the
