@@ -176,7 +176,7 @@ def plot_generated_digits(
     for digit in range(10):
 
         # conditional VAE generation
-        if model.__class__.__name__ == "VAE":
+        if model.__class__.__name__ == "ConditionalVAE":
             # sample z ~ N(0, 1)
             z = torch.randn((samples_per_digit, model.num_latent)).to(device)
             # create label vector
