@@ -64,7 +64,7 @@ def plot_mse_by_class(model_dir: str) -> None:
         class_results = pickle.load(f)
 
     loss_term = "loss" if model_type == "Autoencoder" else "recon_loss"
-    fig, ax = plt.subplots(1, 1, figsize=(7, 4))
+    fig, ax = plt.subplots(1, 1, figsize=(10, 7))
 
     # iterate over each digit
     for digit in range(10):
