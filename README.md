@@ -138,7 +138,7 @@ regularization imposed on VAE models.
 1. Concatenate image x with its one-hot encoded label y, i.e. [x,y], to its
 latent posterior distribution p_theta(z|mu, sigma). 
 2. Sample from the latent probability distribution using the reparameterization trick, 
-z = sigma * eps + mu.
+z = sigma * eps + mu, where eps ~ N(0, 1).
 2. Concatenate z again with y, i.e. [z,y], and reconstruct image x' by feeding 
 [z, y] into the decoder, i.e. x' = dec([z, y]).
 
