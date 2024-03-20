@@ -323,7 +323,9 @@ def plot_latent_space_kde_1d(
     mnist_root: str = "mnist",
     save_path: str = "./latent_space_kde_1d.jpg",
     batch_size: int = 1024,
-    num_workers: int = 4
+    num_workers: int = 4,
+    num_bins: int = 100,
+    bandwidth: float = 0.25
 ):
     """Plots a 1D histogram of the latent space along with a KDE."""
     model = utils.load_from_checkpoint(checkpoint)
@@ -344,14 +346,14 @@ def plot_latent_space_kde_1d(
     fig, ax = plt.subplots(1, 1)
     density, bins, _ = ax.hist(
         features,
-        bins=50,
+        bins=num_bins,
         label="True Distribution",
         density=True,
         alpha=0.25
     )
 
     # estimate PDF with KDE with a Gaussian kernel
-    kde = KernelDensity(bandwidth=0.25, kernel="gaussian").fit(features)
+    kde = KernelDensity(bandwidth=bandwidth, kernel="gaussian").fit(features)
 
     # plot KDE
     min_x, max_x = min(bins), max(bins)
