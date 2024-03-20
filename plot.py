@@ -64,7 +64,7 @@ def plot_mse_by_class(model_dir: str) -> None:
         class_results = pickle.load(f)
 
     loss_term = "loss" if model_type == "Autoencoder" else "recon_loss"
-    fig, ax = plt.subplots(1, 1, figsize=(10, 7))
+    fig, ax = plt.subplots(1, 1)
 
     # iterate over each digit
     for digit in range(10):
@@ -85,7 +85,9 @@ def plot_mse_by_class(model_dir: str) -> None:
         f"MSE across Digits and Latent Sizes for {model_type}"
     )
     # save figure
-    fig.savefig(model_dir + f"/plots/MSE_by_class.jpg", dpi=300)
+    fig.savefig(
+        model_dir + f"/plots/MSE_by_class.jpg", bbox_inches="tight", dpi=300
+    )
 
 
 def plot_reconstructed_digits(
