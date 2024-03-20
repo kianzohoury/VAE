@@ -103,7 +103,6 @@ def create_dataloaders(
             batch_size=batch_size,
             num_workers=num_workers,
             shuffle=True,
-            pin_memory=True,
-            drop_last=True
+            pin_memory=True
         )
     return dataloaders
