@@ -148,7 +148,7 @@ def plot_reconstructed_digits(
     model_type = model.__class__.__name__
     num_latent = model.num_latent
     fig.suptitle(
-        f"Reconstructed Digits for {model_type} with Latent Size {num_latent}."
+        f"Reconstructed Digits for {model_type} with Latent Size {num_latent}"
     )
     fig.savefig(save_path, dpi=300)
 
