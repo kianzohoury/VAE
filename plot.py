@@ -127,10 +127,10 @@ def plot_reconstructed_digits(
         ax[0][digit].set_yticks([])
         ax[0][digit].set_title(digit)
 
-        if model.__name__ == "ConditionalVAE":
+        if model.__class__.__name__ == "ConditionalVAE":
             y = nn.functional.one_hot(label, 10)
             gen_img = model(img.to(device), y.to(device))[0]
-        elif model.__name__ == "VAE":
+        elif model.__class__.__name__ == "VAE":
             gen_img = model(img.to(device))[0]
         else:
             gen_img = model(img.to(device))
@@ -169,7 +169,7 @@ def plot_generated_digits(
     for digit in range(10):
 
         # conditional VAE generation
-        if model.__name__ == "VAE":
+        if model.__class__.__name__ == "VAE":
             # sample z ~ N(0, 1)
             z = torch.randn((samples_per_digit, model.num_latent)).to(device)
             # create label vector
@@ -240,11 +240,11 @@ def plot_tsne_embeddings(
         img = img.view(batch_size, -1).to(device)
 
         # extract latent representation
-        if model.__name__ == "ConditionalVAE":
+        if model.__class__.__name__ == "ConditionalVAE":
             y = nn.functional.one_hot(label, 10).long().to(device)
             mu, log_var = model.encode(img, y)
             z = model.reparameterize(mu, log_var)
-        elif model.__name__ == "VAE":
+        elif model.__class__.__name__ == "VAE":
             mu, log_var = model.encode(img)
             z = model.reparameterize(mu, log_var)
         else:
@@ -279,5 +279,5 @@ def plot_tsne_embeddings(
     plt.legend(loc="upper right")
 
     # save figure
-    plt.title(f"t-SNE Embeddings in 2D for {model.__name__}")
+    plt.title(f"t-SNE Embeddings in 2D for {model.__class__.__name__}")
     fig.savefig(save_path, dpi=300)
