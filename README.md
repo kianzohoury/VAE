@@ -132,7 +132,8 @@ regularization imposed on VAE models.
 2. Reconstruct image x' by feeding z into the decoder, i.e. x' = dec(z).
 ### Process for VAEs
 1. Map image x to its latent posterior distribution p_theta(z|mu, sigma). 
-2. Sample from the latent probability distribution using the reparameterization trick, z = sigma * eps + mu.
+2. Sample from the latent probability distribution using the reparameterization 
+trick, z = sigma * eps + mu, where eps ~ N(0, 1).
 2. Reconstruct image x' by feeding z into the decoder, i.e. x' = dec(z).
 ### Process for Conditional VAEs
 1. Concatenate image x with its one-hot encoded label y, i.e. [x,y], to its
