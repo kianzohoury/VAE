@@ -103,6 +103,8 @@ def plot_reconstructed_digits(
 
     # load model
     model = utils.load_from_checkpoint(checkpoint, device=device)
+    model_type = model.__class__.__name__
+    num_latent = model.num_latent
     model.eval()
 
     fig, ax = plt.subplots(
@@ -145,8 +147,6 @@ def plot_reconstructed_digits(
         ax[1][digit].set_yticks([])
 
     # save figure
-    model_type = model.__class__.__name__
-    num_latent = model.num_latent
     fig.suptitle(
         f"Reconstructed Digits for {model_type} with Latent Size {num_latent}"
     )
@@ -163,6 +163,8 @@ def plot_generated_digits(
 
     # load model
     model = utils.load_from_checkpoint(checkpoint, device=device)
+    model_type = model.__class__.__name__
+    num_latent = model.num_latent
     model.eval()
 
     # number of samples to generate
@@ -214,8 +216,6 @@ def plot_generated_digits(
                 ax[j][digit].axis("off")
 
     # save figure
-    model_type = model.__class__.__name__
-    num_latent = model.num_latent
     fig.suptitle(
         f"Generated Digits for {model_type} with Latent Size {num_latent}"
     )
@@ -240,6 +240,7 @@ def plot_tsne_embeddings(
 
     # load model
     model = utils.load_from_checkpoint(checkpoint, device=device)
+    num_latent = model.num_latent
     model.eval()
 
     # initialize PCA and t-SNE
@@ -291,5 +292,8 @@ def plot_tsne_embeddings(
     plt.legend(loc="upper right")
 
     # save figure
-    plt.title(f"t-SNE Embeddings in 2D for {model.__class__.__name__}")
+    plt.title(
+        f"t-SNE Embeddings in 2D for {model.__class__.__name__} "
+        f"with Latent Size {num_latent}"
+    )
     fig.savefig(save_path, dpi=300)
