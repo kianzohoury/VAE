@@ -174,53 +174,33 @@ How do we specify which digit we want to generate? While we can only do this
 with Conditional VAEs, we simply feed the one-hot label corresponding to the
 digit of our choice, along with the noise vector to the decoder.
 
-#### Visualizing Reconstructions
+#### Visualizing Generated Digits
+Below, we generate new MNIST-like handwritten digits from random noise vectors:
 <p align="middle" float="left">
-  <img src="output/Autoencoder/plots/generated_digits.jpg" width="100%" />
-  <img src="output/VAE/plots/generated_digits.jpg" width="100%" />
-  <img src="output/ConditionalVAE/plots/generated_digits.jpg" width="100%" />
-</p>
-
-
-What happens when we want to generate a new MNIST-like image? Well, we actually
-don't need the encoder, and can feed a sample z ~ N(0, 1) to the decoder directly
-to reconstruct an image, namely x' = dec(z):
-<p align="middle" float="left">
-  <img src="output/VAE/vae_decodings.jpg" width="100%" />
+  <img src="output/Autoencoder/plots/generated_digits.jpg" width="90%" />
+  <img src="output/VAE/plots/generated_digits.jpg" width="90%" />
+  <img src="output/ConditionalVAE/plots/generated_digits.jpg" width="90%" />
 </p>
 <p style="text-align: center;"> 
-  <i>Generated MNIST images using only the decoder portion of the VAE.</i>
+  <i>Generated digits from random noise vectors for the autoencoder (top),
+  VAE (middle), and Conditional VAE (bottom).
+  </i>
 </p>
 
-* __Digits are randomly generated__: here, we see that the images produced are fairly decent, but some reconstructions 
-are not identifiable. This is due to the fact that the VAE does not know which digits 
-to produce, as it is only responsible for reconstructing an image from the sampled 
-noise vector z. Because of this lack of information, z can lie somewhere in-between 
-distributions in the latent space, representing a "mixture" of more than one digit.
+* __Unregularized Latent Space__: Unsurprisingly, we see that the vanilla autoencoder suffers to
+generate anything resembling handwritten digits from the training set. This is
+undeniably due to the lack of latent space regularization, hence why VAEs are more powerful. 
+Because autoencoders deterministically maps a data point x to its latent representation z,
+it will fail to generalize for an unseen z.
 
-### Guided Image Generation with ConditionalVAEs
-Up until this point, the MNIST labels were not incorporated into the training 
-process, and so the relationship between images and their labels could not be encoded
-into the latent space. Can we somehow encode digit classes into the latent space,
-such that specific digits can be generated on command? The answer is yes! By slightly modifying
-the architecture of the VAE, we can allow the encoder and decoder to both 
-accept an additional vector y. We simply one-hot encode the label and concatenate both
-the input x and latent variable z, with the vectorized label. 
-* __Modification__: We train the encoder to compress [x, z] together. Like before,
-enc([x, z]) outputs a probability distribution given by mu and sigma. Using
-the reparameterization trick (z = eps * sigma + mu), we circumvent having to 
-sample z ~ N(mu, sigma), by randomly sampling eps ~ N(0, 1). Next, we feed the 
-decoder [z, y], giving resulting output x' = dec([z, y]). 
+* Both the VAE and Conditional VAE produce recognizable digits. However, unlike
+the Conditional VAE, which can generate specific digits on command, the 
+unconditional VAE generates digits randomly, since it s only responsible 
+for reconstructing x' from the sampled noise vector z, which encodes no
+information about the digit class. Additionally, we see that the unconditional
+VAE produces digits that are more ambiguous, while the Conditional VAE has seemingly
+learned to "disentangle" the digit classes.
 
-By doing so, we can generate a new sample x' belonging to the class represented
-by y, like so:
-
-<p align="middle" float="left">
-  <img src="output/ConditionalVAE/conditional_vae_decodings.jpg" width="100%" />
-</p>
-<p style="text-align: center;"> 
-  <i>Generated MNIST images using the decoder portion of the Conditional VAE.</i>
-</p>
 
 ### Visualizing the Latent Space
 
