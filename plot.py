@@ -46,7 +46,7 @@ def plot_epoch_history(model_dir: str, split: str = "val") -> None:
         ax.legend(loc="upper right")
 
         split_ = "Validation" if split == "val" else "Training"
-        title = f"{split_} {ylabel} Loss Across Latent Sizes for {model_type}"
+        title = f"{split_} {ylabel} Loss across Latent Sizes for {model_type}"
         # set title
         ax.set_title(title)
 
@@ -80,12 +80,12 @@ def plot_mse_by_class(model_dir: str) -> None:
     # set x, y labels, legend and title
     ax.set_xlabel("Latent dimension")
     ax.set_ylabel("MSE")
-    ax.legend(loc="upper center", ncol=2)
+    ax.legend(bbox_to_anchor=(1.04, 1), borderaxespad=0)
     ax.set_title(
-        f"MSE for each Digit and Latent Size for {model_type}"
+        f"MSE across Digits and Latent Sizes for {model_type}"
     )
     # save figure
-    fig.savefig(model_dir + f"/plots/class_results_MSE.jpg", dpi=300)
+    fig.savefig(model_dir + f"/plots/MSE_by_class.jpg", dpi=300)
 
 
 def plot_reconstructed_digits(
