@@ -56,12 +56,12 @@ def test_by_class(
 
     for class_idx in range(10):
         digit_subset = utils.filter_by_digit(dataset["test"], digit=class_idx)
-        print(len(digit_subset))
         test_loader = utils.create_dataloaders(
             dataset_splits={"test": digit_subset},
             batch_size=batch_size,
             num_workers=num_workers
         )
+        print("L", len(test_loader))
 
         print(f"Starting testing for class {class_idx}...")
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
@@ -70,6 +70,7 @@ def test_by_class(
 
             # test
             test_loss = test(model, test_loader["test"])
+            print("T", test_loss.keys())
             for loss_term, loss_val in test_loss.items():
                 test_losses[class_idx][loss_term][num_latent].append(loss_val)
                 print(
