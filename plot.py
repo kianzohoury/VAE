@@ -213,7 +213,12 @@ def plot_generated_digits(
                 ax[j][digit].imshow(gen_img[j], cmap="gray")
                 ax[j][digit].axis("off")
 
-    fig.suptitle("Generated Digits")
+    # save figure
+    model_type = model.__class__.__name__
+    num_latent = model.num_latent
+    fig.suptitle(
+        f"Generated Digits for {model_type} with Latent Size {num_latent}"
+    )
     fig.savefig(save_path, dpi=300)
 
 
