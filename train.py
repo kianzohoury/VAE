@@ -54,8 +54,8 @@ def test_by_class(
     dataset = utils.load_dataset_splits(root=mnist_root, splits=["test"])
     test_losses = defaultdict(partial(defaultdict, partial(defaultdict, list)))
 
-    for class_idx in range(10):
-        digit_subset = utils.filter_by_digit(dataset["test"], digit=class_idx)
+    for digit in range(10):
+        digit_subset = utils.filter_by_digit(dataset["test"], digit=digit)
         test_loader = utils.create_dataloaders(
             dataset_splits={"test": digit_subset},
             batch_size=batch_size,
@@ -63,7 +63,7 @@ def test_by_class(
         )
         print("L", len(test_loader))
 
-        print(f"Starting testing for class {class_idx}...")
+        print(f"Starting testing for class {digit}...")
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
             model = utils.load_from_checkpoint(checkpoint, device=device)
             num_latent = model.num_latent
@@ -72,7 +72,7 @@ def test_by_class(
             test_loss = test(model, test_loader["test"])
             print("T", test_loss.keys())
             for loss_term, loss_val in test_loss.items():
-                test_losses[class_idx][loss_term][num_latent].append(loss_val)
+                test_losses[digit][loss_term][num_latent].append(loss_val)
                 print(
                     f"{model.__class__.__name__} (z-dim={num_latent}), "
                     f"{loss_term}: {round(loss_val, 3)}"
