@@ -61,35 +61,42 @@ carried using AdamW [], with a learning rate of 1e-3 and default weight decay pa
 Training and validation losses were recorded for each epoch.
 
 <p align="middle" float="left">
-  <img src="output/Autoencoder/train_MSE.jpg" width="48%" />
-  <img src="output/Autoencoder/val_MSE.jpg" width="48%" />
+  <img src="output/Autoencoder/plots/train_MSE.jpg" width="48%" />
+  <img src="output/Autoencoder/plots/val_MSE.jpg" width="48%" />
 </p>
 <p style="text-align: center;"> 
-  <i>Training (left) and validation (right) losses recorded for the vanilla autoencoder.</i>
+  <i>MSE over 100 epochs for training (left) and validation (right) for the <b>vanilla autoencoder</b>.</i>
 </p>
 <p align="middle" float="left">
-  <img src="output/VAE/train_MSE.jpg" width="48%" />
-  <img src="output/VAE/val_MSE.jpg" width="48%" />
+  <img src="output/VAE/plots/train_MSE.jpg" width="48%" />
+  <img src="output/VAE/plots/val_MSE.jpg" width="48%" />
 </p>
 <p style="text-align: center;"> 
-  <i>Training (left) and validation (right) losses recorded for the VAE.</i>
+  <i>MSE over 100 epochs for training (left) and validation (right) for the <b>VAE</b>.</i>
+</p>
+<p align="middle" float="left">
+  <img src="output/ConditionalVAE/plots/train_MSE.jpg" width="48%" />
+  <img src="output/ConditionalVAE/plots/val_MSE.jpg" width="48%" />
+</p>
+<p style="text-align: center;"> 
+  <i>MSE over 100 epochs for training (left) and validation (right) for the <b>Conditional VAE</b>.</i>
 </p>
 
-### Effect of Latent Space Dimensionality on Digit Reconstruction
+### Reconstruction Error by Digit
+
 <p align="middle" float="left">
-  <img src="output/Autoencoder/class_results_MSE.jpg" width="70%" />
+  <img src="output/ConditionalVAE/plots/MSE_by_class.jpg" width="65%" />
 </p>
-<p style="text-align: center;"> 
-  <i>Image reconstruction errors for each digit across different latent dimensions 
-    for the Autoencoder.</i>
-</p>
+
 <p align="middle" float="left">
-  <img src="output/VAE/class_results_MSE.jpg" width="70%" />
+  <img src="output/VAE/plots/MSE_by_class.jpg" width="48%" />
+  <img src="output/Autoencoder/plots/MSE_by_class.jpg" width="43.6%" />
 </p>
-<p style="text-align: center;"> 
-  <i>Image reconstruction errors for each digit across different latent dimensions 
-    for the VAE.</i>
-</p>
+
+* __Some digits are harder.__ Another important observation is that some digits are harder to reconstruction
+than others. We see that digits 1 and 7 are easiest to reconstruct, since they
+are both composed of straight lines, and digits 2 and 8 are hardest, as they
+are more complex (loops and curves).
 
 * Increasing the dimensionality of the latent space expectedly decreases image
 reconstruction error across all digits for the vanilla autoencoder. In general,
@@ -104,31 +111,33 @@ is overfitting to the training data because of the increased capacity. Regardles
 it seems that most of the semantic information of MNIST digits can be compressed 
 in a relatively small latent space.
 
-* __Some digits are harder.__ Another important observation is that some digits are harder to reconstruction
-than others. We see that digits 1 and 7 are easiest to reconstruct, since they
-are both composed of straight lines, and digits 2 and 8 are hardest, as they
-are more complex (loops and curves).
-
 ### Model Selection: Choosing Optimal Latent Space Dimensionality 
 Based on the reconstruction errors of the VAE model on the validation
 split, a latent size of 20 was chosen. 
-<p align="middle" float="left">
-  <img src="output/VAE/train_val_latent_20_MSE.jpg" width="45%" />
-</p>
+
 
 # Visualizations
+
 ### Image Reconstruction
 We can visualize the generative capabilities of the VAE model (selected with a 
 latent size of 20). Below, the images x' are reconstructed using both the encoder and
 decoder, namely, x' = dec(enc(x)), from unseen test data x:
 
 <p align="middle" float="left">
-  <img src="output/VAE/comparison_1.jpg" width="100%" />
+  <img src="output/ConditionalVAE/plots/reconstructed_digits.jpg" width="100%" />
 </p>
 <p style="text-align: center;"> 
   <i>Original MNIST images (top) and the reconstructed images (bottom) using
     both the encoder and decoder portions of the VAE.
   </i>
+</p>
+
+<p align="middle" float="left">
+  <img src="output/VAE/plots/reconstructed_digits.jpg" width="100%" />
+</p>
+
+<p align="middle" float="left">
+  <img src="output/Autoencoder/plots/reconstructed_digits.jpg" width="100%" />
 </p>
 
 * __Fuzziness__: we see that the digits appear "fuzzy," which is expected because
