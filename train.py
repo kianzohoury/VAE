@@ -44,7 +44,7 @@ def test(model: nn.Module, test_loader: DataLoader) -> Dict[str, torch.Tensor]:
 def test_by_class(
     model_dir: str,
     mnist_root: str = "./mnist",
-    batch_size: int = 1024,
+    batch_size: int = 512,
     num_workers: int = 4
 ) -> None:
     """Tests models separately for each class (i.e. digits in MNIST)."""
@@ -61,7 +61,6 @@ def test_by_class(
             batch_size=batch_size,
             num_workers=num_workers
         )
-        print("L", len(test_loader))
 
         print(f"Starting testing for class {digit}...")
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
@@ -70,7 +69,6 @@ def test_by_class(
 
             # test
             test_loss = test(model, test_loader["test"])
-            print("T", test_loss.keys())
             for loss_term, loss_val in test_loss.items():
                 test_losses[digit][loss_term][num_latent].append(loss_val)
                 print(

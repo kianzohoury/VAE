@@ -41,7 +41,6 @@ def filter_by_digit(dataset: Dataset, digit: int) -> Subset:
     for idx, sample in enumerate(dataset):
         if sample[-1] == digit:
             indices.append(idx)
-    print(len(indices))
     return Subset(dataset, indices)
 
 
