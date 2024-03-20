@@ -340,7 +340,9 @@ def plot_latent_space_kde_1d(
     )
 
     # collapse grouped features into one array
-    features = np.concatenate(list(grouped_features.values()), axis=0)
+    features = np.concatenate(
+        list(grouped_features.values()), axis=0
+    ).reshape(-1, 1)
 
     # plot histogram
     fig, ax = plt.subplots(1, 1)
