@@ -235,7 +235,7 @@ def plot_tsne_embeddings(
     # load dataset
     dataset = utils.load_dataset_splits(root=mnist_root, splits=["test"])
     test_loader = utils.create_dataloaders(
-        dataset["test"], batch_size=batch_size, num_workers=num_workers
+        dataset, batch_size=batch_size, num_workers=num_workers
     )
 
     # load model
