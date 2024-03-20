@@ -125,7 +125,7 @@ def plot_reconstructed_digits(
         img, label = next(iter(test_loader["test"]))
 
         # plot original image
-        ax[0][digit].imshow(img[0], cmap="gray")
+        ax[0][digit].imshow(img[0].squeeze(0), cmap="gray")
         ax[0][digit].set_xticks([])
         ax[0][digit].set_yticks([])
         ax[0][digit].set_title(digit)
@@ -139,8 +139,8 @@ def plot_reconstructed_digits(
             gen_img = model(img.to(device))
 
         # plot reconstructed image
-        gen_img = gen_img.detach().cpu()[0]
-        ax[1][digit].imshow(gen_img, cmap="gray")
+        gen_img = gen_img.detach().cpu()
+        ax[1][digit].imshow(gen_img[0].squeeze(0), cmap="gray")
         ax[1][digit].set_xticks([])
         ax[1][digit].set_yticks([])
 
