@@ -318,7 +318,7 @@ def plot_latent_space_scatter_2d(
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
 
 
-def plot_latent_space_1d(
+def plot_latent_space_kde_1d(
     checkpoint: str,
     mnist_root: str = "mnist",
     save_path: str = "./latent_space_kde_1d.jpg",
