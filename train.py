@@ -66,6 +66,7 @@ def test_by_class(
         for checkpoint in list(Path(model_dir).rglob("*.pth")):
             model = utils.load_from_checkpoint(checkpoint, device=device)
             num_latent = model.num_latent
+            print(num_latent)
 
             # test
             test_loss = test(model, test_loader["test"])
