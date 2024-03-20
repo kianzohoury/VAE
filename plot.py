@@ -289,11 +289,11 @@ def plot_tsne_embeddings(
 
     ax.set_xlabel("Dimension 1")
     ax.set_ylabel("Dimension 2")
-    plt.legend(loc="upper right")
+    ax.legend(bbox_to_anchor=(1.04, 1), borderaxespad=0)
 
     # save figure
     plt.title(
         f"t-SNE Embeddings in 2D for {model.__class__.__name__} "
         f"with Latent Size {num_latent}"
     )
-    fig.savefig(save_path, dpi=300)
+    fig.savefig(save_path, bbox_inches="tight", dpi=300)
