@@ -176,9 +176,9 @@ digit of our choice, along with the noise vector to the decoder.
 
 #### Visualizing Reconstructions
 <p align="middle" float="left">
-  <img src="output/Autoencoder/plots/generated_digits.jpg" width="50%" />
-  <img src="output/VAE/plots/generated_digits.jpg" width="50%" />
-  <img src="output/ConditionalVAE/plots/generated_digits.jpg" width="50%" />
+  <img src="output/Autoencoder/plots/generated_digits.jpg" width="90%" />
+  <img src="output/VAE/plots/generated_digits.jpg" width="90%" />
+  <img src="output/ConditionalVAE/plots/generated_digits.jpg" width="90%" />
 </p>
 
 
