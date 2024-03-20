@@ -116,7 +116,7 @@ Based on the reconstruction errors of the VAE model on the validation
 split, a latent size of 20 was chosen. 
 
 
-# Generating Handwritten Digits
+## Generating Handwritten Digits
 There are two ways to generate digits. The first method uses both the encoder and
 decoder to reconstruct an image. Although for this task this may seem trivial, 
 many unsupervised anomaly detection methods essentially rely on the technique of comparing
@@ -126,27 +126,28 @@ allows us to generate new digits "from scratch." We will see the limitations of
 vanilla autoencoders for decoder-only generation, and the benefit of latent space
 regularization imposed on VAE models.
 
-## Method 1: Encoder-Decoder Generation
-### Process for Autoencoders
+### Method 1: Encoder-Decoder Generation
+#### Process for Autoencoders
 1. Compress image x into its latent representation z, i.e. z = enc(x).
 2. Reconstruct image x' by feeding z into the decoder, i.e. x' = dec(z).
-### Process for VAEs
+
+#### Process for VAEs
 1. Map image x to its latent posterior distribution p_theta(z|mu, sigma). 
 2. Sample from the latent probability distribution using the reparameterization 
 trick, z = sigma * eps + mu, where eps ~ N(0, 1).
-2. Reconstruct image x' by feeding z into the decoder, i.e. x' = dec(z).
-### Process for Conditional VAEs
+3. Reconstruct image x' by feeding z into the decoder, i.e. x' = dec(z).
+
+#### Process for Conditional VAEs
 1. Concatenate image x with its one-hot encoded label y, i.e. concat([x,y]), to its
 latent posterior distribution p_theta(z|mu, sigma). 
 2. Sample from the latent probability distribution using the reparameterization trick, 
 z = sigma * eps + mu, where eps ~ N(0, 1).
-2. Concatenate z again with y, i.e. concat([z,y]), and reconstruct image x' by feeding 
+3. Concatenate z again with y, i.e. concat([z,y]), and reconstruct image x' by feeding 
 it into the decoder, i.e. x' = dec(concat([z, y])).
 
-### Visualizing Image Reconstruction
+#### Visualizing Reconstructions
 Below, we randomly sample 10 unseen images from the MNIST test split, and visualize
-the encoder-decoder reconstructions for each model. 
-
+the encoder-decoder reconstructions for each model:
 <p align="middle" float="left">
   <img src="output/Autoencoder/plots/reconstructed_digits.jpg" width="100%" />
   <img src="output/VAE/plots/reconstructed_digits.jpg" width="100%" />
@@ -160,8 +161,26 @@ the encoder-decoder reconstructions for each model.
 
 * __Fuzziness__: we see that the digits appear "fuzzy," which is expected because
 of the probabilistic nature of the VAE.
+### Method 2: Decoder-Only Generation
 
-### Decoder-Only Image Reconstruction (Generation)
+#### Process
+The process for decoder-only generation is exactly the same as that in Method 1,
+except for the fact that instead of compressing x into its latent representation z,
+we generate a noise vector z ~ N(0, 1), which simulates sampling from the latent 
+space (under the assumption that it is roughly standard normal). 
+
+How do we specify which digit we want to generate? While we can only do this
+with Conditional VAEs, we simply feed the one-hot label corresponding to the
+digit of our choice, along with the noise vector to the decoder.
+
+#### Visualizing Reconstructions
+<p align="middle" float="left">
+  <img src="output/Autoencoder/plots/generated_digits.jpg" width="50%" />
+  <img src="output/VAE/plots/generated_digits.jpg" width="50%" />
+  <img src="output/ConditionalVAE/plots/generated_digits.jpg" width="50%" />
+</p>
+
+
 What happens when we want to generate a new MNIST-like image? Well, we actually
 don't need the encoder, and can feed a sample z ~ N(0, 1) to the decoder directly
 to reconstruct an image, namely x' = dec(z):
