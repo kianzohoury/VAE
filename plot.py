@@ -60,7 +60,7 @@ def plot_mse_by_class(model_dir: str) -> None:
     model_type = Path(model_dir).stem.split("_")[0]
 
     # loads test results for each digit class
-    with open(model_dir + "/class_results_val.pkl", mode="rb") as f:
+    with open(model_dir + "/class_results_test.pkl", mode="rb") as f:
         class_results = pickle.load(f)
 
     loss_term = "loss" if model_type == "Autoencoder" else "recon_loss"
