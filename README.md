@@ -202,26 +202,23 @@ VAE produces digits that are more ambiguous, while the Conditional VAE has seemi
 learned to "disentangle" the digit classes.
 
 
-### Visualizing the Latent Space
+### Visualizing Latent Spaces
 
 <p align="middle" float="left">
-  <img src="output/Autoencoder/tsne_autoencoder.jpg" width="70%" />
+  <img src="output/Autoencoder/plots/tsne_latent_space.jpg" width="70%" />
 </p>
-<p style="text-align: center;"> 
-  <i>Clusters of digit classes using t-SNE (dimension=2) for the Autoencoder.</i>
+<p align="middle" float="left">
+  <img src="output/VAE/plots/tsne_latent_space.jpg" width="70%" />
+</p>
+<p align="middle" float="left">
+  <img src="output/ConditionalVAE/plots/tsne_latent_space.jpg" width="70%" />
 </p>
 
-<p align="middle" float="left">
-  <img src="output/VAE/tsne_vae.jpg" width="70%" />
-</p>
 <p style="text-align: center;"> 
-  <i>Clusters of digit classes using t-SNE (dimension=2) for the VAE.</i>
-</p>
-<p align="middle" float="left">
-  <img src="output/ConditionalVAE/tsne_conditional_vae.jpg" width="70%" />
-</p>
-<p style="text-align: center;"> 
-  <i>Clusters of digit classes using t-SNE (dimension=2) for the ConditionalVAE.</i>
+  <i>2D embeddings of latent representations generated using PCA and t-SNE for
+    dimensionality reduction, for the Autoencoder (top), VAE (middle), and 
+    Conditional VAE (bottom).
+  </i>
 </p>
 
 ## Bonus: CIFAR-10
