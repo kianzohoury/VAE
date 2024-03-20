@@ -250,6 +250,7 @@ def plot_tsne_embeddings(
     Z, Y = [], []
     model.eval()
     for _, (img, label) in enumerate(test_loader["test"], 0):
+        print(img.shape)
         img = img.view(batch_size, -1).to(device)
 
         # extract latent representation
