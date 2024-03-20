@@ -116,28 +116,45 @@ Based on the reconstruction errors of the VAE model on the validation
 split, a latent size of 20 was chosen. 
 
 
-# Visualizations
+# Generating Handwritten Digits
+There are two ways to generate digits. The first method uses both the encoder and
+decoder to reconstruct an image. Although for this task this may seem trivial, 
+many unsupervised anomaly detection methods essentially rely on the technique of comparing
+an image x from its reconstruction x', whereby large reconstruction errors 
+suggest potentially anomalous data. The second method, which only uses the decoder,
+allows us to generate new digits "from scratch." We will see the limitations of 
+vanilla autoencoders for decoder-only generation, and the benefit of latent space
+regularization imposed on VAE models.
 
-### Image Reconstruction
-We can visualize the generative capabilities of the VAE model (selected with a 
-latent size of 20). Below, the images x' are reconstructed using both the encoder and
-decoder, namely, x' = dec(enc(x)), from unseen test data x:
+## Method 1: Encoder-Decoder Generation
+### Process for Autoencoders
+1. Compress image x into its latent representation z, i.e. z = enc(x).
+2. Reconstruct image x' by feeding z into the decoder, i.e. x' = dec(z).
+### Process for VAEs
+1. Map image x to its latent posterior distribution p_theta(z|mu, sigma). 
+2. Sample from the latent probability distribution using the reparameterization trick, z = sigma * eps + mu.
+2. Reconstruct image x' by feeding z into the decoder, i.e. x' = dec(z).
+### Process for Conditional VAEs
+1. Concatenate image x with its one-hot encoded label y, i.e. [x,y], to its
+latent posterior distribution p_theta(z|mu, sigma). 
+2. Sample from the latent probability distribution using the reparameterization trick, 
+z = sigma * eps + mu.
+2. Concatenate z again with y, i.e. [z,y], and reconstruct image x' by feeding 
+[z, y] into the decoder, i.e. x' = dec([z, y]).
 
-<p align="middle" float="left">
-  <img src="output/ConditionalVAE/plots/reconstructed_digits.jpg" width="100%" />
-</p>
-<p style="text-align: center;"> 
-  <i>Original MNIST images (top) and the reconstructed images (bottom) using
-    both the encoder and decoder portions of the VAE.
-  </i>
-</p>
-
-<p align="middle" float="left">
-  <img src="output/VAE/plots/reconstructed_digits.jpg" width="100%" />
-</p>
+### Visualizing Image Reconstruction
+Below, we randomly sample 10 unseen images from the MNIST test split, and visualize
+the encoder-decoder reconstructions for each model. 
 
 <p align="middle" float="left">
   <img src="output/Autoencoder/plots/reconstructed_digits.jpg" width="100%" />
+  <img src="output/VAE/plots/reconstructed_digits.jpg" width="100%" />
+  <img src="output/ConditionalVAE/plots/reconstructed_digits.jpg" width="100%" />
+</p>
+<p style="text-align: center;"> 
+  <i>Original handwritten digits and their reconstructions for the vanilla autoencoder (top),
+  VAE (middle), and Conditional VAE (bottom).
+  </i>
 </p>
 
 * __Fuzziness__: we see that the digits appear "fuzzy," which is expected because
