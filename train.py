@@ -56,6 +56,7 @@ def test_by_class(
 
     for class_idx in range(10):
         digit_subset = utils.filter_by_digit(dataset["test"], digit=class_idx)
+        print(len(digit_subset))
         test_loader = utils.create_dataloaders(
             dataset_splits={"test": digit_subset},
             batch_size=batch_size,
