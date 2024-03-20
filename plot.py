@@ -45,10 +45,11 @@ def plot_epoch_history(model_dir: str, split: str = "val") -> None:
         ax.set_ylabel(ylabel)
         ax.legend(loc="upper right")
 
+        split_ = "Validation" if split == "val" else "Training"
+        title = f"{split_} {ylabel} Loss Across Latent Sizes for {model_type}"
         # set title
-        ax.set_title(
-            f"Epoch {split[:1].upper() + split[1:]} History for {model_type}"
-        )
+        ax.set_title(title)
+
         Path(model_dir + "/plots").mkdir(parents=True, exist_ok=True)
         # save figure
         fig.savefig(model_dir + f"/plots/{split}_{ylabel}.jpg", dpi=300)
