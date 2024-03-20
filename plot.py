@@ -312,7 +312,7 @@ def plot_latent_space_scatter_2d(
 
     # save figure
     plt.title(
-        f"{num_latent}-D Latent Space reduced to 2D with PCA for "
+        f"{num_latent}-d Latent Space reduced to 1-d with PCA for "
         f"{model.__class__.__name__}"
     )
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
@@ -367,7 +367,7 @@ def plot_latent_space_kde_1d(
 
     # save figure
     plt.title(
-        f"Kernel Density Estimate of {num_latent}-D Latent Space reduced to "
-        f"1D with PCA for {model.__class__.__name__}"
+        f"KDE of {num_latent}-d Latent Space reduced to "
+        f"1-d with PCA for {model.__class__.__name__}"
     )
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
