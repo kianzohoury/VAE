@@ -23,6 +23,7 @@ def test(model: nn.Module, test_loader: DataLoader) -> Dict[str, torch.Tensor]:
     """Runs testing (or validation) and returns the loss."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
     total_loss = defaultdict(float)
+    n_samples = 0
     model.eval()
     for idx, (img, label) in enumerate(test_loader, 1):
         img = img.to(device)
@@ -35,9 +36,10 @@ def test(model: nn.Module, test_loader: DataLoader) -> Dict[str, torch.Tensor]:
         for loss_term, loss_val in loss.items():
             total_loss[loss_term] += loss_val.item()
 
-    # average each loss term
+        n_samples += img.shape[0]
+    # average each loss term over all samples
     for loss_term, loss_val in total_loss.items():
-        total_loss[loss_term] /= len(test_loader)
+        total_loss[loss_term] /= n_samples
     return total_loss
 
 
@@ -139,6 +141,7 @@ def train(
 
         model.train()
         for epoch in range(num_epochs):
+            n_samples = 0
             total_loss = defaultdict(float)
             with tqdm(dataloaders["train"]) as tq:
                 tq.set_description(f"Epoch [{epoch + 1}/{num_epochs}]")
@@ -157,17 +160,18 @@ def train(
                     # clear gradient
                     optim.zero_grad()
 
+                    n_samples += img.shape[0]
                     # aggregate losses
                     for loss_term, loss_val in loss.items():
                         total_loss[loss_term] += loss_val.item()
 
                     # log results
                     tq.set_postfix({
-                        key: val / idx for (key, val) in total_loss.items()
+                        key: val / n_samples for (key, val) in total_loss.items()
                     })
 
             for loss_term, loss_val in total_loss.items():
-                train_losses[loss_term][num_latent].append(loss_val / idx)
+                train_losses[loss_term][num_latent].append(loss_val / n_samples)
 
             # run validation
             if validate:
