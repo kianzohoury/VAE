@@ -205,7 +205,7 @@ learned to "disentangle" the digit classes.
 ### Visualizing Latent Spaces
 
 <p align="middle" float="left">
-  <img src="output/Autoencoder/plots/tsne_latent_space.jpg" width="70%" />
+  <img src="output/Autoencoder/plots/tsne_latent_space.jpg" width="67%" />
 </p>
 <p align="middle" float="left">
   <img src="output/VAE/plots/tsne_latent_space.jpg" width="70%" />
