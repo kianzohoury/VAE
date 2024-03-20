@@ -1,6 +1,7 @@
 
 import pickle
 from pathlib import Path
+from typing import Dict
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -8,7 +9,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 from sklearn.decomposition import PCA
-from sklearn.manifold import TSNE
+from sklearn.neighbors import KernelDensity
 
 from . import utils
 
@@ -222,14 +223,13 @@ def plot_generated_digits(
     fig.savefig(save_path, dpi=300)
 
 
-def plot_tsne_embeddings(
+def run_pca_(
     checkpoint: str,
     mnist_root: str = "mnist",
-    save_path: str = "./tsne_latent_space.jpg",
     batch_size: int = 1024,
     num_workers: int = 4
-):
-    """Plots t-SNE embeddings in order to visualize the latent space in 2D."""
+) -> Dict[str, np.ndarray]:
+    """Reduces latent space representations to 2D via PCA."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # load dataset
@@ -240,12 +240,10 @@ def plot_tsne_embeddings(
 
     # load model
     model = utils.load_from_checkpoint(checkpoint, device=device)
-    num_latent = model.num_latent
     model.eval()
 
     # initialize PCA and t-SNE
-    pca = PCA(n_components=min(model.num_latent, 20))
-    tsne = TSNE(n_components=2)  # allows us to visualize latent space in 2D
+    pca = PCA(n_components=min(model.num_latent, 2))
 
     Z, Y = [], []
     model.eval()
@@ -272,28 +270,100 @@ def plot_tsne_embeddings(
     # reduce dimensionality with PCA
     pca_features = pca.fit_transform(Z)
 
-    # reduce dimensionality again with t-SNE
-    tsne_embeddings = tsne.fit_transform(pca_features)
-
     # group by digit class
-    grouped_embeddings = {digit: [] for digit in range(10)}
-    for (embedding, y) in zip(tsne_embeddings, Y):
-        grouped_embeddings[y].append(embedding)
+    grouped_features = {digit: [] for digit in range(10)}
+    for (feature, y) in zip(pca_features, Y):
+        grouped_features[y].append(feature)
 
-    # plot embeddings
+    # stack features into single array
+    for (y, feature) in grouped_features.items():
+        feature_stack = np.stack(feature, 0)
+        grouped_features[y] = feature_stack
+    return grouped_features
+
+
+def plot_latent_space_scatter_2d(
+    checkpoint: str,
+    mnist_root: str = "mnist",
+    save_path: str = "./latent_space_scatter_2d.jpg",
+    batch_size: int = 1024,
+    num_workers: int = 4
+):
+    """Plots latent space representations as a 2D scatter plot."""
+    model = utils.load_from_checkpoint(checkpoint)
+    num_latent = model.num_latent
+
+    # get reduced features
+    grouped_features = run_pca_(
+        checkpoint=checkpoint,
+        mnist_root=mnist_root,
+        batch_size=batch_size,
+        num_workers=num_workers
+    )
+
+    # plot 2D features
     fig, ax = plt.subplots(1, 1)
-    for (y, embeddings) in grouped_embeddings.items():
-        embedding_stack = np.stack(embeddings, 0)
-        dim1, dim2 = embedding_stack[:, 0], embedding_stack[:, 1]
-        ax.scatter(dim1, dim2, label=y)
+    for (y, features) in grouped_features.items():
+        ax.scatter(features[:, 0], features[:, 1], label=y)
 
-    ax.set_xlabel("Dimension 1")
-    ax.set_ylabel("Dimension 2")
-    ax.legend(bbox_to_anchor=(1.04, 1), borderaxespad=0)
+    ax.set_xlabel("Principal Component 1")
+    ax.set_ylabel("Principal Component 2")
+    ax.legend(bbox_to_anchor=(1.06, 1), borderaxespad=0)
 
     # save figure
     plt.title(
-        f"t-SNE Embeddings in 2D for {model.__class__.__name__} "
-        f"with Latent Size {num_latent}"
+        f"{num_latent}-D Latent Space reduced to 2D with PCA for "
+        f"{model.__class__.__name__}"
+    )
+    fig.savefig(save_path, bbox_inches="tight", dpi=300)
+
+
+def plot_latent_space_1d(
+    checkpoint: str,
+    mnist_root: str = "mnist",
+    save_path: str = "./latent_space_kde_1d.jpg",
+    batch_size: int = 1024,
+    num_workers: int = 4
+):
+    """Plots a 1D histogram of the latent space along with a KDE."""
+    model = utils.load_from_checkpoint(checkpoint)
+    num_latent = model.num_latent
+
+    # get reduced features
+    grouped_features = run_pca_(
+        checkpoint=checkpoint,
+        mnist_root=mnist_root,
+        batch_size=batch_size,
+        num_workers=num_workers
+    )
+
+    # collapse grouped features into one array
+    features = np.concatenate(list(grouped_features.values()), axis=0)
+
+    # plot histogram
+    fig, ax = plt.subplots(1, 1)
+    density, bins, _ = ax.hist(
+        features,
+        bins=50,
+        label="True Distribution",
+        density=True,
+        alpha=0.25
+    )
+
+    # estimate PDF with KDE with a Gaussian kernel
+    kde = KernelDensity(bandwidth=0.25, kernel="gaussian").fit(features)
+
+    # plot KDE
+    min_x, max_x = min(bins), max(bins)
+    eval_points = np.linspace(min_x, max_x, num=1000).reshape(-1, 1)
+    log_likelihood = kde.score_samples(eval_points)
+    densities = np.exp(log_likelihood)
+    ax.plot(eval_points, densities, label="KDE")
+    plt.legend()
+
+    # save figure
+    plt.title(
+        f"Kernel Density Estimate of {num_latent}-D Latent Space reduced to "
+        f"1D with PCA for {model.__class__.__name__}"
     )
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
