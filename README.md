@@ -136,12 +136,12 @@ regularization imposed on VAE models.
 trick, z = sigma * eps + mu, where eps ~ N(0, 1).
 2. Reconstruct image x' by feeding z into the decoder, i.e. x' = dec(z).
 ### Process for Conditional VAEs
-1. Concatenate image x with its one-hot encoded label y, i.e. [x,y], to its
+1. Concatenate image x with its one-hot encoded label y, i.e. concat([x,y]), to its
 latent posterior distribution p_theta(z|mu, sigma). 
 2. Sample from the latent probability distribution using the reparameterization trick, 
 z = sigma * eps + mu, where eps ~ N(0, 1).
-2. Concatenate z again with y, i.e. [z,y], and reconstruct image x' by feeding 
-[z, y] into the decoder, i.e. x' = dec([z, y]).
+2. Concatenate z again with y, i.e. concat([z,y]), and reconstruct image x' by feeding 
+it into the decoder, i.e. x' = dec(concat([z, y])).
 
 ### Visualizing Image Reconstruction
 Below, we randomly sample 10 unseen images from the MNIST test split, and visualize
