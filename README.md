@@ -224,3 +224,20 @@ learned to "disentangle" the digit classes.
   </i>
 </p>
 
+<p align="middle" float="left">
+  <img src="output/Autoencoder/plots/tsne_latent_space.jpg" width="28%" />
+  <img src="output/VAE/plots/tsne_latent_space.jpg" width="31%" />
+  <img src="output/ConditionalVAE/plots/tsne_latent_space.jpg" width="31%" />
+</p>
+<p align="middle" float="left">
+
+</p>
+<p align="middle" float="left">
+
+</p>
+
+<p style="text-align: center;"> 
+  <i>Latent representations in 2D using t-SNE for the Autoencoder (left), 
+    VAE (middle), and Conditional VAE (right). 
+  </i>
+</p>
