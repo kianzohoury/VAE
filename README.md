@@ -15,7 +15,20 @@ generating new data points that resemble those from $X$.
 
 ### What is an Autoencoder?
 One such generative model that can learn p_{θ}(x) is an _autoencoder_. An autoencoder
-is simply an end-to-end neural network composed of two parts, an encoder and decoder.
+is composed of two separate neural networks: an encoder $f$ and decoder $g$.
+
+#### Encoder
+Given $X$, an encoder is a non-linear mapping $f: X \mapsto Z$, where $Z$ is called
+the latent representation of $X$. The primary function of the encoder is dimensionality
+reduction, which can be thought of as "compressing" data into a compact, lower
+dimensional form. The idea is that 
+
+to "compress"
+data into a lower dimensional form, which is 
+
+, which can be thought of as 
+inverses of each other. 
+
 For a given sample $x$, the goal of the autoencoder is to generate a 
 
 
