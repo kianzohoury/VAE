@@ -1,10 +1,23 @@
 # Conditional Variational Autoencoders for MNIST Digit Generation
-The goal of this project is to explore and better understand variational
-autoencoders (VAEs), and how they are used for image generation in practice. In this
-document, we will briefly describe VAEs, before walking through the implementation,
-training (& validation), testing, and visualization.
+The goal of this project is to explore the key differences between autoencoders
+and variational autoencoders (VAEs), and how these differences impact image
+generation, even in simple applications like handwritten digit generation. A
+step-by-step notebook can be found here, if you would like to follow along or
+reproduce the figures and results.
 
 ## Introduction
+In this section... 
+### What is an Autoencoder?
+Suppose we have some real-world data $$ X $$
+
+
+An autoencoder is a type of neural network that aims to learn
+
+
+
+
+
+
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
 generative models that aim to model an underlying distribution of real-world 
 data. Coupled with their ability to learn deep representations of such data, 
