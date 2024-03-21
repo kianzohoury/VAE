@@ -31,14 +31,16 @@ it back to $X$. Again, similar latent representations should yield similar
 reconstructions, and vice versa.
 
 Now you may ask, if the encoder and decoder are supposed to be inverses of eachother,
-then aren't we just learning the identity function, i.e. $X = f(g(X))$? Well,
+then aren't we just learning the identity function, i.e. $X' = f(g(X))$? Well,
 in some sense yes, but this is not merely a trivial task. If we choose the dimensionality
 of $Z$ to be relatively small compared to $X$, then we are imposing a bottleneck in 
 the model that encourages the encoder to learn the most salient features pertaining to $X$,
-so that the decoder can accurately reconstruct $X$.
+so that the decoder can accurately reconstruct $X$. However, this loss of information
+means that the reconstruction will not be perfect, that is, some degree of error 
+$\eps = |X' - X|$ will exist. 
 
 #### Reconstruction Error
-
+To measure the "goodness" of an autoencoder's output, we must compare 
 
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
 generative models that aim to model an underlying distribution of real-world 
