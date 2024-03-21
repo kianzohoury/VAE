@@ -311,7 +311,7 @@ because the latent space is supposed to be approximately standard normal, hence
 why we can feed the decoder a random noise vector. But we don't have to do that.
 Instead, we can traverse a subspace of the latent space, say, a 10 x 10 grid centered
 around (0, 0). This allows us to see more clearly, the relationship between the 
-components $z = (z_1, z_2)$ and the generated digit:
+components $(z_1, z_2)$ and the generated digit:
 
 <p align="middle" float="left">
   <img src="output/VAE/plots/generated_digits_latent_grid.jpg" width="45%" />
