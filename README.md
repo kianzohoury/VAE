@@ -21,7 +21,7 @@ effectively encourages the modeled latent distributions to be close to standard
 normal.
 
 <p align="middle" float="left">
-  <img src="output/VAE_Basic.png" width="100%" />
+  <img src="assets/VAE_Basic.png" width="80%" />
 </p>
 
 ## Implementation
@@ -37,7 +37,7 @@ additional normalization (e.g. batch normalization) is not necessary.
 ### Reparameterization Trick
 
 <p align="middle" float="left">
-  <img src="output/Reparameterized_Variational_Autoencoder.png" width="100%" />
+  <img src="assets/Reparameterized_Variational_Autoencoder.png" width="80%" />
 </p>
 
 ### Loss
@@ -179,7 +179,7 @@ Below, we generate new MNIST-like handwritten digits from random noise vectors:
 <p align="middle" float="left">
   <img src="output/Autoencoder/plots/generated_digits_color.jpg" width="80%" />
   <img src="output/VAE/plots/generated_digits_color.jpg" width="80%" />
-  <img src="output/ConditionalVAE/plots/generated_digits_color.jpg" width="80%" />
+  <img src="output/ConditionalVAE/plots/generated_digits_color.jpg" width="82%" />
 </p>
 <p style="text-align: center;"> 
   <i>Generated digits from random noise vectors for the autoencoder (top),
