@@ -221,7 +221,7 @@ def plot_generated_digits(
             # ax[j][digit].set_aspect("equal")
             ax[digit].axis("off")
 
-    plt.subplots_adjust(wspace=0, hspace=0, top=0.9)
+    plt.subplots_adjust(wspace=0, hspace=0, top=0.5)
     plt.tight_layout()
     # save figure
     fig.suptitle(
