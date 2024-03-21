@@ -199,12 +199,12 @@ def plot_generated_digits(
             ).detach().cpu()
 
             # plot generated image
-            ax[0][digit].imshow(gen_img, cmap=cmap)
-            ax[0][digit].axis("off")
-            ax[0][digit].set_xticks([])
-            ax[0][digit].set_yticks([])
+            ax[digit].imshow(gen_img, cmap=cmap)
+            ax[digit].axis("off")
+            ax[digit].set_xticks([])
+            ax[digit].set_yticks([])
             # ax[j][digit].set_aspect("equal")
-            ax[0][digit].set_title(digit)
+            ax[digit].set_title(digit)
 
         # unconditional generation (AE and VAE)
         else:
@@ -217,9 +217,9 @@ def plot_generated_digits(
             ).detach().cpu()
 
             # plot generated image
-            ax[0][digit].imshow(gen_img, cmap=cmap)
+            ax[digit].imshow(gen_img, cmap=cmap)
             # ax[j][digit].set_aspect("equal")
-            ax[0][digit].axis("off")
+            ax[digit].axis("off")
 
         # for j in range(samples_per_digit)
 
