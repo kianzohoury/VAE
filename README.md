@@ -304,5 +304,6 @@ the job of the decoder to reconstruct the specific digit.
 Okay, so we 
 
 <p align="middle" float="left">
-  <img src="assets/conditional_vae.gif" width="88%" />
+  <img src="output/VAE/plots/generated_digits_latent_grid.jpg" width="45%" />
+  <img src="output/ConditionalVAE/plots/conditional_vae_latent_grid.gif" width="46.5%" />
 </p>
