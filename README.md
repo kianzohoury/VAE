@@ -268,7 +268,7 @@ learned to "disentangle" the digit classes.
 </p>
 
 <p style="text-align: center;"> 
-  <i>Latent representations in 2D (left) and density estimates for 1D representations
+  <i>Figure 7. Latent representations in 2D (left) and density estimates for 1D representations
     (right) using PCA, for the Autoencoder (top), VAE (middle), and Conditional 
     VAE (bottom). 
   </i>
@@ -286,13 +286,27 @@ learned to "disentangle" the digit classes.
 
 </p>
 
-<p style="text-align: center;"> 
-  <i>Latent representations in 2D using t-SNE for the Autoencoder (left), 
-    VAE (middle), and Conditional VAE (right). 
+<p align="center"> 
+  <i>Figure 8. Latent representations projected onto 2D space using t-SNE
+    algorithm for dimensionality reduction, for the Autoencoder (left), 
+    VAE (middle), and conditional VAE (right). 
   </i>
 </p>
 
-So you may be wondering why the Conditional VAE's latent distribution looks 
+Fig. 8 shows the latent representations projected onto 2D space when 
+t-distributed Stochastic Neighbor Embedding (t-SNE) algorithm [] is applied to 
+the latent representations. Since t-SNE is a non-linear dimensionality reduction
+method, it applies a non-linear transformation that can separate data points
+into clusters, unlike PCA, which applies a linear transformation using the
+eigenvectors of the covariance matrix. For this reason, T-SNE is useful for
+identify features or embeddings that share similarities (hence, are neighbors).
+
+We see that for the autoencoder, the latent representations can be clustered
+by their digits. The large gaps between clusters signify points in the reduced
+latent space that do not encode meaningful information, so when an image gets mapped
+to one of those regions, it will most certainly produce a meaningful image.
+
+So you may be wondering why the conditional VAE's latent distribution looks 
 more bivariate normal than the VAE. Since the one-hot encoding $Y$ is provided
 to the encoder, the encoder does not need to "encode" any additional information
 regarding the digit class into latent representations. Therefore, this allows
