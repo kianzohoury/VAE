@@ -291,3 +291,18 @@ learned to "disentangle" the digit classes.
     VAE (middle), and Conditional VAE (right). 
   </i>
 </p>
+
+So you may be wondering why the Conditional VAE's latent distribution looks 
+more bivariate normal than the VAE. Since the one-hot encoding $Y$ is provided
+to the encoder, the encoder does not need to "encode" any additional information
+regarding the digit class into latent representations. Therefore, this allows
+the encoder to encode more information about the actual styles and shape of 
+digits, which can be shared across many digit classes. Instead, it is then
+the job of the decoder to reconstruct the specific digit.
+
+## Style and Rotation
+Okay, so we 
+
+<p align="middle" float="left">
+  <img src="assets/conditional_vae.gif" width="88%" />
+</p>
