@@ -231,14 +231,14 @@ def plot_generated_digits(
     fig.savefig(save_path, dpi=300)
 
 
-def plot_generated_digits_uniform_2d(
+def plot_generated_digits_grid_2d(
     checkpoint: str,
     digit: int = 7,
     scale: float = 2.0,
     save_path: str = "./generated_digits.jpg",
     cmap: str = "gray"
 ) -> None:
-    """Plots generated digits using z vectors from uniform 2d space."""
+    """Plots generated digits using z vectors from a grid in 2D space."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # load model
@@ -283,7 +283,7 @@ def plot_generated_digits_uniform_2d(
     fig.savefig("a.jpg")
     # save figure
     plt.title(
-        f"Generated Digits for {model_type} over Uniform 2-d Space",
+        f"Generated Digits for {model_type} over 2-d Latent Grid",
         fontsize=10
     )
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
