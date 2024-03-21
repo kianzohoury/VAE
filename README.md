@@ -52,6 +52,7 @@ used for regression. Explain more...
 In this implementation, we use MSE as our reconstruction loss, which is defined as:
 
 $$ MSE = \frac{1}{N}||X - X'||_{2}^2$$
+
 where N is the number of samples.
 ### Variational Autoencoders
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
