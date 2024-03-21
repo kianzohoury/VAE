@@ -305,7 +305,7 @@ We see that for the autoencoder, the latent representations can be clustered
 by their digits. The large gaps between clusters signify points in the reduced
 latent space that do not encode meaningful information, so when an image gets mapped
 to one of those regions in the original latent space, it will most certainly 
-produce a meaningless image.
+produce a noisy, meaningless image.
 
 So you may be wondering why the conditional VAE's latent distribution looks 
 more bivariate normal than the VAE. Since the one-hot encoding $Y$ is provided
