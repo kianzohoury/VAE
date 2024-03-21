@@ -19,33 +19,16 @@ is composed of two separate neural networks: an encoder $f$ and decoder $g$.
 
 #### Encoder
 An encoder is a non-linear mapping $f: X \mapsto Z$, where $Z$ is called
-the latent representation of $X$. The primary function of the encoder is dimensionality
-reduction, which can be thought of as "compressing" data into a compact, lower
-dimensional form. The idea is that 
+the latent representation of $X$. The primary function of the encoder is to
+"encode" data into a compact, lower dimensional form (aka dimensionality reduction).
+A latent representation is like an embedding, whereby similar representations
+should cluster together and dissimilar ones should be far away from each other.
 
-to "compress"
-data into a lower dimensional form, which is 
-
-, which can be thought of as 
-inverses of each other. 
-
-For a given sample $x$, the goal of the autoencoder is to generate a 
-
-
-An encoder is a non-linear function $f: X \mapsto Z$
-
-: X \mapsto 
-
-
-It is composed of 
-two parts, namely, the encoder and decoder. 
-
-In the case 
-
-Suppose we have a , an autoencoder
-
-
-
+#### Decoder
+A decoder can be thought of as the reverse process, $g: Z \mapsto X$, where
+its primary function is to "decode" the latent representation and reconstruct 
+it back to $X$. Again, similar $Z$ should yield similar reconstructions, and 
+vice versa.
 
 
 
