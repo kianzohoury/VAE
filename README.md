@@ -36,12 +36,23 @@ this is not merely a trivial task. If we choose the dimensionality of $Z$ to be 
 small compared to $X$, then we will be imposing a strict bottleneck on the model
 that encourages the encoder to learn the most salient features pertaining to $X$,
 so that the decoder can accurately reconstruct $X$. However, this loss of information
-means that the reconstruction will not be perfect, that is, $X' \approx X$ and not
-$X' \neq X$.
+means that the reconstruction will not be perfect ($X' \neq X$). 
 
 #### Reconstruction Error
-To measure the "goodness" of an autoencoder's output, we must compare 
+How do we ensure that $X' \approx X$? Two common loss functions are used for 
+measuring reconstruction error: __Binary Cross Entropy (BCE)__ and __Mean Squared Error (MSE)__. 
+While both are commonly used, it may make more intuitive sense to use MSE, for two
+reasons: 
+1. BCE is asymmetric []. While this property is useful for classification, 
+where you may want to penalize false positives more than false negatives, it 
+does not make much sense to penalize a pixel value of 0.6 more than 0.4 
+(supposing the true value is 0.5). 
+2. BCE is designed for outputs that model probabilities, while MSE is typically
+used for regression. Explain more...
+In this implementation, we use MSE as our reconstruction loss, which is defined as:
+$$ MSE = ||X - X'||_{2}^2$$
 
+### Variational Autoencoders
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
 generative models that aim to model an underlying distribution of real-world 
 data. Coupled with their ability to learn deep representations of such data, 
