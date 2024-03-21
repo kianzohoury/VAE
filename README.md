@@ -31,7 +31,7 @@ it back to $X$. Again, similar latent representations should yield similar
 reconstructions, and vice versa.
 
 Now you may ask, if the encoder and decoder are supposed to be inverses of eachother,
-then aren't we just learning the identity function, i.e. $X' = f(g(X))$? Well,
+then aren't we just learning the identity function, i.e. $X' = f(g(X)) = \approx I(X)$? Well,
 in some sense yes, but this is not merely a trivial task. If we choose the dimensionality
 of $Z$ to be relatively small compared to $X$, then we are imposing a bottleneck in 
 the model that encourages the encoder to learn the most salient features pertaining to $X$,
