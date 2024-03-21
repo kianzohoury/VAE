@@ -319,8 +319,7 @@ components $(z_1, z_2)$ and the generated digit:
 </p>
 <p align="center">
     <i> Figure 9. Generated digits corresponding to a grid of latent vectors 
-        centered at (0, 0), for the VAE (left) and conditional VAE (right).
-    <i/>
+        centered at (0, 0) for the VAE (left) and conditional VAE (right). </i>
 </p>
 
 * For unconditional VAEs, traversing the latent space in different directions 
