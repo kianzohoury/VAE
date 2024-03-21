@@ -133,6 +133,7 @@ def plot_reconstructed_digits(
         ax[0][digit].set_xticks([])
         ax[0][digit].set_yticks([])
         ax[0][digit].set_title(digit)
+        ax[0][digit].set_aspect("equal")
 
         if model.__class__.__name__ == "ConditionalVAE":
             y = nn.functional.one_hot(label, 10)
@@ -147,7 +148,9 @@ def plot_reconstructed_digits(
         ax[1][digit].imshow(gen_img[0].squeeze(0), cmap=cmap)
         ax[1][digit].set_xticks([])
         ax[1][digit].set_yticks([])
+        ax[1][digit].set_aspect("equal")
 
+    plt.subplots_adjust(wspace=0, hspace=0)
     # save figure
     fig.suptitle(
         f"Reconstructed Digits for {model_type} with Latent Size {num_latent}"
@@ -201,6 +204,7 @@ def plot_generated_digits(
                 ax[j][digit].axis("off")
                 ax[j][digit].set_xticks([])
                 ax[j][digit].set_yticks([])
+                ax[j][digit].set_aspect("equal")
                 ax[0][digit].set_title(digit)
 
         # unconditional generation (AE and VAE)
@@ -216,8 +220,10 @@ def plot_generated_digits(
             # plot each generate image
             for j in range(samples_per_digit):
                 ax[j][digit].imshow(gen_img[j], cmap=cmap)
+                ax[j][digit].set_aspect("equal")
                 ax[j][digit].axis("off")
 
+    plt.subplots_adjust(wspace=0, hspace=0)
     # save figure
     fig.suptitle(
         f"Generated Digits for {model_type} with Latent Size {num_latent}"
