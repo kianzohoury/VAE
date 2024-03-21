@@ -231,6 +231,63 @@ def plot_generated_digits(
     fig.savefig(save_path, dpi=300)
 
 
+def plot_generated_digits_uniform_2d(
+    checkpoint: str,
+    digit: int = 7,
+    scale: float = 2.0,
+    save_path: str = "./generated_digits.jpg",
+    cmap: str = "gray"
+) -> None:
+    """Plots generated digits using z vectors from uniform 2d space."""
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    # load model
+    model = utils.load_from_checkpoint(checkpoint, device=device)
+    model_type = model.__class__.__name__
+    num_latent = model.num_latent
+    if num_latent != 2:
+        raise ValueError("Model must have latent dimension of 2.")
+    model.eval()
+
+    fig, ax = plt.subplots(1, 1)
+    coords = np.linspace(-scale, scale, 10)
+    z0, z1 = np.meshgrid(coords, coords)
+
+    # initialize image grid to fill in
+    img_grid = np.zeros((28 * 10, 28 * 10))
+
+    # iterate over all z vectors in the uniform 2D space
+    for i in range(10):
+        for j in range(10):
+            z = torch.Tensor([z0[i][j], z1[i][j]]).unsqueeze(0).to(device)
+
+            # only use specified digit if conditioning is possible
+            if model_type == "ConditionalVAE":
+                # create label vector
+                y = nn.functional.one_hot(
+                    torch.Tensor([digit] * 1).long(),
+                    num_classes=10
+                ).to(device)
+                gen_img = model.decode(z, y)
+            else:
+                gen_img = model.decode(z)
+
+            gen_img = gen_img.squeeze(0).detach().cpu().view(28, 28)
+            # fill image
+            img_grid[i * 28: (i + 1) * 28, j * 28: (j + 1) * 28] = gen_img
+
+    ax.imshow(img_grid, cmap=cmap)
+    ax.set_xticklabels(np.round(coords, 2))
+    ax.set_yticklabels(np.round(coords, 2))
+
+    fig.savefig("a.jpg")
+    # save figure
+    plt.title(
+        f"Generated Digits for {model_type} over Uniform 2-d Space"
+    )
+    fig.savefig(save_path, bbox_inches="tight", dpi=300)
+
+
 def run_pca_(
     checkpoint: str,
     mnist_root: str = "mnist",
