@@ -205,20 +205,21 @@ learned to "disentangle" the digit classes.
 ### Visualizing Latent Spaces
 
 <p align="middle" float="left">
-  <img src="output/Autoencoder/plots/tsne_latent_space.jpg" width="67%" />
+  <img src="output/Autoencoder/plots/latent_space_scatter_2d.jpg" width="48%" />
+  <img src="output/Autoencoder/plots/latent_space_kde_1d.jpg" width="44.5%" />
 </p>
 <p align="middle" float="left">
-  <img src="output/VAE/plots/tsne_latent_space.jpg" width="70%" />
+  <img src="output/VAE/plots/latent_space_scatter_2d.jpg" width="48%" />
+  <img src="output/VAE/plots/latent_space_kde_1d.jpg" width="42.7%" />
 </p>
 <p align="middle" float="left">
-  <img src="output/ConditionalVAE/plots/tsne_latent_space.jpg" width="70%" />
+  <img src="output/ConditionalVAE/plots/latent_space_scatter_2d.jpg" width="48%" />
+  <img src="output/ConditionalVAE/plots/latent_space_kde_1d.jpg" width="45.9%" />
 </p>
 
 <p style="text-align: center;"> 
-  <i>2D embeddings of latent representations generated using PCA and t-SNE for
-    dimensionality reduction, for the Autoencoder (top), VAE (middle), and 
-    Conditional VAE (bottom).
+  <i>Latent representations in 2D (left) and density estimates in 1D (right),
+    for the Autoencoder (top), VAE (middle), and Conditional VAE (bottom).
   </i>
 </p>
 
-## Bonus: CIFAR-10
