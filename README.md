@@ -202,19 +202,19 @@ VAE produces digits that are more ambiguous, while the Conditional VAE has seemi
 learned to "disentangle" the digit classes.
 
 
-### Visualizing Latent Spaces
+## Visualizing Latent Spaces
 
 <p align="middle" float="left">
   <img src="output/Autoencoder/plots/latent_space_scatter_2d.jpg" width="48%" />
-  <img src="output/Autoencoder/plots/latent_space_kde_1d.jpg" width="44.5%" />
+  <img src="output/Autoencoder/plots/latent_space_kde_1d.jpg" width="44%" />
 </p>
 <p align="middle" float="left">
   <img src="output/VAE/plots/latent_space_scatter_2d.jpg" width="48%" />
-  <img src="output/VAE/plots/latent_space_kde_1d.jpg" width="42.7%" />
+  <img src="output/VAE/plots/latent_space_kde_1d.jpg" width="42.2%" />
 </p>
 <p align="middle" float="left">
   <img src="output/ConditionalVAE/plots/latent_space_scatter_2d.jpg" width="48%" />
-  <img src="output/ConditionalVAE/plots/latent_space_kde_1d.jpg" width="45.9%" />
+  <img src="output/ConditionalVAE/plots/latent_space_kde_1d.jpg" width="45.3%" />
 </p>
 
 <p style="text-align: center;"> 
