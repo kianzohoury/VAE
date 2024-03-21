@@ -112,7 +112,6 @@ def plot_reconstructed_digits(
     fig, ax = plt.subplots(
         nrows=2,
         ncols=10,
-        constrained_layout=True,
         gridspec_kw={'wspace': 0, 'hspace': 0}
     )
     ax[0][0].set_ylabel("Original")
@@ -177,7 +176,6 @@ def plot_generated_digits(
     fig, ax = plt.subplots(
         nrows=samples_per_digit,
         ncols=10,
-        constrained_layout=True,
         gridspec_kw={'wspace': 0, 'hspace': 0}
     )
 
