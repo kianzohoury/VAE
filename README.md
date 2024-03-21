@@ -317,6 +317,9 @@ components $(z_1, z_2)$ and the generated digit:
   <img src="output/VAE/plots/generated_digits_latent_grid.jpg" width="45%" />
   <img src="output/ConditionalVAE/plots/conditional_vae_latent_grid.gif" width="46.5%" />
 </p>
+<p align="center">
+    Figure 9.
+</p>
 
 * For unconditional VAEs, traversing the latent space in different directions 
 changes the digit that is generated. We see that every digit class is accounted
