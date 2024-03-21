@@ -30,14 +30,14 @@ its primary function is to "decode" the latent representation and reconstruct
 it back to $X$. Again, similar latent representations should yield similar 
 reconstructions, and vice versa.
 
-Now you may ask, if the encoder and decoder are supposed to be inverses of eachother,
-then aren't we just learning the identity function, i.e. $X' = f(g(X)) = \approx I(X)$? Well,
-in some sense yes, but this is not merely a trivial task. If we choose the dimensionality
-of $Z$ to be relatively small compared to $X$, then we are imposing a bottleneck in 
-the model that encourages the encoder to learn the most salient features pertaining to $X$,
+Now you may ask, if the encoder and decoder are supposed to be inverses of each other,
+then aren't we just learning the identity function. Well, in some sense yes, but 
+this is not merely a trivial task. If we choose the dimensionality of $Z$ to be relatively 
+small compared to $X$, then we will be imposing a strict bottleneck on the model
+that encourages the encoder to learn the most salient features pertaining to $X$,
 so that the decoder can accurately reconstruct $X$. However, this loss of information
-means that the reconstruction will not be perfect, that is, some degree of error 
-$\epsilon = |X' - X|$ will exist. 
+means that the reconstruction will not be perfect, that is, $X' \approx X$ and not
+$X' \neq X$.
 
 #### Reconstruction Error
 To measure the "goodness" of an autoencoder's output, we must compare 
