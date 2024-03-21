@@ -27,12 +27,17 @@ should cluster together and dissimilar ones should be far away from each other.
 #### Decoder
 A decoder can be thought of as the reverse process, $g: Z \mapsto X$, where
 its primary function is to "decode" the latent representation and reconstruct 
-it back to $X$. Again, similar $Z$ should yield similar reconstructions, and 
-vice versa.
+it back to $X$. Again, similar latent representations should yield similar 
+reconstructions, and vice versa.
 
+Now you may ask, if the encoder and decoder are supposed to be inverses of eachother,
+then aren't we just learning the identity function, i.e. $X = f(g(X))$? Well,
+in some sense yes, but this is not merely a trivial task. If we choose the dimensionality
+of $Z$ to be relatively small compared to $X$, then we are imposing a bottleneck in 
+the model that encourages the encoder to learn the most salient features pertaining to $X$,
+so that the decoder can accurately reconstruct $X$.
 
-
-
+#### Reconstruction Error
 
 
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
