@@ -283,7 +283,8 @@ def plot_generated_digits_uniform_2d(
     fig.savefig("a.jpg")
     # save figure
     plt.title(
-        f"Generated Digits for {model_type} over Uniform 2-d Space"
+        f"Generated Digits for {model_type} over Uniform 2-d Space",
+        fontsize=10
     )
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
 
