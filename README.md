@@ -18,7 +18,7 @@ One such generative model that can learn p_{θ}(x) is an _autoencoder_. An autoe
 is composed of two separate neural networks: an encoder $f$ and decoder $g$.
 
 #### Encoder
-Given $X$, an encoder is a non-linear mapping $f: X \mapsto Z$, where $Z$ is called
+An encoder is a non-linear mapping $f: X \mapsto Z$, where $Z$ is called
 the latent representation of $X$. The primary function of the encoder is dimensionality
 reduction, which can be thought of as "compressing" data into a compact, lower
 dimensional form. The idea is that 
