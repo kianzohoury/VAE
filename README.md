@@ -218,8 +218,9 @@ learned to "disentangle" the digit classes.
 </p>
 
 <p style="text-align: center;"> 
-  <i>Latent representations in 2D (left) and density estimates in 1D (right),
-    for the Autoencoder (top), VAE (middle), and Conditional VAE (bottom).
+  <i>Latent representations in 2D (left) and density estimates for 1D representations
+    (right) using PCA, for the Autoencoder (top), VAE (middle), and Conditional 
+    VAE (bottom). 
   </i>
 </p>
 
