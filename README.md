@@ -37,7 +37,7 @@ of $Z$ to be relatively small compared to $X$, then we are imposing a bottleneck
 the model that encourages the encoder to learn the most salient features pertaining to $X$,
 so that the decoder can accurately reconstruct $X$. However, this loss of information
 means that the reconstruction will not be perfect, that is, some degree of error 
-$\eps = |X' - X|$ will exist. 
+$\epsilon = |X' - X|$ will exist. 
 
 #### Reconstruction Error
 To measure the "goodness" of an autoencoder's output, we must compare 
