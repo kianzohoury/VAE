@@ -129,6 +129,7 @@ def plot_reconstructed_digits(
 
         # plot original image
         ax[0][digit].imshow(img[0].squeeze(0), cmap=cmap)
+        ax[0][digit].axis("off")
         ax[0][digit].set_xticks([])
         ax[0][digit].set_yticks([])
         ax[0][digit].set_title(digit)
@@ -145,11 +146,12 @@ def plot_reconstructed_digits(
         # plot reconstructed image
         gen_img = gen_img.detach().cpu()
         ax[1][digit].imshow(gen_img[0].squeeze(0), cmap=cmap)
+        ax[1][digit].axis("off")
         ax[1][digit].set_xticks([])
         ax[1][digit].set_yticks([])
         # ax[1][digit].set_aspect("equal")
 
-    plt.subplots_adjust(wspace=0, hspace=-0.5)
+    plt.subplots_adjust(wspace=0, hspace=0)
     # save figure
     fig.suptitle(
         f"Reconstructed Digits for {model_type} with Latent Size {num_latent}"
@@ -221,7 +223,7 @@ def plot_generated_digits(
                 # ax[j][digit].set_aspect("equal")
                 ax[j][digit].axis("off")
 
-    plt.subplots_adjust(wspace=0, hspace=-0.5)
+    plt.subplots_adjust(wspace=0, hspace=0)
     # save figure
     fig.suptitle(
         f"Generated Digits for {model_type} with Latent Size {num_latent}"
