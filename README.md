@@ -51,8 +51,8 @@ does not make much sense to penalize a pixel value of 0.6 more than 0.4
 used for regression. Explain more...
 In this implementation, we use MSE as our reconstruction loss, which is defined as:
 
-$$ MSE = ||X - X'||_{2}^2$$
-
+$$ MSE = \frac{1}{N}||X - X'||_{2}^2$$
+where N is the number of samples.
 ### Variational Autoencoders
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
 generative models that aim to model an underlying distribution of real-world 
