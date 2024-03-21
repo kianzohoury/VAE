@@ -94,7 +94,8 @@ def plot_mse_by_class(model_dir: str) -> None:
 def plot_reconstructed_digits(
     checkpoint: str,
     mnist_root: str = "./mnist",
-    save_path: str = "./reconstructed_digits.jpg"
+    save_path: str = "./reconstructed_digits.jpg",
+    cmap: str = "gray"
 ) -> None:
     """Plots generated images against their original images in a grid."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -128,7 +129,7 @@ def plot_reconstructed_digits(
         img, label = next(iter(test_loader["test"]))
 
         # plot original image
-        ax[0][digit].imshow(img[0].squeeze(0), cmap="gray")
+        ax[0][digit].imshow(img[0].squeeze(0), cmap=cmap)
         ax[0][digit].set_xticks([])
         ax[0][digit].set_yticks([])
         ax[0][digit].set_title(digit)
@@ -143,7 +144,7 @@ def plot_reconstructed_digits(
 
         # plot reconstructed image
         gen_img = gen_img.detach().cpu()
-        ax[1][digit].imshow(gen_img[0].squeeze(0), cmap="gray")
+        ax[1][digit].imshow(gen_img[0].squeeze(0), cmap=cmap)
         ax[1][digit].set_xticks([])
         ax[1][digit].set_yticks([])
 
@@ -157,7 +158,8 @@ def plot_reconstructed_digits(
 def plot_generated_digits(
     checkpoint: str,
     samples_per_digit: 4,
-    save_path: str = "./generated_digits.jpg"
+    save_path: str = "./generated_digits.jpg",
+    cmap: str = "gray"
 ):
     """Plots a sample_per_digit x 10 grid of generated samples."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -195,7 +197,7 @@ def plot_generated_digits(
 
             # plot each generate image
             for j in range(samples_per_digit):
-                ax[j][digit].imshow(gen_img[j], cmap="gray")
+                ax[j][digit].imshow(gen_img[j], cmap=cmap)
                 ax[j][digit].axis("off")
                 ax[j][digit].set_xticks([])
                 ax[j][digit].set_yticks([])
@@ -213,7 +215,7 @@ def plot_generated_digits(
 
             # plot each generate image
             for j in range(samples_per_digit):
-                ax[j][digit].imshow(gen_img[j], cmap="gray")
+                ax[j][digit].imshow(gen_img[j], cmap=cmap)
                 ax[j][digit].axis("off")
 
     # save figure
