@@ -178,7 +178,8 @@ def plot_generated_digits(
     fig, ax = plt.subplots(
         nrows=1,
         ncols=10,
-        gridspec_kw={'wspace': 0, 'hspace': 0}
+        gridspec_kw={'wspace': 0, 'hspace': 0},
+        constrained_layout=True
     )
 
     for digit in range(10):
