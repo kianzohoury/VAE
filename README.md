@@ -8,7 +8,7 @@ reproduce the figures and results.
 ## Introduction
 In this section... 
 ### What is an Autoencoder?
-Suppose we have some real-world data $$ X $$
+Suppose we have some real-world data $X$
 
 
 An autoencoder is a type of neural network that aims to learn
