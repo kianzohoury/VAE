@@ -177,9 +177,9 @@ digit of our choice, along with the noise vector to the decoder.
 #### Visualizing Generated Digits
 Below, we generate new MNIST-like handwritten digits from random noise vectors:
 <p align="middle" float="left">
-  <img src="output/Autoencoder/plots/generated_digits.jpg" width="90%" />
-  <img src="output/VAE/plots/generated_digits.jpg" width="90%" />
-  <img src="output/ConditionalVAE/plots/generated_digits.jpg" width="90%" />
+  <img src="output/Autoencoder/plots/generated_digits.jpg" width="70%" />
+  <img src="output/VAE/plots/generated_digits.jpg" width="70%" />
+  <img src="output/ConditionalVAE/plots/generated_digits.jpg" width="70%" />
 </p>
 <p style="text-align: center;"> 
   <i>Generated digits from random noise vectors for the autoencoder (top),
