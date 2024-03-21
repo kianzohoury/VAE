@@ -312,7 +312,7 @@ def plot_latent_space_scatter_2d(
 
     # save figure
     plt.title(
-        f"{num_latent}-d Latent Space reduced to 1-d with PCA for "
+        f"{num_latent}-d Latent Space reduced to 2-d with PCA for "
         f"{model.__class__.__name__}"
     )
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
