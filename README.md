@@ -149,9 +149,9 @@ it into the decoder, i.e. x' = dec(concat([z, y])).
 Below, we randomly sample 10 unseen images from the MNIST test split, and visualize
 the encoder-decoder reconstructions for each model:
 <p align="middle" float="left">
-  <img src="output/Autoencoder/plots/reconstructed_digits.jpg" width="100%" />
-  <img src="output/VAE/plots/reconstructed_digits.jpg" width="100%" />
-  <img src="output/ConditionalVAE/plots/reconstructed_digits.jpg" width="100%" />
+  <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="80%" />
+  <img src="output/VAE/plots/reconstructed_digits_color.jpg" width="80%" />
+  <img src="output/ConditionalVAE/plots/reconstructed_digits_color.jpg" width="80%" />
 </p>
 <p style="text-align: center;"> 
   <i>Original handwritten digits and their reconstructions for the vanilla autoencoder (top),
@@ -177,9 +177,9 @@ digit of our choice, along with the noise vector to the decoder.
 #### Visualizing Generated Digits
 Below, we generate new MNIST-like handwritten digits from random noise vectors:
 <p align="middle" float="left">
-  <img src="output/Autoencoder/plots/generated_digits.jpg" width="70%" />
-  <img src="output/VAE/plots/generated_digits.jpg" width="70%" />
-  <img src="output/ConditionalVAE/plots/generated_digits.jpg" width="70%" />
+  <img src="output/Autoencoder/plots/generated_digits_color.jpg" width="80%" />
+  <img src="output/VAE/plots/generated_digits_color.jpg" width="80%" />
+  <img src="output/ConditionalVAE/plots/generated_digits_color.jpg" width="80%" />
 </p>
 <p style="text-align: center;"> 
   <i>Generated digits from random noise vectors for the autoencoder (top),
