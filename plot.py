@@ -113,7 +113,8 @@ def plot_reconstructed_digits(
         nrows=2,
         ncols=10,
         constrained_layout=True,
-        figsize=(10, 2)
+        figsize=(10, 2),
+        gridspec_kw={'wspace': 0, 'hspace': 0}
     )
     ax[0][0].set_ylabel("Original")
     ax[1][0].set_ylabel("Recon")
@@ -178,7 +179,8 @@ def plot_generated_digits(
         nrows=samples_per_digit,
         ncols=10,
         constrained_layout=True,
-        figsize=(10, samples_per_digit)
+        figsize=(10, samples_per_digit),
+        gridspec_kw={'wspace': 0, 'hspace': 0}
     )
 
     for digit in range(10):
