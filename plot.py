@@ -178,8 +178,7 @@ def plot_generated_digits(
     fig, ax = plt.subplots(
         nrows=1,
         ncols=10,
-        gridspec_kw={'wspace': 0, 'hspace': 0},
-        constrained_layout=True
+        gridspec_kw={'wspace': 0, 'hspace': 0}
     )
 
     for digit in range(10):
@@ -222,9 +221,8 @@ def plot_generated_digits(
             # ax[j][digit].set_aspect("equal")
             ax[digit].axis("off")
 
-        # for j in range(samples_per_digit)
-
     plt.subplots_adjust(wspace=0, hspace=0)
+    plt.tight_layout()
     # save figure
     fig.suptitle(
         f"Generated Digits for {model_type} with Latent Size {num_latent}"
