@@ -161,7 +161,7 @@ def plot_reconstructed_digits(
 
 def plot_generated_digits(
     checkpoint: str,
-    samples_per_digit: 4,
+    samples_per_digit: int = 4,
     save_path: str = "./generated_digits.jpg",
     cmap: str = "gray"
 ):
@@ -176,7 +176,7 @@ def plot_generated_digits(
 
     # number of samples to generate
     fig, ax = plt.subplots(
-        nrows=samples_per_digit,
+        nrows=1,
         ncols=10,
         gridspec_kw={'wspace': 0, 'hspace': 0}
     )
@@ -195,17 +195,16 @@ def plot_generated_digits(
 
             # generate batch of new images
             gen_img = model.decode(z, y).view(
-                samples_per_digit, 28, 28
+                28 * samples_per_digit, 28
             ).detach().cpu()
 
-            # plot each generate image
-            for j in range(samples_per_digit):
-                ax[j][digit].imshow(gen_img[j], cmap=cmap)
-                ax[j][digit].axis("off")
-                ax[j][digit].set_xticks([])
-                ax[j][digit].set_yticks([])
-                # ax[j][digit].set_aspect("equal")
-                ax[0][digit].set_title(digit)
+            # plot generated image
+            ax[0][digit].imshow(gen_img, cmap=cmap)
+            ax[0][digit].axis("off")
+            ax[0][digit].set_xticks([])
+            ax[0][digit].set_yticks([])
+            # ax[j][digit].set_aspect("equal")
+            ax[0][digit].set_title(digit)
 
         # unconditional generation (AE and VAE)
         else:
@@ -214,14 +213,15 @@ def plot_generated_digits(
 
             # generate batch of new images
             gen_img = model.decode(z).view(
-                samples_per_digit, 28, 28
+                28 * samples_per_digit, 28
             ).detach().cpu()
 
-            # plot each generate image
-            for j in range(samples_per_digit):
-                ax[j][digit].imshow(gen_img[j], cmap=cmap)
-                # ax[j][digit].set_aspect("equal")
-                ax[j][digit].axis("off")
+            # plot generated image
+            ax[0][digit].imshow(gen_img, cmap=cmap)
+            # ax[j][digit].set_aspect("equal")
+            ax[0][digit].axis("off")
+
+        # for j in range(samples_per_digit)
 
     plt.subplots_adjust(wspace=0, hspace=0)
     # save figure
