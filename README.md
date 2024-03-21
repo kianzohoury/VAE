@@ -317,3 +317,16 @@ components $(z_1, z_2)$ and the generated digit:
   <img src="output/VAE/plots/generated_digits_latent_grid.jpg" width="45%" />
   <img src="output/ConditionalVAE/plots/conditional_vae_latent_grid.gif" width="46.5%" />
 </p>
+
+* For unconditional VAEs, traversing the latent space in different directions 
+changes the digit that is generated. We see that every digit class is accounted
+for in the grid, and has a "center." Moving away from that center means moving
+closer to another digit's center, and you can see digits morphing into other digits
+(e.g. 7s morphing into 9s and 2s morphing into 8s). However, it is difficult to
+see how the style of the digit is accounted for in the latent space, since the
+digit classes are "entangled."
+
+* For conditional VAEs, we see something even more interesting. Since it is the 
+job of the decoder to reconstruct the specific digit when given a label, the encoder
+can encode more primitive features that are shared among all digit classes, like
+curves, rotation, and style. 
