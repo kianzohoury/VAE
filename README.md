@@ -300,14 +300,18 @@ the encoder to encode more information about the actual styles and shape of
 digits, which can be shared across many digit classes. Instead, it is then
 the job of the decoder to reconstruct the specific digit.
 
-## Style and Rotation
-Okay, so we now know that VAEs are particularly good at generating new digits
-from latent representations. But what do the latent representations actually
-encode? Well, for latent vectors that live in anything above 2D space, it's hard
-to visualize what happens when we traverse the latent space. However, for VAEs
-with a latent size of 2, we can actually do this. Instead of sampling $z \tilde N(0, 1)$,
-we can traverse a subspace of the latent space, say, a 10 x 10 grid. Below,
-we can see what the decoder produces for such a grid of latent vectors:
+## Meaning of Latent Representations 
+Okay, we now know that VAEs are particularly good at generating new digits
+from latent representations, given their ability to manifest regularized latent
+spaces. 
+
+But what do the latent representations actually encode? Let's consider VAEs
+with latent representations that live in 2D space. Typically, we sample $z ~ N(0, 1)$,
+because the latent space is supposed to be approximately standard normal, hence 
+why we can feed the decoder a random noise vector. But we don't have to do that.
+Instead, we can traverse a subspace of the latent space, say, a 10 x 10 grid centered
+around (0, 0). This allows us to see more clearly, the relationship between the 
+components $z = (z_1, z_2)$ and the generated digit:
 
 <p align="middle" float="left">
   <img src="output/VAE/plots/generated_digits_latent_grid.jpg" width="45%" />
