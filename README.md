@@ -14,14 +14,15 @@ form p_{θ}(x) are designed exactly for the purpose of generating new data point
 any sample population $X$.
 
 ### What is an Autoencoder?
-An autoencoder is a type of neural network and belongs to the class of generative
-models that aim to learn an underlying distribution of data $p(x)$. Typically,
-when we collect a sample of images (e.g. handwritten digits) from the real-world,
-we do not know exactly which probability distribution they were drawn from, which
-is why 
+One such generative model that can learn p_{θ}(x) is an _autoencoder_. An autoencoder
+is simply an end-to-end neural network composed of two parts, an encoder and decoder.
+For a given sample $x$, the goal of the autoencoder is to generate a 
 
-Suppose the distribution
-is a set of images $X$
+
+An encoder is a non-linear function $f: X \mapsto Z$
+
+: X \mapsto 
+
 
 It is composed of 
 two parts, namely, the encoder and decoder. 
