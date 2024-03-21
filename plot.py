@@ -149,7 +149,7 @@ def plot_reconstructed_digits(
         ax[1][digit].set_yticks([])
         # ax[1][digit].set_aspect("equal")
 
-    plt.subplots_adjust(wspace=0, hspace=0)
+    plt.subplots_adjust(wspace=0, hspace=-0.5)
     # save figure
     fig.suptitle(
         f"Reconstructed Digits for {model_type} with Latent Size {num_latent}"
@@ -221,7 +221,7 @@ def plot_generated_digits(
                 # ax[j][digit].set_aspect("equal")
                 ax[j][digit].axis("off")
 
-    plt.subplots_adjust(wspace=0, hspace=0)
+    plt.subplots_adjust(wspace=0, hspace=-0.5)
     # save figure
     fig.suptitle(
         f"Generated Digits for {model_type} with Latent Size {num_latent}"
