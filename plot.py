@@ -363,6 +363,8 @@ def plot_latent_space_kde_1d(
     log_likelihood = kde.score_samples(eval_points)
     densities = np.exp(log_likelihood)
     ax.plot(eval_points, densities, label="KDE")
+    ax.set_xlabel("Principal Component 1")
+    ax.set_ylabel("Density")
     plt.legend()
 
     # save figure
