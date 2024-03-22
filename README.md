@@ -21,9 +21,7 @@ many examples of each digit, we will see differences in how they're written (Fig
 however, among all examples, there will be similarities (otherwise they
 wouldn't be the same digit). What's more is that for different digits, there are 
 similarities too. Fig. 1b shows clusters of samples for each digit, where 9s and
-4s, as well as 8s and 3s are closely related. Lines and curves, among other things,
-which make up digits are some of the features that can be easily learned by  
-neural networks.
+4s, as well as 8s and 3s are closely related. 
 
 <p align="middle" float="left">
   <img src="assets/mnist_digits_10x10.jpg" width="40%" />
@@ -34,10 +32,18 @@ neural networks.
     projected onto 2D space, using the t-SNE algorithm for dimensionality reduction. </i>
 </p>
 
-Note that if it's possible to cluster digits in 2D, then it points to the 
-fact that certain features may be captured in a space with much lower dimensionality,
-compared to that of the original images. In the following section, we will 
-examine the autoencoder, which serves as a stepping stone for understanding the VAE, a significantly more powerful generative model.
+### Latent Space
+The fact that MNIST digits can organized into clusters of similar digits using 
+dimensionality reduction techniques like t-SNE (t-Distributed Stochastic Neighbor Embedding) []
+suggests that the essential features that make up digits, such as lines, loops, 
+and curves, may live in a much lower-dimensional manifold []. In the context of 
+machine learning, this lower-dimensional space is referred to as the _latent space_. 
+Autoencoders, which we will discuss below, aim to represent high-dimensional data, 
+such as MNIST digits $X \in R^{784}$ in a much simpler form, $Z \in R^{d}$.
+
+In the following section, we will examine the autoencoder, which serves as a 
+stepping stone for understanding the VAE, which imposes a limitation on the structure
+of the latent space that leads to significantly more powerful generative capabilities.
 
 ### What is an Autoencoder?
 An autoencoder is a neural network typically used in unsupervised learning tasks,
