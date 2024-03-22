@@ -22,7 +22,7 @@ however, among all examples, there will be similarities (otherwise they
 wouldn't be the same digit). What's more is that for different digits, there are 
 similarities too. Fig. 1b shows clusters of samples for each digit, where 9s and
 4s, as well as 8s and 3s are closely related. Lines and curves, among other things,
-that make up digits are some of the features that can be easily learned by  
+which make up digits are some of the features that can be easily learned by  
 neural networks.
 
 <p align="middle" float="left">
@@ -31,13 +31,13 @@ neural networks.
 </p>
 <p align="center">
     <i> Figure 1 (a, b). (a) Sample of 100 MNIST digits and (b) 10k MNIST images
-    projected onto 2D space, using t-SNE algorithm for dimensionality reduction. </i>
+    projected onto 2D space, using the t-SNE algorithm for dimensionality reduction. </i>
 </p>
 
-Note that if it's possible to cluster digits in 2D space, then it points to the 
-fact these features can be captured in a much lower dimensional space. In the 
-following section, we will examine the autoencoder, which serves as a stepping 
-stone for understanding the VAE, a significantly more powerful generative model.
+Note that if it's possible to cluster digits in 2D, then it points to the 
+fact that certain features may be captured in a space with much lower dimensionality,
+compared to that of the original images. In the following section, we will 
+examine the autoencoder, which serves as a stepping stone for understanding the VAE, a significantly more powerful generative model.
 
 ### What is an Autoencoder?
 An autoencoder is a neural network typically used in unsupervised learning tasks,
