@@ -305,9 +305,10 @@ def run_pca_(
 
     # load model
     model = utils.load_from_checkpoint(checkpoint, device=device)
+    num_latent = model.num_latent
     model.eval()
 
-    # initialize PCA and t-SNE
+    # initialize PCA
     pca = PCA(n_components=min(model.num_latent, 2))
 
     Z, Y = [], []
@@ -332,8 +333,11 @@ def run_pca_(
     Z = np.concatenate(Z, 0)
     Y = np.concatenate(Y, 0)
 
-    # reduce dimensionality with PCA
-    pca_features = pca.fit_transform(Z)
+    if num_latent > 2:
+        # reduce dimensionality with PCA
+        pca_features = pca.fit_transform(Z)
+    else:
+        pca_features = Z
 
     # group by digit class
     grouped_features = {digit: [] for digit in range(10)}
