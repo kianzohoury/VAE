@@ -10,12 +10,65 @@ import torch
 import torch.nn as nn
 from matplotlib import colors
 from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
 from sklearn.neighbors import KernelDensity
 
 from . import utils
 
 # set backend to SVG
 matplotlib.use('svg')
+
+
+def plot_mnist_tsne(
+    mnist_root: str = "./mnist",
+    split: str = "train",
+    save_path: str = "./mnist_tsne.jpg",
+    title: str = "Visualizing MNIST in 2D with t-SNE Features"
+) -> None:
+
+    # load mnist
+    dataset = utils.load_mnist(root=mnist_root, split=split)
+
+    X, Y = [], []
+    for x, y in dataset:
+        X.append(x)
+        Y.append(y)
+    X = np.stack(X).reshape(-1, 28 * 28)
+    Y = np.stack(Y).reshape(-1, 1)
+
+    # initialize PCA and t-SNE
+    pca = PCA(n_components=50)
+    tsne = TSNE(n_components=2, perplexity=50)
+
+    # reduce feature dimensionality with PCA
+    pca_features = pca.fit_transform(X)
+    # reduce features further and generate clusters
+    tsne_features = tsne.fit_transform(pca_features)
+
+    # plot 2D t-SNE features
+    fig, ax = plt.subplots(1, 1)
+    cmap = plt.cm.rainbow
+    norm = colors.BoundaryNorm(np.arange(0, 11, 1), cmap.N)
+
+    img = ax.scatter(
+        tsne_features[:, 0],
+        tsne_features[:, 1],
+        c=Y,
+        cmap=cmap,
+        norm=norm,
+        s=5,
+        edgecolor="none"
+    )
+    ax.set_xlabel("t-SNE 1")
+    ax.set_ylabel("t-SNE 2")
+    cbar = plt.colorbar(img, ax=ax)
+    cbar.set_ticks(np.arange(0, 10, 1) + 0.5)
+    cbar.set_ticklabels(list(range(10)))
+
+    if title:
+        fig.suptitle(title)
+    # save figure
+    fig.savefig(save_path, dpi=300)
 
 
 def plot_mnist_digits(
