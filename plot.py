@@ -46,7 +46,7 @@ def plot_mnist_digits(
     ax.set_xticks([])
     ax.set_yticks([])
     # save figure
-    fig.savefig(save_path, dpi=300)
+    fig.savefig(save_path, bbox_inches="tight", dpi=300)
 
 
 def plot_epoch_history(model_dir: str, split: str = "val") -> None:
