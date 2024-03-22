@@ -1,7 +1,7 @@
 
 import pickle
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Tuple
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -233,8 +233,9 @@ def plot_generated_digits(
 
 def plot_generated_digits_grid_2d(
     checkpoint: str,
+    extent: Tuple[float,...],
     digit: int = 7,
-    scale: float = 2.0,
+    grid_size: int = 10,
     save_path: str = "./generated_digits.jpg",
     cmap: str = "gray"
 ) -> None:
@@ -250,15 +251,16 @@ def plot_generated_digits_grid_2d(
     model.eval()
 
     fig, ax = plt.subplots(1, 1)
-    coords = np.linspace(-scale, scale, 10)
-    z0, z1 = np.meshgrid(coords, coords)
+    x_coords = np.linspace(extent[0], extent[1], grid_size)
+    y_coords = np.linspace(extent[1], extent[2], grid_size)
+    z0, z1 = np.meshgrid(x_coords, y_coords)
 
     # initialize image grid to fill in
-    img_grid = np.zeros((28 * 10, 28 * 10))
+    img_grid = np.zeros((28 * grid_size, 28 * grid_size))
 
     # iterate over all z vectors in the uniform 2D space
-    for i in range(10):
-        for j in range(10):
+    for i in range(grid_size):
+        for j in range(grid_size):
             z = torch.Tensor([z0[i][j], z1[i][j]]).unsqueeze(0).to(device)
 
             # only use specified digit if conditioning is possible
@@ -277,8 +279,8 @@ def plot_generated_digits_grid_2d(
             img_grid[i * 28: (i + 1) * 28, j * 28: (j + 1) * 28] = gen_img
 
     ax.imshow(img_grid, cmap=cmap)
-    ax.set_xticklabels(np.round(coords, 2))
-    ax.set_yticklabels(np.round(coords, 2))
+    ax.set_xticklabels(np.round(x_coords, 2))
+    ax.set_yticklabels(np.round(y_coords, 2))
 
     fig.savefig("a.jpg")
     # save figure
