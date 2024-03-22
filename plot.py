@@ -252,7 +252,7 @@ def plot_generated_digits_grid_2d(
 
     fig, ax = plt.subplots(1, 1)
     x_coords = np.linspace(extent[0], extent[1], grid_size)
-    y_coords = np.linspace(extent[1], extent[2], grid_size)
+    y_coords = np.linspace(extent[2], extent[3], grid_size)
     z0, z1 = np.meshgrid(x_coords, y_coords)
 
     # initialize image grid to fill in
