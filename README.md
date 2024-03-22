@@ -56,7 +56,7 @@ and _Mean Squared Error (MSE)_. While both have been successfully used in practi
 are reasons why MSE may actually be a safer choice (in fact, I had better results with it, 
 but YMMV):
 
-1. BCE is asymmetric []. While this property is useful for classification, 
+1. BCE is asymmetric for regression []. While this property is useful for classification, 
 where you may want to penalize false positives more than false negatives (or vice versa), it 
 does not make much sense to penalize a pixel value of 0.6 more than 0.4 
 (supposing the true value is 0.5). 
