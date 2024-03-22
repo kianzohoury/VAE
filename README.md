@@ -49,8 +49,9 @@ However, this comes at the cost of information loss, which impacts how accuratel
 the decoder can reconstruct $X$.
 
 #### Reconstruction Error
-So if $X' \neq X$, how do we ensure that $X' \approx X$? Two common loss functions are used for 
-measuring reconstruction error: __Binary Cross Entropy (BCE)__ and __Mean Squared Error (MSE)__. 
+So if $X' \neq X$, how do we ensure that $X' \approx X$? Like many convex optimization 
+problems, we train the model with a cost function that must be minimized. There
+are two common loss functions: __Binary Cross Entropy (BCE)__ and __Mean Squared Error (MSE)__. 
 While both are commonly used, it may make more intuitive sense to use MSE, for two
 reasons: 
 1. BCE is asymmetric []. While this property is useful for classification, 
