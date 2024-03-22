@@ -14,7 +14,7 @@ generative models of the form $p\_{θ}(x)$ are designed exactly for the purpose 
 generating new data points that resemble those from $X$.
 
 ### What is an Autoencoder?
-One such generative model that can learn p_{θ}(x) is an _autoencoder_. An autoencoder
+One such generative model that can learn $p_{θ}(x)$ is an _autoencoder_. An autoencoder
 is composed of two separate neural networks: an encoder $f$ and decoder $g$.
 
 <p align="middle" float="left">
