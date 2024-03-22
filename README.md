@@ -17,22 +17,27 @@ parameters $\theta$ that adequately capture important patterns in, and
 relationships between data points in $X$. 
 
 What can be learned about $X$? Consider handwritten digits. If we have many, 
-many examples of each digit, we will see differences in how they're written; 
+many examples of each digit, we will see differences in how they're written (Fig. 1a); 
 however, among all examples, there will be similarities (otherwise they
 wouldn't be the same digit). What's more is that for different digits, there are 
-similarities too (e.g. 8s look like 3s and 6s are upside down 9s). The lines and curves
-that make up digits are some of the features that can be easily learned by a neural network.
+similarities too. Fig. 1b shows clusters of samples for each digit, where 9s and
+4s, as well as 8s and 3s are closely related. Lines and curves, among other things,
+that make up digits are some of the features that can be easily learned by  
+neural networks.
+
 <p align="middle" float="left">
   <img src="assets/mnist_digits_10x10.jpg" width="40%" />
   <img src="assets/mnist_tsne.jpg" width="48%" />
 </p>
-<p align="middle" float="left">
-
+<p align="center">
+    <i> Figure 1 (a, b). (a) Sample of 100 MNIST digits and (b) 10k MNIST images
+    projected onto 2D space, using t-SNE algorithm for dimensionality reduction. </i>
 </p>
 
-In the following section, we will 
-examine the autoencoder, which serves as a stepping stone for understanding the VAE, a
-significantly more powerful generative model.
+Note that if it's possible to cluster digits in 2D space, then it points to the 
+fact these features can be captured in a much lower dimensional space. In the 
+following section, we will examine the autoencoder, which serves as a stepping 
+stone for understanding the VAE, a significantly more powerful generative model.
 
 ### What is an Autoencoder?
 An autoencoder is a neural network typically used in unsupervised learning tasks,
