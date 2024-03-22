@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.nn as nn
+from matplotlib import colors
 from sklearn.decomposition import PCA
 from sklearn.neighbors import KernelDensity
 
@@ -288,7 +289,7 @@ def plot_generated_digits_grid_2d(
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
 
 
-def run_pca_(
+def _run_pca(
     checkpoint: str,
     mnist_root: str = "mnist",
     batch_size: int = 1024,
@@ -352,6 +353,7 @@ def plot_latent_space_scatter_2d(
     checkpoint: str,
     mnist_root: str = "mnist",
     save_path: str = "./latent_space_scatter_2d.jpg",
+    title: str = "Visualizing Latent Space with PCA",
     batch_size: int = 1024,
     num_workers: int = 4
 ):
@@ -360,7 +362,7 @@ def plot_latent_space_scatter_2d(
     num_latent = model.num_latent
 
     # get reduced features
-    grouped_features = run_pca_(
+    grouped_features = _run_pca(
         checkpoint=checkpoint,
         mnist_root=mnist_root,
         batch_size=batch_size,
@@ -369,18 +371,37 @@ def plot_latent_space_scatter_2d(
 
     # plot 2D features
     fig, ax = plt.subplots(1, 1)
+    cmap = plt.cm.rainbow
+    norm = colors.BoundaryNorm(np.arange(0, 11, 1), cmap.N)
+
+    stacked_features = []
+    stacked_labels = []
     for (y, features) in grouped_features.items():
-        ax.scatter(features[:, 0], features[:, 1], label=y)
+        stacked_features.append(features)
+        stacked_labels.append([y] * len(features))
 
-    ax.set_xlabel("Principal Component 1")
-    ax.set_ylabel("Principal Component 2")
-    ax.legend(bbox_to_anchor=(1.06, 1), borderaxespad=0)
+    stacked_features = np.concatenate(stacked_features)
+    stacked_labels = np.concatenate(stacked_labels)
 
-    # save figure
-    plt.title(
-        f"{num_latent}-d Latent Space reduced to 2-d with PCA for "
-        f"{model.__class__.__name__}"
+    img = ax.scatter(
+        stacked_features[:, 0],
+        stacked_features[:, 1],
+        c=stacked_labels,
+        cmap=cmap,
+        norm=norm,
+        s=5,
+        edgecolor="none"
     )
+
+    ax.set_xlabel("Principal Component 1" if num_latent != 2 else "z1")
+    ax.set_ylabel("Principal Component 2" if num_latent != 2 else "z2")
+    cbar = plt.colorbar(img, ax=ax)
+    cbar.set_ticks(np.arange(0, 10, 1) + 0.5)
+    cbar.set_ticklabels(list(range(10)))
+
+    if title:
+        plt.title(title)
+    # save figure
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
 
 
@@ -398,7 +419,7 @@ def plot_latent_space_kde_1d(
     num_latent = model.num_latent
 
     # get reduced features
-    grouped_features = run_pca_(
+    grouped_features = _run_pca(
         checkpoint=checkpoint,
         mnist_root=mnist_root,
         batch_size=batch_size,
