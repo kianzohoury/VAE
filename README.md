@@ -14,23 +14,31 @@ by a neural network? As it turns out, the answer is yes. In fact, generative mod
 of the form $p\_{θ}(x)$ are designed exactly for the purpose of 
 generating new data points that resemble those from $X$, by learning a set of
 parameters $\theta$ that adequately capture important patterns in, and 
-relationships between data points in $X$. In the following section, we will 
+relationships between data points in $X$. 
+
+What can be learned about $X$? Consider handwritten digits. If we have many, 
+many examples of each digit, we will see differences in how they're written; 
+however, among all examples, there will be similarities (otherwise they
+wouldn't be the same digit). What's more is that for different digits, there are 
+similarities too (e.g. 8s look like 3s and 6s are upside down 9s). The lines and curves
+that make up digits are some of the features that can be easily learned by a neural network.
+<p align="middle" float="left">
+  <img src="assets/mnist_tsne.jpg" width="70%" />
+</p>
+<p align="middle" float="left">
+  <img src="assets/mnist_digits.jpg" width="50%" />
+</p>
+
+In the following section, we will 
 examine the autoencoder, which serves as a stepping stone for understanding the VAE, a
 significantly more powerful generative model.
 
 ### What is an Autoencoder?
 An autoencoder is a neural network typically used in unsupervised learning tasks,
 where the goal is to learn something about $X$ itself, and not its relationship with
-a set of labels $Y$ (even if they exist). What can be learned about just $X$? Consider
-handwritten digits. If we have many, many examples of each digit, we will see differences
-in how they're written; however, among all examples, there will be similarities (otherwise they
-wouldn't be the same digit). What's more is that for different digits, there are 
-similarities too (e.g. 8s look like 3s and 6s are upside down 9s). The lines and curves
-that make up digits are some of the features that can be easily learned by a neural network.
+a set of labels $Y$ (even if they exist).
 
-<p align="middle" float="left">
-  <img src="assets/mnist_digits.jpg" width="50%" />
-</p>
+
 
 Autoencoders consist of two separate neural networks: firstly, the encoder, which
 compresses 
