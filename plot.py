@@ -66,7 +66,7 @@ def plot_mnist_tsne(
     cbar.set_ticklabels(list(range(10)))
 
     if title:
-        ax.title(title)
+        plt.title(title)
     # save figure
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
 
