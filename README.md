@@ -1,9 +1,9 @@
 # Conditional Variational Autoencoders for MNIST Digit Generation
 The goal of this project is to explore the key differences between autoencoders
-and variational autoencoders (VAEs), and how these differences impact image
-generation, even in simple applications like handwritten digit generation. A
-step-by-step notebook can be found here, if you would like to follow along or
-reproduce the figures and results.
+and variational autoencoders (VAEs) and highlight the effects their architectures
+have on image generation, even in fairly simple applications like handwritten digit 
+generation. If you would like to reproduce the models and results, please follow
+along this [notebook]().
 
 ## Introduction
 Suppose we have a set of images $X = \\{x_1,...,x_n\\}$ (e.g. handwritten digits) that were drawn 
