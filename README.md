@@ -3,7 +3,7 @@ The goal of this project is to explore the key differences between autoencoders
 and variational autoencoders (VAEs) and highlight the effects their architectures
 have on image generation, even in fairly simple applications like handwritten digit 
 generation. If you would like to reproduce the models and results, please follow
-along this [notebook]().
+along [this]() notebook.
 
 ## Introduction
 Suppose we have a set of images $X = \\{x_1,...,x_n\\}$ (e.g. handwritten digits) that were drawn 
