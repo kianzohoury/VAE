@@ -50,10 +50,12 @@ the decoder can reconstruct $X$.
 
 #### Reconstruction Error
 So if $X' \neq X$, how do we ensure that $X' \approx X$? Like many convex optimization 
-problems, we train the model with a cost function that must be minimized. There
-are two common loss functions: __Binary Cross Entropy (BCE)__ and __Mean Squared Error (MSE)__. 
-While both are commonly used, it may make more intuitive sense to use MSE, for two
-reasons: 
+problems, we train the model with a cost function that must be minimized. Two
+common loss functions used with autoencoders include: __Binary Cross Entropy (BCE)__ 
+and __Mean Squared Error (MSE)__. While both are successful for autoencoders, there
+are reasons why MSE may actually be better (in fact, I had better results with it, 
+but YMMV):
+
 1. BCE is asymmetric []. While this property is useful for classification, 
 where you may want to penalize false positives more than false negatives, it 
 does not make much sense to penalize a pixel value of 0.6 more than 0.4 
