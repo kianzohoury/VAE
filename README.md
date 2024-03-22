@@ -34,7 +34,7 @@ similarities too. Fig. 1b shows clusters of samples for each digit, where 9s and
 
 ### Latent Space
 The fact that MNIST digits can organized into clusters of similar digits using 
-dimensionality reduction techniques like t-SNE (t-Distributed Stochastic Neighbor Embedding) []
+dimensionality reduction techniques like t-SNE (t-Distributed Stochastic Neighbor Embedding) [],
 suggests that the essential features that make up digits, such as lines, loops, 
 and curves, may live in a much lower-dimensional manifold []. In the context of 
 machine learning, this lower-dimensional space is referred to as the _latent space_. 
@@ -50,7 +50,12 @@ An autoencoder is a neural network typically used in unsupervised learning tasks
 where the goal is to learn something about $X$ itself, and not its relationship with
 a set of labels $Y$ (even if they exist).
 
-
+<p align="middle" float="left">
+  <img src="assets/autoencoder_simple.jpg" width="65%" />
+</p>
+<p align="center">
+    <i> Figure 2. Simplified diagram of an autoencoder. </i>
+</p>
 
 Autoencoders consist of two separate neural networks: firstly, the encoder, which
 compresses 
@@ -67,12 +72,7 @@ is composed of two separate neural networks: an encoder $f$ and decoder $g$, whi
 are typically symmetric and chained together (Fig. 1) for end-to-end generation, 
 i.e.  $x' = f(g(x))$.
 
-<p align="middle" float="left">
-  <img src="assets/autoencoder.jpg" width="65%" />
-</p>
-<p align="center">
-    <i> Figure 1. Simplified diagram of an autoencoder. </i>
-</p>
+
 
 #### Encoder
 An encoder is a non-linear mapping $f: X \mapsto Z$, where $Z$ is called
