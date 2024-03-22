@@ -333,11 +333,13 @@ def run_pca_(
     Z = np.concatenate(Z, 0)
     Y = np.concatenate(Y, 0)
 
-    if num_latent > 2:
+    print(Z[:50])
+
+    if num_latent == 2 and model.__class__.__name__ != "ConditionalVAE":
+        pca_features = Z
+    else:
         # reduce dimensionality with PCA
         pca_features = pca.fit_transform(Z)
-    else:
-        pca_features = Z
 
     # group by digit class
     grouped_features = {digit: [] for digit in range(10)}
@@ -373,7 +375,6 @@ def plot_latent_space_scatter_2d(
     # plot 2D features
     fig, ax = plt.subplots(1, 1)
     for (y, features) in grouped_features.items():
-        print(features[:, 0][:10], features[:, 1][:10])
         ax.scatter(features[:, 0], features[:, 1], label=y)
 
     ax.set_xlabel("Principal Component 1")
