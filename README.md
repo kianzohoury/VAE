@@ -16,7 +16,8 @@ generating new data points that resemble those from $X$.
 ### What is an Autoencoder?
 One such generative model that can learn $p_{θ}(x)$ is an _autoencoder_. An autoencoder
 is composed of two separate neural networks: an encoder $f$ and decoder $g$, which
-are typically symmetric and chained together (Fig 1) for end-to-end generation $x' = f(g(x))$.
+are typically symmetric and chained together (Fig. 1) for end-to-end generation, 
+i.e.  $x' = f(g(x))$.
 
 <p align="middle" float="left">
   <img src="assets/autoencoder.jpg" width="65%" />
