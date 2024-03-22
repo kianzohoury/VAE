@@ -373,6 +373,7 @@ def plot_latent_space_scatter_2d(
     # plot 2D features
     fig, ax = plt.subplots(1, 1)
     for (y, features) in grouped_features.items():
+        print(features.shape)
         ax.scatter(features[:, 0], features[:, 1], label=y)
 
     ax.set_xlabel("Principal Component 1")
