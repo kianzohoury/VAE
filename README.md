@@ -17,6 +17,13 @@ generating new data points that resemble those from $X$.
 One such generative model that can learn p_{θ}(x) is an _autoencoder_. An autoencoder
 is composed of two separate neural networks: an encoder $f$ and decoder $g$.
 
+<p align="middle" float="left">
+  <img src="assets/autoencoder.jpg" width="45%" />
+</p>
+<p align="center">
+    <i> Figure 1. Simplified diagram of an autoencoder. </i>
+</p>
+
 #### Encoder
 An encoder is a non-linear mapping $f: X \mapsto Z$, where $Z$ is called
 the latent representation of $X$. The primary function of the encoder is to
