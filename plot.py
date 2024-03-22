@@ -333,13 +333,8 @@ def run_pca_(
     Z = np.concatenate(Z, 0)
     Y = np.concatenate(Y, 0)
 
-    print(Z[:50])
-
-    if num_latent == 2 and model.__class__.__name__ != "ConditionalVAE":
-        pca_features = Z
-    else:
-        # reduce dimensionality with PCA
-        pca_features = pca.fit_transform(Z)
+    # reduce dimensionality with PCA
+    pca_features = pca.fit_transform(Z)
 
     # group by digit class
     grouped_features = {digit: [] for digit in range(10)}
