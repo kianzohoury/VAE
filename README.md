@@ -81,7 +81,18 @@ that do not map to anything, but meaningless noise. In addition to not being abl
 to interpolate data well, the decoder deterministically reconstructs images,
 so generating new data from unseen latent vectors is impossible.
 
-
+<p align="middle" float="left">
+  <img src="assets/autoencoder_2d_scatter_updated.jpg" width="85%" />
+</p>
+<p align="center">
+    <i> Figure 2. Generated digits from a grid in the 2D latent space.. </i>
+</p>
+<p align="middle" float="left">
+  <img src="assets/autoencoder_generated_digits.png" width="85%" />
+</p>
+<p align="center">
+    <i> Figure 3. Generated digits sampling $z$ ~ $N(0, 1)$. </i>
+</p>
 ### Variational Autoencoders
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
 generative models that aim to model an underlying distribution of real-world 
