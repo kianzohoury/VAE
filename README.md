@@ -62,6 +62,7 @@ does not make much sense to penalize a pixel value of 0.6 more than 0.4
 (supposing the true value is 0.5). 
 2. BCE is designed for outputs that model probabilities, while MSE is typically
 used for regression. Explain more...
+
 In this implementation, we use MSE as our reconstruction loss, which is defined as:
 
 $$ MSE = \frac{1}{N}||X - X'||_{2}^2$$
