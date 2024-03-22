@@ -34,10 +34,11 @@ A latent representation is like an embedding, whereby similar representations
 should cluster together and dissimilar ones should be far away from each other.
 
 #### Decoder
-A decoder can be thought of as the reverse process, $g: Z \mapsto X$, where
-its primary function is to "decode" the latent representation and reconstruct 
-it back to $X$. Again, similar latent representations should yield similar 
-reconstructions, and vice versa.
+A decoder can be thought of as the reverse process, $g: Z \mapsto X$, which 
+is also a linear mapping. The primary function of the decoder is to "decode" 
+the latent representation $Z$ created by the encoder and reconstruct $X$. 
+Again, similar latent representations should yield similar reconstructions, 
+and vice versa.
 
 Now you may ask, if the encoder and decoder are supposed to be inverses of each other,
 then aren't we just learning the identity function. Well, in some sense yes, but 
