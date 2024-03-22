@@ -61,13 +61,26 @@ where you may want to penalize false positives more than false negatives (or vic
 does not make much sense to penalize a pixel value of 0.6 more than 0.4 
 (supposing the true value is 0.5). 
 2. BCE is designed for outputs that model probabilities, while MSE is typically
-used for regression. Explain more...
+used for regression. Explain more... 
 
 In this implementation, we use MSE as our reconstruction loss, which is defined as:
 
 $$ MSE = \frac{1}{N}||X - X'||_{2}^2$$
 
 where N is the number of samples.
+#### Limitations of Autoencoders
+While autoencoders can be an excellent choice for tasks like anomaly detection,
+where an abnormal reconstruction can point to a data point that was not previously
+seen, or unlike any of the training data, they are a rather poor choice for
+image generation. To generate new data points, we pick a latent vector $z$ (usually
+randomly sampled, i.e. $z \\~ N(0, 1)$) and feed it to the decoder. But, what happens
+when $z$ is unlike anything in the training data? It turns out that autoencoders fail
+to generate recognizable data points when the latent vectors diverge, even slightly,
+from training data. In addition to not being able to interpolate data well, the decoder
+deterministically reconstructs images, so generating new data from unseen latent
+vectors is impossible.
+
+
 ### Variational Autoencoders
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
 generative models that aim to model an underlying distribution of real-world 
