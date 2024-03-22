@@ -23,12 +23,13 @@ An autoencoder is a neural network typically used in unsupervised learning tasks
 where the goal is to learn something about $X$ itself, and not its relationship with
 a set of labels $Y$ (even if they exist). What can be learned about just $X$? Consider
 handwritten digits. If we have many, many examples of each digit, we will see differences
-in how they're written; however, among all examples, there will be similarities. And for
-different digits, there are even similarities (e.g. 8s look like 3s and 6s are upside down 9s).
+in how they're written; however, among all examples, there will be similarities (otherwise they
+wouldn't be the same digit). What's more is that for different digits, there are 
+similarities too (e.g. 8s look like 3s and 6s are upside down 9s). The lines and curves
+that make up digits are some of the features that can be easily learned by a neural network.
 
-maybe there are
-certain shapes that are
-
+Autoencoders consist of two separate neural networks: firstly, the encoder, which
+compresses 
 
 Vanilla autoencoders are neural networks designed for unsupervised learning, 
 consisting of an encoder that compresses input data into a lower-dimensional 
