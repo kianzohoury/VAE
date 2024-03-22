@@ -18,6 +18,37 @@ from . import utils
 matplotlib.use('svg')
 
 
+def plot_mnist_digits(
+    mnist_root: str = "./mnist",
+    split: str = "train",
+    samples_per_digit: int = 5,
+    save_path: str = "./mnist_digits.jpg",
+    cmap: str = "gray",
+) -> None:
+    """Plots original MNIST digits in a grid."""
+    # load mnist
+    dataset = utils.load_mnist(root=mnist_root, split=split)
+    n = 28
+
+    # initialize empty array
+    img_grid = np.zeros((samples_per_digit * n, 10 * n))
+    for digit in range(10):
+        digit_subset = utils.filter_by_digit(dataset, digit)
+        for i in range(samples_per_digit):
+            x, _ = digit_subset[i]
+            # fill array
+            img_grid[n * i: n * (i + 1), n * digit: n * (digit + 1)] = x
+
+    fig, ax = plt.subplots(1, 1)
+    # plot image
+    ax.imshow(img_grid, cmap=cmap)
+    ax.axis("off")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    # save figure
+    fig.savefig(save_path, dpi=300)
+
+
 def plot_epoch_history(model_dir: str, split: str = "val") -> None:
     """Plots epoch training or validation losses for each latent size."""
     model_type = Path(model_dir).stem.split("_")[0]
