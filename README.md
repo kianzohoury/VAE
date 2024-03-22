@@ -41,15 +41,15 @@ Again, similar latent representations should yield similar reconstructions,
 and vice versa.
 
 Now you may ask, if the encoder and decoder are supposed to be inverses of each other,
-then aren't we just learning the identity function $I(X)$?. Well, in some sense yes, but 
+then aren't we just learning the identity function $I(X)$? Well, in some sense yes, but 
 this is not merely a trivial task. If we choose the dimensionality of $Z$ to be relatively 
 small compared to $X$, then we will be imposing a strict bottleneck on the model
-that encourages the encoder to learn the most salient features pertaining to $X$,
-so that the decoder can accurately reconstruct $X$. However, this loss of information
-means that the reconstruction will not be perfect ($X' \neq X$). 
+that encourages the encoder to learn the most salient features pertaining to $X$.
+However, this comes at the cost of information loss, which impacts how accurately
+the decoder can reconstruct $X$.
 
 #### Reconstruction Error
-How do we ensure that $X' \approx X$? Two common loss functions are used for 
+So if $X' \neq X$, how do we ensure that $X' \approx X$? Two common loss functions are used for 
 measuring reconstruction error: __Binary Cross Entropy (BCE)__ and __Mean Squared Error (MSE)__. 
 While both are commonly used, it may make more intuitive sense to use MSE, for two
 reasons: 
