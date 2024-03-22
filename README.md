@@ -23,10 +23,11 @@ wouldn't be the same digit). What's more is that for different digits, there are
 similarities too (e.g. 8s look like 3s and 6s are upside down 9s). The lines and curves
 that make up digits are some of the features that can be easily learned by a neural network.
 <p align="middle" float="left">
-  <img src="assets/mnist_tsne.jpg" width="70%" />
+  <img src="assets/mnist_digits_10x10.jpg" width="40%" />
+  <img src="assets/mnist_tsne.jpg" width="48%" />
 </p>
 <p align="middle" float="left">
-  <img src="assets/mnist_digits.jpg" width="50%" />
+
 </p>
 
 In the following section, we will 
