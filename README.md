@@ -39,14 +39,14 @@ suggests that the essential features that make up digits, such as lines, loops,
 and curves, may live in a much lower-dimensional manifold []. In the context of 
 machine learning, this lower-dimensional space is referred to as the _latent space_. 
 Autoencoders, which we will discuss below, aim to represent high-dimensional data, 
-such as MNIST digits $X \in R^{784}$ in a much simpler form, $Z \in R^{d}$.
+such as MNIST digits $X \in \mathbb{R}^{784}$ in a much simpler form, $Z \in \mathbb{R}^{d}$.
 
 In the following section, we will examine the autoencoder, which serves as a 
 stepping stone for understanding the VAE, which imposes a limitation on the structure
 of the latent space that leads to significantly more powerful generative capabilities.
 
 ### What is an Autoencoder?
-An autoencoder is a neural network typically used in unsupervised learning tasks,
+An autoencoder (Fig. 2) is a neural network typically used in unsupervised learning tasks,
 where the goal is to learn something about $X$ itself, and not its relationship with
 a set of labels $Y$ (even if they exist).
 
@@ -57,22 +57,8 @@ a set of labels $Y$ (even if they exist).
     <i> Figure 2. Simplified diagram of an autoencoder. </i>
 </p>
 
-Autoencoders consist of two separate neural networks: firstly, the encoder, which
-compresses 
-
-Vanilla autoencoders are neural networks designed for unsupervised learning, 
-consisting of an encoder that compresses input data into a lower-dimensional 
-latent space, and a decoder that reconstructs the original data from this 
-compressed representation. Their primary goal is to learn efficient data 
-encodings in an attempt to capture the most salient features of the data, 
-often used for dimensionality reduction or feature learning.
-
-An autoencoder
-is composed of two separate neural networks: an encoder $f$ and decoder $g$, which
-are typically symmetric and chained together (Fig. 1) for end-to-end generation, 
-i.e.  $x' = f(g(x))$.
-
-
+It is composed of two separate neural networks: an encoder $f$ and decoder $g$, which
+are typically symmetric (but not always) and have opposite roles.
 
 #### Encoder
 An encoder is a non-linear mapping $f: X \mapsto Z$, where $Z$ is called
