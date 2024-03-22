@@ -41,7 +41,7 @@ Again, similar latent representations should yield similar reconstructions,
 and vice versa.
 
 Now you may ask, if the encoder and decoder are supposed to be inverses of each other,
-then aren't we just learning the identity function. Well, in some sense yes, but 
+then aren't we just learning the identity function $I(X)$?. Well, in some sense yes, but 
 this is not merely a trivial task. If we choose the dimensionality of $Z$ to be relatively 
 small compared to $X$, then we will be imposing a strict bottleneck on the model
 that encourages the encoder to learn the most salient features pertaining to $X$,
