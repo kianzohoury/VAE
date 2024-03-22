@@ -164,6 +164,7 @@ def plot_generated_digits(
     checkpoint: str,
     samples_per_digit: int = 4,
     save_path: str = "./generated_digits.jpg",
+    title: str = "Generated Digits",
     cmap: str = "gray"
 ):
     """Plots a sample_per_digit x 10 grid of generated samples."""
@@ -224,10 +225,9 @@ def plot_generated_digits(
 
     plt.subplots_adjust(wspace=0, hspace=0, top=0.5)
     plt.tight_layout()
+    if title:
+        fig.suptitle(title)
     # save figure
-    fig.suptitle(
-        f"Generated Digits for {model_type} with Latent Size {num_latent}"
-    )
     fig.savefig(save_path, dpi=300)
 
 
