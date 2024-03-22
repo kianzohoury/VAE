@@ -48,7 +48,7 @@ that encourages the encoder to learn the most salient features pertaining to $X$
 However, this comes at the cost of information loss, which impacts how accurately
 the decoder can reconstruct $X$.
 
-#### Reconstruction Error
+### Reconstruction Error
 How do we ensure that $X' \approx X$? Like many convex optimization (minimization)
 problems, we iteratively update the model's parameters $\theta$ using gradient descent,
 which requires us to compute the gradient of some cost function w.r.t $\theta$. Two
@@ -69,6 +69,9 @@ In this implementation, we use MSE as our reconstruction loss, which is defined 
 $$ MSE = \frac{1}{N}||X - X'||_{2}^2$$
 
 where N is the number of samples.
+### How are images generated?
+There are...
+
 #### Limitations of Autoencoders
 While autoencoders can be an excellent choice for tasks like anomaly detection,
 where an abnormal reconstruction can point to a data point that was not previously
