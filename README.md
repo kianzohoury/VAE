@@ -3,7 +3,7 @@ The goal of this project is to explore the key differences between autoencoders
 and variational autoencoders (VAEs) and highlight the effects their architectures
 have on image generation, even in fairly simple applications like handwritten digit 
 generation. If you would like to reproduce the models and results, please follow
-along [this]() notebook.
+along in [this]() notebook.
 
 ## Introduction
 Suppose we have a set of images $X = \\{x_1,...,x_n\\}$ (e.g. handwritten digits) that were drawn 
@@ -41,7 +41,7 @@ Again, similar latent representations should yield similar reconstructions,
 and vice versa.
 
 Now you may ask, if the encoder and decoder are supposed to be inverses of each other,
-then aren't we just learning the identity function $I(X)$? Well, in some sense yes, but 
+then aren't we just learning the identity function $I$? Well, in some sense yes, but 
 this is not merely a trivial task. If we choose the dimensionality of $Z$ to be relatively 
 small compared to $X$, then we will be imposing a strict bottleneck on the model
 that encourages the encoder to learn the most salient features pertaining to $X$.
@@ -49,14 +49,15 @@ However, this comes at the cost of information loss, which impacts how accuratel
 the decoder can reconstruct $X$.
 
 #### Reconstruction Error
-So if $X' \neq X$, how do we ensure that $X' \approx X$? Like many convex optimization 
-problems, we train the model with a cost function that must be minimized. Two
-commonly used loss functions for autoencoders include: _Binary Cross Entropy (BCE)_ 
+How do we ensure that $X' \approx X$? Like many convex optimization (minimization)
+problems, we iteratively update the model's parameters using gradient descent,
+which requires us to compute the gradient of some cost function w.r.t the parameters. Two
+commonly used cost functions for autoencoders include: _Binary Cross Entropy (BCE)_ 
 and _Mean Squared Error (MSE)_. While both have been successfully used in practice, there
 are reasons why MSE may actually be a safer choice (in fact, I had better results with it, 
 but YMMV):
 
-1. BCE is asymmetric for regression []. While this property is useful for classification, 
+1. BCE is asymmetric []. While this property is useful for classification, 
 where you may want to penalize false positives more than false negatives (or vice versa), it 
 does not make much sense to penalize a pixel value of 0.6 more than 0.4 
 (supposing the true value is 0.5). 
