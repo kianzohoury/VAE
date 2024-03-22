@@ -38,6 +38,7 @@ class Autoencoder(nn.Module):
     def encode(self, x: torch.Tensor) -> torch.Tensor:
         """Compresses x to latent representation, i.e. z = enc(x)."""
         z = self.encoder(x)
+        print(z[0])
         return z
 
     def decode(self, z: torch.Tensor) -> torch.Tensor:
