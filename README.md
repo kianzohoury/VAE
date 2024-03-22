@@ -50,8 +50,8 @@ the decoder can reconstruct $X$.
 
 #### Reconstruction Error
 How do we ensure that $X' \approx X$? Like many convex optimization (minimization)
-problems, we iteratively update the model's parameters using gradient descent,
-which requires us to compute the gradient of some cost function w.r.t the parameters. Two
+problems, we iteratively update the model's parameters $\theta$ using gradient descent,
+which requires us to compute the gradient of some cost function w.r.t $\theta$. Two
 commonly used cost functions for autoencoders include: _Binary Cross Entropy (BCE)_ 
 and _Mean Squared Error (MSE)_. While both have been successfully used in practice, there
 are reasons why MSE may actually be a safer choice (in fact, I had better results with it, 
