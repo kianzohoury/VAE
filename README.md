@@ -106,6 +106,19 @@ $$ MSE = \frac{1}{N}||X - X'||_{2}^2$$
 
 where N is the number of samples.
 
+### Visualizing Reconstructions
+Figure 3 shows reconstructed digits from MNIST test data for autoencoders
+trained with various latent dimensions.
+
+<p align="middle" float="left">
+  <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="75%" />
+</p>
+<p align="center">
+    <i> Figure 3. Simplified diagram of an autoencoder. </i>
+</p>
+
+We see that...
+
 ### Benefits of Autoencoders for Feature Extraction
 Okay, so suppose we've trained an optimal autoencoder that minimizes the reconstruction loss between $X$
 and $X'$. What does this help us achieve? For one, we can obtain a rich feature
@@ -138,10 +151,10 @@ $d=2$ generates:
   <img src="assets/autoencoder_generated_digits.png" width="53%" />
 </p>
 <p align="center">
-    <i> Figure 3. Generated digits sampling $z$ ~ $N(0, 1)$. </i>
+    <i> Figure 4. Generated digits sampling $z$ ~ $N(0, 1)$. </i>
 </p>
 
-Figure 3 shows weirdly reconstructed digits that are not really identifiable. 
+Figure 4 shows weirdly reconstructed digits that are not really identifiable. 
 Because the encoder is essentially a "black box," we cannot predict the structure 
 of the latent space, and because of that, we cannot know exactly which $z$ will 
 cleanly produce a digit. Figure 4 visualizes the exact latent space distribution
