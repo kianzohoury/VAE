@@ -112,7 +112,7 @@ trained with various latent dimensions, using MSE as the reconstruction loss:
 
 <p align="middle" float="left">
   <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="48%" />
-  <img src="assets/autoencoder_test_loss_table.jpg" width="45%" />
+  <img src="assets/autoencoder_test_loss_table.jpg" width="35%" />
 </p>
 <p align="center">
     <i> Figure 3. Simplified diagram of an autoencoder. </i>
