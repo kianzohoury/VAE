@@ -124,11 +124,15 @@ anomalous, then we should be happy with this behavior. However, outside the cont
 anomaly detection, this behavior is actually a significant limitation that makes
 vanilla autoencoders a poor choice for generating new data points.
 
-#### Limitations of Autoencoders
-While autoencoders can be an excellent choice for tasks like anomaly detection,
-where an abnormal reconstruction can point to a data point that was not previously
-seen, or unlike any of the training data, they are a rather poor choice for
-image generation. To generate new data points, we pick a latent vector $z$, usually
+### Limitations of Autoencoders
+Up until this point, we've only looked at end-to-end generation but what about 
+generating new data points? To do so, we typically choose a random latent vector via
+sampling, i.e. $z$ ~ $N(0, 1)$ and feed it to the decoder. Why choose $z$ randomly?
+Since, we are not feeding an $x$ into the encoder, we still need a $z$ to generate $x'$,
+and choosing one at random (i.e. from a standard normal distribution) is simple
+and intuitive.
+
+To generate new data points, we pick a latent vector $z$, usually
 randomly sampled, i.e. $z$ ~ $N(0, 1)$, and feed it to the decoder. But, what happens
 when $z$ is unlike anything in the training data? It turns out that autoencoders fail
 to generate recognizable data points when latent vectors diverge, even slightly,
