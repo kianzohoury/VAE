@@ -117,6 +117,26 @@ trained with various latent dimensions, using MSE as the reconstruction loss:
     <i> Figure 3. Simplified diagram of an autoencoder. </i>
 </p>
 
+$$
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Model} & \textbf{Loss} \\
+\hline
+Autoencoder (z-dim=2) & 31.465 \\
+Autoencoder (z-dim=5) & 22.777 \\
+Autoencoder (z-dim=10) & 18.3 \\
+Autoencoder (z-dim=20) & 15.204 \\
+Autoencoder (z-dim=50) & 14.483 \\
+Autoencoder (z-dim=100) & 15.171 \\
+\hline
+\end{tabular}
+\caption{Loss values for Autoencoders with varying latent space dimensions.}
+\label{table:autoencoder_loss}
+\end{table}
+$$
+
 We see that for all latent dimensions, the reconstructions appear "fuzzy," due
 to the information lost during the compression process. While the worst reconstructions
 are for $d=2$, how large should the dimensionality of the latent space really be?
