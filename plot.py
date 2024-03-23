@@ -234,7 +234,7 @@ def plot_reconstructed_digits(
     ax.set_xticks([])
 
     # set y ticks
-    y_ticks = np.arange(0, (1 + len(checkpoints)), 1) + (n // 2)
+    y_ticks = n * np.arange(0, (1 + len(checkpoints)), 1) + (n // 2)
     y_labels = ["Original"] + sorted([f"d={d}" for d in latent_dims])
     ax.set_yticks(y_ticks)
     ax.set_yticklabels(y_labels)
