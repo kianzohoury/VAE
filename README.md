@@ -51,7 +51,7 @@ where the goal is to learn something about $X$ itself, and not its relationship 
 a set of labels $Y$ (even if they exist).
 
 <p align="middle" float="left">
-  <img src="assets/autoencoder_simple.jpg" width="65%" />
+  <img src="assets/autoencoder_simple.jpg" width="75%" />
 </p>
 <p align="center">
     <i> Figure 2. Simplified diagram of an autoencoder. </i>
@@ -115,8 +115,7 @@ trained with various latent dimensions, using MSE as the reconstruction loss:
 </p>
 <p align="center">
     <i> Figure 3. Sample of 10 reconstructed digits and the corresponding
-        MSE test losses for MNIST test split, comparing different latent dimensions
-        for autoencoders.
+        MSE test losses across various latent dimensions.
     </i>
 </p>
 
