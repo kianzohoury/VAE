@@ -199,24 +199,23 @@ def plot_reconstructed_digits(
     # initialize image grid
     n = 28
     img_grid = np.zeros((n * (1 + len(checkpoints)), 10 * n))
-    for checkpoint in checkpoints:
+    for digit in range(10):
+        digit_subset = utils.filter_by_digit(dataset["test"], digit)
+        indices = list(range(len(digit_subset)))
+        np.random.seed(seed)
+        np.random.shuffle(indices)
+        img, label = digit_subset[0]
 
-        # load model
-        model = utils.load_from_checkpoint(checkpoint, device=device)
-        model_type = model.__class__.__name__
-        num_latent = model.num_latent
-        latent_dims.append(num_latent)
-        model.eval()
+        # fill array with real image
+        img_grid[0: n, digit * n: (digit + 1) * n] = img.numpy()
 
-        for digit in range(10):
-            digit_subset = utils.filter_by_digit(dataset["test"], digit)
-            indices = list(range(len(digit_subset)))
-            np.random.seed(seed)
-            np.random.shuffle(indices)
-            img, label = digit_subset[0]
-
-            # fill array with real image
-            img_grid[0: n, digit * n: (digit + 1) * n] = img.numpy()
+        for j, checkpoint in enumerate(checkpoints):
+            # load model
+            model = utils.load_from_checkpoint(checkpoint, device=device)
+            model_type = model.__class__.__name__
+            num_latent = model.num_latent
+            latent_dims.append(num_latent)
+            model.eval()
 
             if model.__class__.__name__ == "ConditionalVAE":
                 y = nn.functional.one_hot(label, 10)
@@ -228,10 +227,7 @@ def plot_reconstructed_digits(
 
             # fill array with reconstructed image
             gen_img = gen_img.view(28, 28).detach().cpu().numpy()
-            print(img_grid[(digit + 1) * n: (digit + 2) * n, n * digit: n * (digit + 1)].shape)
-            img_row = img_grid[(digit + 1) * n: (digit + 2) * n, n * digit: n * (digit + 1)] = gen_img
-            # couldn't fit on 1 line
-            # img_row[] = gen_img
+            img_grid[(j + 1) * n: (j + 2) * n, n * digit: n * (digit + 1)] = gen_img
 
     fig, ax = plt.subplots(1, 1)
     ax.imshow(img_grid, cmap=cmap)
