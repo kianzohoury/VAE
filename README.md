@@ -111,7 +111,7 @@ Figure 3 shows reconstructed digits from MNIST test data for autoencoders
 trained with various latent dimensions, using MSE as the reconstruction loss:
 
 <p align="middle" float="left">
-  <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="63%" />
+  <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="33%" />
   <div markdown="1">
 
 | Latent Dim | MSE Loss |
