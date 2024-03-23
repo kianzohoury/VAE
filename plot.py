@@ -192,7 +192,7 @@ def plot_reconstructed_digits(
 
     checkpoints = list(Path(model_dir).rglob("*.pth"))
     checkpoints = sorted(
-        checkpoints, key=lambda f: int(f.absolute().split("_")[-1])
+        checkpoints, key=lambda f: int(str(f).split("_")[-1])
     )
     latent_dims = []
 
