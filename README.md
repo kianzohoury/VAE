@@ -105,7 +105,7 @@ $$ MSE = \frac{1}{N}||X - X'||_{2}^2$$
 
 where N is the number of samples.
 
-### Benefits of Autoencoders
+### Benefits of Autoencoders for Feature Extraction
 Okay, so suppose we've trained an optimal autoencoder that minimizes the MSE between $X$
 and $X'$. What does this help us achieve? For one, we can obtain a rich feature
 extractor in the form of the encoder, which can certainly be used for downstream applications
@@ -124,8 +124,8 @@ anomalous, then we should be happy with this behavior. However, outside the cont
 anomaly detection, this behavior is actually a significant limitation that makes
 vanilla autoencoders a poor choice for generating new data points.
 
-### Limitations of Autoencoders
-Up until this point, we've only looked at end-to-end generation but what about 
+### Limitations of Autoencoders for Data Generation
+Up until this point, we've only looked at end-to-end generation, but what about 
 generating new data points? To do so, we typically choose a random latent vector via
 sampling, i.e. $z$ ~ $N(0, 1)$ and feed it to the decoder. Why choose $z$ randomly?
 Since, we are not feeding an $x$ into the encoder, we still need a $z$ to generate $x'$,
