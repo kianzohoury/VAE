@@ -369,11 +369,12 @@ def plot_generated_digits_grid_2d(
 
     max_ticks = min(10, grid_size)
     ticks = np.linspace(0, 28 * grid_size, max_ticks)
-    tick_labels = np.linspace(x_coords[0], x_coords[-1], max_ticks)
+    xtick_labels = np.linspace(x_coords[0], x_coords[-1], max_ticks)
+    ytick_labels = np.linspace(y_coords[0], y_coords[-1], max_ticks)
     ax.set_xticks(ticks)
     ax.set_yticks(ticks)
-    ax.set_xticklabels(np.round(tick_labels, 2))
-    ax.set_yticklabels(np.round(tick_labels, 2))
+    ax.set_xticklabels(np.round(xtick_labels, 2))
+    ax.set_yticklabels(np.round(ytick_labels, 2))
 
     fig.savefig("a.jpg")
     if title:
