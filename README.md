@@ -65,8 +65,8 @@ An encoder is a non-linear mapping $f_{\theta}: X \mapsto Z$, parameterized by
 $\theta$. The primary function of the encoder is to "encode" data $X$ 
 into its compact latent representation $Z$, by learning the most salient features of $X$.
 A good encoder will produce similar latent representations for similar inputs (and vice versa), 
-meaning that different latent representations will be close or far way from each other, 
-depending on how similar the inputs are.
+meaning that different latent representations will be closer, or farther way from each other
+in the latent space, depending on how similar, or dissimilar their inputs are.
 
 #### Decoder
 A decoder is also a linear mapping $g_{\phi}: Z \mapsto X$, parameterized by 
