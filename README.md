@@ -38,9 +38,9 @@ dimensionality reduction techniques like t-SNE (t-Distributed Stochastic Neighbo
 suggests that the essential features that make up digits, such as lines, loops, 
 and curves, may live in a much lower-dimensional manifold []. In the context of 
 machine learning, this lower-dimensional space is referred to as the _latent space_. 
-Autoencoders, which we will discuss below, aim to represent high-dimensional data, 
+Autoencoders, which we will introduce below, aim to represent high-dimensional data, 
 such as MNIST digits $X \in \mathbb{R}^{784}$ in a much simpler form, $Z \in \mathbb{R}^{d}$.
-Autoencoders are a stepping stone for understanding VAEs, which imposes a 
+By first learning about autoencoders, we will build the intuition behind VAEs, which impose a 
 limitation on the structure of the latent space that leads to significantly 
 more powerful generative capabilities.
 
