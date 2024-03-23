@@ -108,9 +108,9 @@ where N is the number of samples.
 ### Benefits of Autoencoders
 Okay, so suppose we've trained an optimal autoencoder that minimizes the MSE between $X$
 and $X'$. What does this help us achieve? For one, we obtain a very useful feature
-extractor (encoder) in the process, which can certainly be used for downstream applications
+extractor in the form of the encoder, which can certainly be used for downstream applications
 like classification. If you have a very large dataset of unpaired images, you can
-train an autoencoder, and then use the encoder as a pre-trained backbone, which can be
+train the whole autoencoder, and then use just the encoder as a pre-trained backbone, which can be
 used for transfer learning (if training on a totally different kind of dataset),
 or fine-tuning (if the dataset is similar, but you don't want to run training from scratch).
 
