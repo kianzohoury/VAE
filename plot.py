@@ -180,6 +180,7 @@ def plot_reconstructed_digits(
     checkpoint: str,
     mnist_root: str = "./mnist",
     save_path: str = "./reconstructed_digits.jpg",
+    title: str = "Reconstructed Digits",
     cmap: str = "gray"
 ) -> None:
     """Plots generated images against their original images in a grid."""
@@ -237,10 +238,12 @@ def plot_reconstructed_digits(
         # ax[1][digit].set_aspect("equal")
 
     plt.subplots_adjust(wspace=0, hspace=0)
+    if title:
+        fig.suptitle(
+            f"Reconstructed Digits for {model_type} with Latent Size {num_latent}"
+        )
+
     # save figure
-    fig.suptitle(
-        f"Reconstructed Digits for {model_type} with Latent Size {num_latent}"
-    )
     fig.savefig(save_path, dpi=300)
 
 
