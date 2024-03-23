@@ -57,30 +57,31 @@ a set of labels $Y$ (even if they exist).
     <i> Figure 2. Simplified diagram of an autoencoder. </i>
 </p>
 
-It is composed of two separate neural networks: an encoder $f$ and decoder $g$, which
+It is composed of two separate neural networks: an encoder $f_{\theta}$ and decoder $g_{\phi}$, which
 are typically symmetric (but not always) and have opposite roles.
 
 #### Encoder
-An encoder is a non-linear mapping $f: X \mapsto Z$, where $Z$ is called
-the latent representation of $X$. The primary function of the encoder is to
-"encode" data into a compact, lower dimensional form (aka dimensionality reduction).
-A latent representation is like an embedding, whereby similar representations
-should cluster together and dissimilar ones should be far away from each other.
+An encoder is a non-linear mapping $f_{\theta}: X \mapsto Z$, parameterized by 
+$\theta$. where $X$ The primary function of the encoder is to "encode" data $X$ 
+into its compact latent representation o$Z$, by learning the most salient features of $X$.
+A good encoder will produce similar latent representations for similar inputs (and vice versa), 
+meaning that different latent representations will be close or far way from each other, 
+depending on how similar the inputs are.
 
 #### Decoder
-A decoder is also a linear mapping $g: Z \mapsto X$, and can be thought of as the 
-reverse process. The primary function of the decoder is to "decode" 
-the latent representation $Z$ created by the encoder and reconstruct $X$. 
-Again, similar latent representations should yield similar reconstructions, 
-and vice versa.
+A decoder is also a linear mapping $g_{\phi}: Z \mapsto X$, parameterized by 
+$\phi$, and can loosely be thought of as the inverse process. The primary function 
+of the decoder is to "decode" latent representation $Z$ created by the encoder, 
+and reconstruct $X$ from it. Like the encoder, a good decoder will be able to generate
+similar reconstructions for similar latent representations, and vice versa.
 
-Now you may ask, if the encoder and decoder are supposed to be inverses of each other,
-then aren't we just learning the identity function $I$? Well, in some sense yes, but 
-this is not merely a trivial task. If we choose the dimensionality of $Z$ to be relatively 
-small compared to $X$, then we will be imposing a strict bottleneck on the model
-that encourages the encoder to learn the most salient features pertaining to $X$.
-However, this comes at the cost of information loss, which impacts how accurately
-the decoder can reconstruct $X$.
+Now you may ask, if the encoder and decoder are functionally inverse operations,
+isn't the autoencoder just learning to approximate the identity function $I$? Yes,
+but this is not trivial, since we have to remember that the latent space is typically
+of much lower dimension than the original pixel space, which imposes a strict 
+bottleneck. This bottleneck is what makes the encoder useful as a feature extractor.
+Yet, this also comes with the cost of losing detail, since the decoder has to reconstruct
+$X$ with potentially much less information.
 
 ### Reconstruction Error
 How do we ensure that $X' \approx X$? Like many convex optimization (minimization)
