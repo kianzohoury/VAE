@@ -213,14 +213,10 @@ def plot_reconstructed_digits(
             indices = list(range(len(digit_subset)))
             np.random.seed(seed)
             np.random.shuffle(indices)
-            x, y = digit_subset[0]
+            img, label = digit_subset[0]
 
             # fill array with real image
-            img_grid[0: n, digit * n: (digit + 1) * n] = x
-
-            # create tensors
-            img = torch.from_numpy(x).float().to(device)
-            label = torch.from_numpy(y).long().to(device)
+            img_grid[0: n, digit * n: (digit + 1) * n] = img.numpy()
 
             if model.__class__.__name__ == "ConditionalVAE":
                 y = nn.functional.one_hot(label, 10)
