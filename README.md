@@ -110,14 +110,17 @@ where N is the number of samples.
 Figure 3 shows reconstructed digits from MNIST test data for autoencoders
 trained with various latent dimensions.
 
-<p align="middle" float="left" style="margin-right: 50px">
+<p align="middle" float="left">
   <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="63%" />
 </p>
 <p align="center">
     <i> Figure 3. Simplified diagram of an autoencoder. </i>
 </p>
 
-We see that...
+We see that for all latent dimensions, the reconstructions appear "fuzzy," due
+to the information lost during the compression process. While the worst reconstructions
+are for $d=2$, how large should the dimensionality of the latent space really be?
+We see that for $d > 20$, there really isn't much improvement.
 
 ### Benefits of Autoencoders for Feature Extraction
 Okay, so suppose we've trained an optimal autoencoder that minimizes the reconstruction loss between $X$
