@@ -198,12 +198,11 @@ normal.
     <i> Figure 5. Variational autoencoder. </i>
 </p>
 
+#### Evidence Lower Bound
+
 #### Reparameterization Trick
 
-<p align="middle" float="left">
-  <img src="assets/Reparameterized_Variational_Autoencoder.png" width="80%" />
-</p>
-
+#### Conditional VAEs
 
 ## Implementation
 Model design and training were implemented in PyTorch.
