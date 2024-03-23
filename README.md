@@ -110,8 +110,8 @@ where N is the number of samples.
 Figure 3 shows reconstructed digits from MNIST test data for autoencoders
 trained with various latent dimensions.
 
-<p align="middle" float="left">
-  <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="75%" />
+<p align="middle" float="left" style="margin-right: 10px">
+  <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="63%" />
 </p>
 <p align="center">
     <i> Figure 3. Simplified diagram of an autoencoder. </i>
