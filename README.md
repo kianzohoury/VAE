@@ -176,7 +176,7 @@ interpolation/extrapolation.
 
 
 ### Variational Autoencoders
-Unlike autoencoders, variational autoencoders (VAEs) are probabilistic 
+Unlike vanilla autoencoders, variational autoencoders (VAEs) are _probabilistic_ 
 generative models that explicitly aim to model $p(x)$ with an approximation
 $p_{\theta}(x)$. Coupled with their ability to learn deep representations of such data, 
 VAEs are capable of generating entirely new data points using variational 
