@@ -179,7 +179,7 @@ def plot_mse_by_class(model_dir: str) -> None:
 def plot_reconstructed_digits(
     model_dir: str,
     mnist_root: str = "./mnist",
-    save_path: str = "./reconstructed_digits.jpg",
+    save_path: str = "./reconstructed_digits_color.jpg",
     title: str = "Reconstructed Digits",
     seed: int = 0,
     cmap: str = "gray"
@@ -365,6 +365,9 @@ def plot_generated_digits_grid_2d(
             img_grid[i * 28: (i + 1) * 28, j * 28: (j + 1) * 28] = gen_img
 
     ax.imshow(img_grid, cmap=cmap)
+    ticks = np.arange(0, grid_size * 28, min(grid_size, 10)) + 14
+    ax.set_xticks(ticks)
+    ax.set_xticks(ticks)
     ax.set_xticklabels(np.round(x_coords, 2))
     ax.set_yticklabels(np.round(y_coords, 2))
 
