@@ -194,6 +194,7 @@ def plot_reconstructed_digits(
     checkpoints = sorted(
         checkpoints, key=lambda f: int(str(f.stem).split("_")[-1])
     )
+    print(checkpoints)
     latent_dims = []
 
     # initialize image grid
