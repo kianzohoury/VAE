@@ -93,10 +93,14 @@ def load_dataset_splits(
 def create_dataloaders(
     dataset_splits: Dict[str, Subset],
     batch_size: int = 1024,
-    num_workers: int = 4
+    num_workers: int = 4,
+    seed: int = 0
 ) -> Dict[str, DataLoader]:
     """Creates dataloaders for each dataset split."""
     dataloaders = {}
+
+    # set seed
+    torch.manual_seed(seed)
     for split, dataset in dataset_splits.items():
         dataloaders[split] = DataLoader(
             dataset,
