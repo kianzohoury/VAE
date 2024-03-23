@@ -177,10 +177,11 @@ def plot_mse_by_class(model_dir: str) -> None:
 
 
 def plot_reconstructed_digits(
-    checkpoint: str,
+    model_dir: str,
     mnist_root: str = "./mnist",
     save_path: str = "./reconstructed_digits.jpg",
     title: str = "Reconstructed Digits",
+    seed: int = 0,
     cmap: str = "gray"
 ) -> None:
     """Plots generated images against their original images in a grid."""
@@ -189,62 +190,66 @@ def plot_reconstructed_digits(
     # load dataset
     dataset = utils.load_dataset_splits(root=mnist_root, splits=["test"])
 
-    # load model
-    model = utils.load_from_checkpoint(checkpoint, device=device)
-    model_type = model.__class__.__name__
-    num_latent = model.num_latent
-    model.eval()
+    checkpoints = list(Path(model_dir).rglob("*.pth"))
+    checkpoints = sorted(checkpoints, key=lambda f: int(f.split("_")[-1]))
+    latent_dims = []
 
-    fig, ax = plt.subplots(
-        nrows=2,
-        ncols=10,
-        gridspec_kw={'wspace': 0, 'hspace': 0}
-    )
-    ax[0][0].set_ylabel("Original")
-    ax[1][0].set_ylabel("Recon")
+    # initialize image grid
+    n = 28
+    img_grid = np.zeros((n * (1 + len(checkpoints)), 10 * n))
+    for checkpoint in checkpoints:
 
-    for digit in range(10):
-        digit_subset = utils.filter_by_digit(dataset["test"], digit=digit)
-        test_loader = utils.create_dataloaders(
-            dataset_splits={"test": digit_subset},
-            batch_size=1,
-            num_workers=0
-        )
+        # load model
+        model = utils.load_from_checkpoint(checkpoint, device=device)
+        model_type = model.__class__.__name__
+        num_latent = model.num_latent
+        latent_dims.append(num_latent)
+        model.eval()
 
-        img, label = next(iter(test_loader["test"]))
+        for digit in range(10):
+            digit_subset = utils.filter_by_digit(dataset["test"], digit)
+            indices = list(range(len(digit_subset)))
+            np.random.seed(seed)
+            np.random.shuffle(indices)
+            x, y = digit_subset[0]
 
-        # plot original image
-        ax[0][digit].imshow(img[0].squeeze(0), cmap=cmap)
-        ax[0][digit].axis("off")
-        ax[0][digit].set_xticks([])
-        ax[0][digit].set_yticks([])
-        ax[0][digit].set_title(digit)
-        # ax[0][digit].set_aspect("equal")
+            # fill array with real image
+            img_grid[0: n, digit * n: (digit + 1) * n] = x
 
-        if model.__class__.__name__ == "ConditionalVAE":
-            y = nn.functional.one_hot(label, 10)
-            gen_img = model(img.to(device), y.to(device))[0]
-        elif model.__class__.__name__ == "VAE":
-            gen_img = model(img.to(device))[0]
-        else:
-            gen_img = model(img.to(device))
+            # create tensors
+            img = torch.from_numpy(x).float().to(device)
+            label = torch.from_numpy(y).long().to(device)
 
-        # plot reconstructed image
-        gen_img = gen_img.detach().cpu()
-        ax[1][digit].imshow(gen_img[0].squeeze(0), cmap=cmap)
-        ax[1][digit].axis("off")
-        ax[1][digit].set_xticks([])
-        ax[1][digit].set_yticks([])
-        # ax[1][digit].set_aspect("equal")
+            if model.__class__.__name__ == "ConditionalVAE":
+                y = nn.functional.one_hot(label, 10)
+                gen_img = model(img.to(device), y.to(device))[0]
+            elif model.__class__.__name__ == "VAE":
+                gen_img = model(img.to(device))[0]
+            else:
+                gen_img = model(img.to(device))
 
-    plt.subplots_adjust(wspace=0, hspace=0)
+            # fill array with reconstructed image
+            gen_img = gen_img.detach().cpu().numpy()
+            img_row = img_grid[(digit + 1) * n: (digit + 2) * n]
+            # couldn't fit on 1 line
+            img_row[n * digit: n * (digit + 1)] = gen_img
+
+    fig, ax = plt.subplots(1, 1)
+    ax.imshow(img_grid, cmap=cmap)
+    ax.axis("off")
+    ax.set_xticks([])
+
+    # set y ticks
+    y_ticks = np.arange(0, n * (1 + len(checkpoints)), 1) + 0.5
+    y_labels = ["Original"] + [f"d={d}" for d in latent_dims]
+    ax.set_yticks(y_ticks)
+    ax.set_yticklabels(y_labels)
+
     if title:
-        fig.suptitle(
-            f"Reconstructed Digits for {model_type} with Latent Size {num_latent}"
-        )
+        plt.title(title)
 
     # save figure
-    fig.savefig(save_path, dpi=300)
+    fig.savefig(save_path, bbox_inches="tight", dpi=300)
 
 
 def plot_generated_digits(
