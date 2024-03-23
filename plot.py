@@ -366,11 +366,14 @@ def plot_generated_digits_grid_2d(
             img_grid[i * 28: (i + 1) * 28, j * 28: (j + 1) * 28] = gen_img
 
     ax.imshow(img_grid, cmap=cmap)
-    ticks = np.linspace(0, 28 * grid_size, grid_size)
+
+    max_ticks = min(10, grid_size)
+    ticks = np.linspace(0, 28 * grid_size, max_ticks)
+    tick_labels = np.linspace(x_coords.min(), x_coords.max(), max_ticks)
     ax.set_xticks(ticks)
-    ax.set_xticks(ticks)
-    ax.set_xticklabels(np.round(x_coords, 2))
-    ax.set_yticklabels(np.round(y_coords, 2))
+    ax.set_yticks(ticks)
+    ax.set_xticklabels(np.round(tick_labels, 2))
+    ax.set_yticklabels(np.round(tick_labels, 2))
 
     fig.savefig("a.jpg")
     if title:
