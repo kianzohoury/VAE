@@ -365,9 +365,8 @@ def plot_generated_digits_grid_2d(
             img_grid[i * 28: (i + 1) * 28, j * 28: (j + 1) * 28] = gen_img
 
     ax.imshow(img_grid, cmap=cmap)
-    ticks = np.arange(0, grid_size * 28, min(grid_size, 10)) + 14
-    ax.set_xticks(ticks)
-    ax.set_xticks(ticks)
+    print(x_coords)
+    print(y_coords)
     ax.set_xticklabels(np.round(x_coords, 2))
     ax.set_yticklabels(np.round(y_coords, 2))
 
