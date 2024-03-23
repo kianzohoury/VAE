@@ -111,13 +111,14 @@ Figure 3 shows reconstructed digits from MNIST test data for autoencoders
 trained with various latent dimensions, using MSE as the reconstruction loss:
 
 <p align="middle" float="left">
-  <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="48%" />
-  <img src="assets/autoencoder_test_loss_table.jpg" width="35%" />
+  <img src="assets/autoencoder_reconstructed_plus_table.jpg" width="78%" />
 </p>
 <p align="center">
-    <i> Figure 3. Simplified diagram of an autoencoder. </i>
+    <i> Figure 3. Sample of 10 reconstructed digits and the corresponding
+        MSE test losses for MNIST test split, comparing different latent dimensions
+        for autoencoders.
+    </i>
 </p>
-
 
 We see that for all latent dimensions, the reconstructions appear "fuzzy," due
 to the information lost during the compression process. While the worst reconstructions
