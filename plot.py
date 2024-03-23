@@ -231,7 +231,6 @@ def plot_reconstructed_digits(
 
     fig, ax = plt.subplots(1, 1)
     ax.imshow(img_grid, cmap=cmap)
-    ax.axis("off")
     ax.set_xticks([])
 
     # set y ticks
