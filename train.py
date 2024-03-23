@@ -76,7 +76,7 @@ def test_full(
 
     # save test results
     print("Saving test results...")
-    with open(f"{model_dir}/class_results_test.pkl" , mode="wb") as f:
+    with open(f"{model_dir}/test.pkl" , mode="wb") as f:
         pickle.dump(test_losses, f)
     print("Finished testing.")
 
