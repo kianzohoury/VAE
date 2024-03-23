@@ -118,7 +118,7 @@ training a model from scratch.
 Another excellent use case for autoencoders is anomaly detection []. During test time,
 when an autoencoder receives data that is similar to its training data, it will generally
 produce decent reconstructions. However, what happens when test data is unlike anything seen
-in the training set? It will most likely generate an abnormal and noisy reconstruction, 
+in the training set? It will most likely generate abnormal, noisy reconstructions, 
 which may reveal the data to be anomalous. If the goal is to determine if some data is
 anomalous, then we should be happy with this behavior. However, outside the context of
 anomaly detection, this behavior is actually a significant limitation that makes
