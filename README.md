@@ -108,7 +108,7 @@ where N is the number of samples.
 
 ### Visualizing Reconstructions
 Figure 3 shows reconstructed digits from MNIST test data for autoencoders
-trained with various latent dimensions.
+trained with various latent dimensions using MSE as the reconstruction loss.
 
 <p align="middle" float="left">
   <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="63%" />
