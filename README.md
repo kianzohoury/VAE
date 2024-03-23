@@ -83,7 +83,7 @@ bottleneck. This bottleneck is what makes the encoder useful as a feature extrac
 Yet, this also comes with the cost of losing detail, since the decoder has to reconstruct
 $X$ with potentially much less information.
 
-### Reconstruction Error
+### Measuring Reconstruction Error
 How do we ensure that $X' \approx X$? Like many convex optimization (minimization)
 problems, we iteratively update the model's parameters $\theta$ using gradient descent,
 which requires us to compute the gradient of some cost function w.r.t $\theta$. Two
@@ -104,8 +104,17 @@ In this implementation, we use MSE as our reconstruction loss, which is defined 
 $$ MSE = \frac{1}{N}||X - X'||_{2}^2$$
 
 where N is the number of samples.
+
 ### How are images generated?
-There are...
+Okay, so suppose we've trained an autoencoder to minimize the MSE between $X$
+and $X'$. What does this help us achieve? For one, we obtain a very useful feature
+extractor (encoder) in the process, which can certainly be used for downstream applications
+like classification. If you have a very large dataset of unpaired images, you can
+train an autoencoder, and then use the encoder as a pre-trained backbone, which can be
+used for transfer learning (if training on a totally different kind of dataset),
+or fine-tuning (if the dataset is similar, but you don't want to run training from scratch).
+
+
 
 #### Limitations of Autoencoders
 While autoencoders can be an excellent choice for tasks like anomaly detection,
