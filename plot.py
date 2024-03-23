@@ -199,6 +199,7 @@ def plot_reconstructed_digits(
     # initialize image grid
     n = 28
     img_grid = np.zeros((n * (1 + len(checkpoints)), 10 * n))
+    print(0, img_grid.shape)
     for checkpoint in checkpoints:
 
         # load model
@@ -228,7 +229,10 @@ def plot_reconstructed_digits(
 
             # fill array with reconstructed image
             gen_img = gen_img.detach().cpu().numpy()
+            print(1, gen_img.shape)
             img_row = img_grid[(digit + 1) * n: (digit + 2) * n]
+            print(2, img_row.shape)
+            print(3, img_row[n * digit: n * (digit + 1)].shape)
             # couldn't fit on 1 line
             img_row[n * digit: n * (digit + 1)] = gen_img
 
