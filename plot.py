@@ -323,6 +323,7 @@ def plot_generated_digits_grid_2d(
     digit: int = 7,
     grid_size: int = 10,
     save_path: str = "./generated_digits.jpg",
+    title: str = "Generated Digits from 2D Latent Space",
     cmap: str = "gray"
 ) -> None:
     """Plots generated digits using z vectors from a grid in 2D space."""
@@ -365,17 +366,17 @@ def plot_generated_digits_grid_2d(
             img_grid[i * 28: (i + 1) * 28, j * 28: (j + 1) * 28] = gen_img
 
     ax.imshow(img_grid, cmap=cmap)
-    print(x_coords)
-    print(y_coords)
+    ticks = np.linspace(0, 28 * grid_size, grid_size)
+    ax.set_xticks(ticks)
+    ax.set_xticks(ticks)
     ax.set_xticklabels(np.round(x_coords, 2))
     ax.set_yticklabels(np.round(y_coords, 2))
 
     fig.savefig("a.jpg")
+    if title:
+        plt.title(title)
+
     # save figure
-    plt.title(
-        f"Generated Digits for {model_type} over 2-d Latent Grid",
-        fontsize=10
-    )
     fig.savefig(save_path, bbox_inches="tight", dpi=300)
 
 
