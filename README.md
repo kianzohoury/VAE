@@ -57,20 +57,21 @@ a set of labels $Y$ (even if they exist).
     <i> Figure 2. Simplified diagram of an autoencoder. </i>
 </p>
 
-It is composed of two separate neural networks: an encoder $f_{\theta}$ and decoder $g_{\phi}$, which
-are typically symmetric (but not always) and have opposite roles.
+It is composed of two separate neural networks: an encoder $g_{\phi}$ and 
+decoder $f_{\theta}$, which are typically symmetric (but not always) and have 
+opposite roles.
 
 #### Encoder
-An encoder is a non-linear mapping $f_{\theta}: X \mapsto Z$, parameterized by 
-$\theta$. The primary function of the encoder is to "encode" data $X$ 
+An encoder is a non-linear mapping $g_{\phi}: X \mapsto Z$, parameterized by 
+$\phi$. The primary function of the encoder is to "encode" data $X$ 
 into its compact latent representation $Z$, by learning the most salient features of $X$.
 A good encoder will produce similar latent representations for similar inputs (and vice versa), 
 meaning that different latent representations will be closer, or farther way from each other
 in the latent space, depending on how similar, or dissimilar their inputs are.
 
 #### Decoder
-A decoder is also a linear mapping $g_{\phi}: Z \mapsto X$, parameterized by 
-$\phi$, and can loosely be thought of as the inverse process. The primary function 
+A decoder is also a linear mapping $f_{\theta}: Z \mapsto X$, parameterized by 
+$\theta$, and can loosely be thought of as the inverse process. The primary function 
 of the decoder is to "decode" latent representation $Z$ created by the encoder, 
 and reconstruct $X$ from it. Like the encoder, a good decoder will be able to generate
 similar reconstructions for similar latent representations, and vice versa.
@@ -171,7 +172,7 @@ encoder will tend to produce a discrete latent space that makes it difficult
 to smoothly interpolate between points, even in close proximity. In the following section,
 we will see how tweaking the encoder to be probabilistic (rather than deterministic)
 and enforcing the structure of the latent space to be gaussian, radically improves
-interpolation of the encoder and extrapolation of decoder.
+interpolate/extrapolation.
 
 
 ### Variational Autoencoders
