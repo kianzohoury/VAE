@@ -40,10 +40,9 @@ and curves, may live in a much lower-dimensional manifold []. In the context of
 machine learning, this lower-dimensional space is referred to as the _latent space_. 
 Autoencoders, which we will discuss below, aim to represent high-dimensional data, 
 such as MNIST digits $X \in \mathbb{R}^{784}$ in a much simpler form, $Z \in \mathbb{R}^{d}$.
-
-In the following section, we will examine the autoencoder, which serves as a 
-stepping stone for understanding the VAE, which imposes a limitation on the structure
-of the latent space that leads to significantly more powerful generative capabilities.
+Autoencoders are a stepping stone for understanding the VAE, which imposes a 
+limitation on the structure of the latent space that leads to significantly 
+more powerful generative capabilities.
 
 ### What is an Autoencoder?
 An autoencoder (Fig. 2) is a neural network typically used in unsupervised learning tasks,
