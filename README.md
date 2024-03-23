@@ -156,12 +156,13 @@ test data:
 </p>
 
 In Fig. 4, we see two different areas of the latent space: one producing a grid 
-of recognizable digits and the other not, for the most part. Even more 
-paradoxically, is that the grid producing recognizable digits is more sparse. 
-Why is this the case? It is a well-known fact that autoencoders are prone to 
-overfitting on training data (again, in some sense, this may be desirable if 
-the goal is to detect anomalies), but this also means that there will be 
-unmapped points in the latent space. Fig. 4 well captures empty pockets in the 
+of recognizable digits and the other not so much, for the most part. Paradoxically, 
+we also see that the grid producing recognizable digits is more sparse. How could
+this be the case? It is a well-known fact that autoencoders are prone to 
+overfitting the training data (again, in some sense, this may be desirable if 
+the goal is to detect anomalies). Thus, if we do not carefully feed the
+decoder latent vectors that were already generated from images seen in the training 
+process, then it is highly likely it will generate garbage. Fig. 4 well captures empty pockets in the 
 latent space, which are effectively uncharted territory for the decoder. In effect, 
 it will struggle to extrapolate to unseen latent representations. But even in the 
 densely populated regions, there are tiny gaps that are unmapped. 
