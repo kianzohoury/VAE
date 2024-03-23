@@ -172,7 +172,7 @@ encoder will tend to produce a discrete latent space that makes it difficult
 to smoothly interpolate between points, even in close proximity. In the following section,
 we will see how tweaking the encoder to be probabilistic (rather than deterministic)
 and enforcing the structure of the latent space to be gaussian, radically improves
-interpolate/extrapolation.
+interpolation/extrapolation.
 
 
 ### Variational Autoencoders
@@ -192,8 +192,18 @@ effectively encourages the modeled latent distributions to be close to standard
 normal.
 
 <p align="middle" float="left">
-  <img src="assets/VAE_Basic.png" width="80%" />
+  <img src="assets/vae.jpg" width="80%" />
 </p>
+<p align="center">
+    <i> Figure 5. Variational autoencoder. </i>
+</p>
+
+#### Reparameterization Trick
+
+<p align="middle" float="left">
+  <img src="assets/Reparameterized_Variational_Autoencoder.png" width="80%" />
+</p>
+
 
 ## Implementation
 Model design and training were implemented in PyTorch.
@@ -204,20 +214,6 @@ differentiability, we use the "reparameterization trick," which allows sampling
 from the latent distribution z ~ p_theta(z|x). The output is normalized between 
 [0, 1.0] using the sigmoid function. Note that since the network is shallow,
 additional normalization (e.g. batch normalization) is not necessary.
-
-### Reparameterization Trick
-
-<p align="middle" float="left">
-  <img src="assets/Reparameterized_Variational_Autoencoder.png" width="80%" />
-</p>
-
-### Loss
-* __Reconstruction Loss__: To compare generated images with ground truth (original images),
-we measure the reconstruction error. Common reconstruction losses include __Binary Cross Entropy (BCE)__
-and __Mean Squared Error (MSE)__. While both are acceptable, in this implementation we use MSE loss, primarily for
-two reasons: (1) BCE is both asymmetric and biased around p=0.5 [], and (2) BCE is designed for outputs that
-model probabilities. Since images are supposed to...
-* __KL Divergence__: Kullback-Leibler (KL) Divergence
 
 ## Training & Validation
 A vanilla autoencoder (baseline) and VAE were trained on the MNIST
