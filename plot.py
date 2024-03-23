@@ -235,7 +235,7 @@ def plot_reconstructed_digits(
     ax.set_xticks([])
 
     # set y ticks
-    y_ticks = np.arange(0, n * (1 + len(checkpoints)), 1) + 0.5
+    y_ticks = np.arange(0, (1 + len(checkpoints)), 1) + (n // 2)
     y_labels = ["Original"] + [f"d={d}" for d in latent_dims]
     print(len(y_ticks))
     print(len(y_labels))
