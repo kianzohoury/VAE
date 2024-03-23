@@ -176,9 +176,9 @@ interpolation/extrapolation.
 
 
 ### Variational Autoencoders
-Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
-generative models that aim to model an underlying distribution of real-world 
-data. Coupled with their ability to learn deep representations of such data, 
+Unlike autoencoders, variational autoencoders (VAEs) are probabilistic 
+generative models that explicitly aim to model $p(x)$ with an approximation
+$p_{\theta}(x)$. Coupled with their ability to learn deep representations of such data, 
 VAEs are capable of generating entirely new data points using variational 
 inference. Unlike traditional autoencoders, which deterministically reconstruct 
 outputs from discrete latent representations, VAEs probabilistically generate 
