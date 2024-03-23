@@ -115,7 +115,7 @@ learned by the encoder can be useful in transfer learning, where you may be deal
 with a totally different kind of dataset, and fine-tuning, where you may not wish to, or even benefit from
 training a model from scratch.
 
-Another excellent use case for autoencoders is for anomaly detection []. During test time,
+Another excellent use case for autoencoders is anomaly detection []. During test time,
 when an autoencoder receives data that is similar to its training data, it will generally
 produce decent reconstructions. However, what happens when test data is unlike anything seen
 in the training set? It will most likely generate an abnormal and noisy reconstruction, 
