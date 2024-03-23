@@ -105,7 +105,7 @@ $$ MSE = \frac{1}{N}||X - X'||_{2}^2$$
 
 where N is the number of samples.
 
-### Benefits of Autoencoders?
+### Benefits of Autoencoders
 Okay, so suppose we've trained an optimal autoencoder that minimizes the MSE between $X$
 and $X'$. What does this help us achieve? For one, we obtain a very useful feature
 extractor (encoder) in the process, which can certainly be used for downstream applications
