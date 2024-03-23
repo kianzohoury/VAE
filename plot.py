@@ -191,7 +191,9 @@ def plot_reconstructed_digits(
     dataset = utils.load_dataset_splits(root=mnist_root, splits=["test"])
 
     checkpoints = list(Path(model_dir).rglob("*.pth"))
-    checkpoints = sorted(checkpoints, key=lambda f: int(f.split("_")[-1]))
+    checkpoints = sorted(
+        checkpoints, key=lambda f: int(f.absolute().split("_")[-1])
+    )
     latent_dims = []
 
     # initialize image grid
