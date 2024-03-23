@@ -380,6 +380,7 @@ def plot_generated_digits_grid_2d(
 def _run_pca(
     checkpoint: str,
     mnist_root: str = "mnist",
+    split: str = "test",
     batch_size: int = 1024,
     num_workers: int = 4
 ) -> Dict[str, np.ndarray]:
@@ -387,7 +388,7 @@ def _run_pca(
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # load dataset
-    dataset = utils.load_dataset_splits(root=mnist_root, splits=["test"])
+    dataset = utils.load_dataset_splits(root=mnist_root, splits=split)
     test_loader = utils.create_dataloaders(
         dataset, batch_size=batch_size, num_workers=num_workers
     )
@@ -402,7 +403,7 @@ def _run_pca(
 
     Z, Y = [], []
     model.eval()
-    for _, (img, label) in enumerate(test_loader["test"], 0):
+    for _, (img, label) in enumerate(test_loader[split], 0):
         img = img.view(img.shape[0], -1).to(device)
 
         # extract latent representation
@@ -440,6 +441,7 @@ def _run_pca(
 def plot_latent_space_scatter_2d(
     checkpoint: str,
     mnist_root: str = "mnist",
+    split: str = "test",
     save_path: str = "./latent_space_scatter_2d.jpg",
     title: str = "Visualizing Latent Space with PCA",
     batch_size: int = 1024,
@@ -453,6 +455,7 @@ def plot_latent_space_scatter_2d(
     grouped_features = _run_pca(
         checkpoint=checkpoint,
         mnist_root=mnist_root,
+        split=split,
         batch_size=batch_size,
         num_workers=num_workers
     )
