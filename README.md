@@ -114,8 +114,8 @@ trained with various latent dimensions, using MSE as the reconstruction loss:
   <img src="assets/autoencoder_reconstructed_plus_table.jpg" width="88%" />
 </p>
 <p align="center">
-    <i> Figure 3. Ten reconstructed digits and the corresponding
-        MSE test losses across various latent dimensions.
+    <i> Figure 3. Sample of 10 reconstructed digits and MSE test losses across 
+        various latent dimensions.
     </i>
 </p>
 
