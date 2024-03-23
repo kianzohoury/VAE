@@ -62,7 +62,7 @@ are typically symmetric (but not always) and have opposite roles.
 
 #### Encoder
 An encoder is a non-linear mapping $f_{\theta}: X \mapsto Z$, parameterized by 
-$\theta$. where $X$ The primary function of the encoder is to "encode" data $X$ 
+$\theta$. The primary function of the encoder is to "encode" data $X$ 
 into its compact latent representation o$Z$, by learning the most salient features of $X$.
 A good encoder will produce similar latent representations for similar inputs (and vice versa), 
 meaning that different latent representations will be close or far way from each other, 
