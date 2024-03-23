@@ -43,6 +43,44 @@ def test(model: nn.Module, test_loader: DataLoader) -> Dict[str, torch.Tensor]:
     return total_loss
 
 
+def test_full(
+    model_dir: str,
+    mnist_root: str = "./mnist",
+    batch_size: int = 512,
+    num_workers: int = 4
+) -> None:
+    """Tests models on full test set (all digit classes together)."""
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    # load dataset
+    dataset = utils.load_dataset_splits(root=mnist_root, splits=["test"])
+    test_loader = utils.create_dataloaders(
+        dataset_splits=dataset,
+        batch_size=batch_size,
+        num_workers=num_workers
+    )
+
+    test_losses = defaultdict(partial(defaultdict, float))
+    for checkpoint in list(Path(model_dir).rglob("*.pth")):
+        model = utils.load_from_checkpoint(checkpoint, device=device)
+        num_latent = model.num_latent
+
+        # test
+        test_loss = test(model, test_loader["test"])
+        for loss_term, loss_val in test_loss.items():
+            test_losses[loss_term][num_latent].append(loss_val)
+            print(
+                f"{model.__class__.__name__} (z-dim={num_latent}), "
+                f"{loss_term}: {round(loss_val, 3)}"
+            )
+
+    # save test results
+    print("Saving test results...")
+    with open(f"{model_dir}/class_results_test.pkl" , mode="wb") as f:
+        pickle.dump(test_losses, f)
+    print("Finished testing.")
+
+
 def test_by_class(
     model_dir: str,
     mnist_root: str = "./mnist",
