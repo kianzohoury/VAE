@@ -107,14 +107,22 @@ where N is the number of samples.
 
 ### Benefits of Autoencoders
 Okay, so suppose we've trained an optimal autoencoder that minimizes the MSE between $X$
-and $X'$. What does this help us achieve? For one, we obtain a very useful feature
+and $X'$. What does this help us achieve? For one, we can obtain a rich feature
 extractor in the form of the encoder, which can certainly be used for downstream applications
 like classification. If you have a very large dataset of unpaired images, you can
-train the whole autoencoder, and then use just the encoder as a pre-trained backbone, which can be
-used for transfer learning if training on a totally different kind of dataset,
-or fine-tuning if the dataset is similar, but you don't want to run training from scratch.
+train the whole autoencoder, and then use just the encoder as a pre-trained backbone. The features
+learned by the encoder can be useful in transfer learning, where you may be dealing 
+with a totally different kind of dataset, and fine-tuning, where you may not wish to, or even benefit from
+training a model from scratch.
 
-
+Another excellent use case for autoencoders is for anomaly detection []. During test time,
+when an autoencoder receives data that is similar to its training data, it will generally
+produce decent reconstructions. However, what happens when test data is unlike anything seen
+in the training set? It will most likely generate an abnormal and noisy reconstruction, 
+which may reveal the data to be anomalous. If the goal is to determine if some data is
+anomalous, then we should be happy with this behavior. However, outside the context of
+anomaly detection, this behavior is actually a significant limitation that makes
+vanilla autoencoders a poor choice for generating new data points.
 
 #### Limitations of Autoencoders
 While autoencoders can be an excellent choice for tasks like anomaly detection,
