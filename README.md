@@ -85,9 +85,9 @@ Yet, this also comes with the cost of losing detail, since the decoder has to re
 $X$ with potentially much less information.
 
 ### Measuring Reconstruction Error
-How do we ensure that $X' \approx X$? Like many convex optimization
-problems, we iteratively update the model's parameters $\theta$ using gradient descent,
-which requires us to compute the gradient of some cost function w.r.t $\theta$. Two
+How do we ensure that $X' \approx X$? Like many deep learning problems,
+we iteratively update the model's parameters using some flavor of gradient descent,
+which requires us to compute the gradient of some differentiable cost function. Two
 commonly used cost functions for autoencoders include: _Binary Cross Entropy (BCE)_ 
 and _Mean Squared Error (MSE)_. While both have been successfully used in practice, there
 are reasons why MSE may actually be a safer choice (in fact, I had better results with it, 
