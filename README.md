@@ -112,10 +112,7 @@ trained with various latent dimensions, using MSE as the reconstruction loss:
 
 <p align="middle" float="left">
   <img src="output/Autoencoder/plots/reconstructed_digits_color.jpg" width="63%" />
-</p>
-<p align="center">
-    <i> Figure 3. Simplified diagram of an autoencoder. </i>
-</p>
+  <div markdown="1">
 
 | Latent Dim | MSE Loss |
 |------------|----------|
@@ -125,6 +122,12 @@ trained with various latent dimensions, using MSE as the reconstruction loss:
 | 20         | 15.204   |
 | 50         | 14.483   |
 | 100        | 15.171   |
+</div>
+
+<p align="center">
+    <i> Figure 3. Simplified diagram of an autoencoder. </i>
+</p>
+
 
 We see that for all latent dimensions, the reconstructions appear "fuzzy," due
 to the information lost during the compression process. While the worst reconstructions
