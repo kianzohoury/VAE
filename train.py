@@ -68,7 +68,7 @@ def test_full(
         # test
         test_loss = test(model, test_loader["test"])
         for loss_term, loss_val in test_loss.items():
-            test_losses[loss_term][num_latent].append(loss_val)
+            test_losses[loss_term][num_latent] = loss_val
             print(
                 f"{model.__class__.__name__} (z-dim={num_latent}), "
                 f"{loss_term}: {round(loss_val, 3)}"
