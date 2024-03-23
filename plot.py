@@ -228,6 +228,7 @@ def plot_reconstructed_digits(
 
             # fill array with reconstructed image
             gen_img = gen_img.view(28, 28).detach().cpu().numpy()
+            print(img_grid[(digit + 1) * n: (digit + 2) * n, n * digit: n * (digit + 1)].shape)
             img_row = img_grid[(digit + 1) * n: (digit + 2) * n, n * digit: n * (digit + 1)] = gen_img
             # couldn't fit on 1 line
             # img_row[] = gen_img
