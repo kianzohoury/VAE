@@ -130,7 +130,15 @@ generating new data points? To do so, we typically choose a random latent vector
 sampling, i.e. $z$ ~ $N(0, 1)$ and feed it to the decoder. Why choose $z$ randomly?
 Since, we are not feeding an $x$ into the encoder, we still need a $z$ to generate $x'$,
 and choosing one at random (i.e. from a standard normal distribution) is simple
-and intuitive.
+and intuitive. Let's go ahead and see what a trained autoencoder with latent dimensionality
+$d=2$ generates:
+
+<p align="middle" float="left">
+  <img src="assets/autoencoder_generated_digits.png" width="65%" />
+</p>
+<p align="center">
+    <i> Figure 3. Generated digits sampling $z$ ~ $N(0, 1)$. </i>
+</p>
 
 To generate new data points, we pick a latent vector $z$, usually
 randomly sampled, i.e. $z$ ~ $N(0, 1)$, and feed it to the decoder. But, what happens
@@ -147,12 +155,7 @@ so generating new data from unseen latent vectors is impossible.
 <p align="center">
     <i> Figure 2. Generated digits from a grid in the 2D latent space.. </i>
 </p>
-<p align="middle" float="left">
-  <img src="assets/autoencoder_generated_digits.png" width="85%" />
-</p>
-<p align="center">
-    <i> Figure 3. Generated digits sampling $z$ ~ $N(0, 1)$. </i>
-</p>
+
 ### Variational Autoencoders
 Variational Autoencoders (VAEs) represent a powerful class of probabilistic 
 generative models that aim to model an underlying distribution of real-world 
