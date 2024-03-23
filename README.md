@@ -105,8 +105,8 @@ $$ MSE = \frac{1}{N}||X - X'||_{2}^2$$
 
 where N is the number of samples.
 
-### How are images generated?
-Okay, so suppose we've trained an autoencoder to minimize the MSE between $X$
+### Benefits of Autoencoders?
+Okay, so suppose we've trained an optimal autoencoder that minimizes the MSE between $X$
 and $X'$. What does this help us achieve? For one, we obtain a very useful feature
 extractor (encoder) in the process, which can certainly be used for downstream applications
 like classification. If you have a very large dataset of unpaired images, you can
