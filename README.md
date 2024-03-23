@@ -155,7 +155,7 @@ and intuitive. Let's go ahead and see what a trained autoencoder with latent dim
 $d=2$ generates:
 
 <p align="middle" float="left">
-  <img src="assets/autoencoder_generated_digits.png" width="53%" />
+  <img src="output/Autoencoder/plots/generated_digits_color_latent_size_2.jpg" width="63%" />
 </p>
 <p align="center">
     <i> Figure 4. Generated digits sampling $z$ ~ $N(0, 1)$. </i>
