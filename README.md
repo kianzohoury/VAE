@@ -192,7 +192,7 @@ effectively encourages the modeled latent distributions to be close to standard
 normal.
 
 <p align="middle" float="left">
-  <img src="assets/vae.jpg" width="80%" />
+  <img src="assets/vae.jpg" width="70%" />
 </p>
 <p align="center">
     <i> Figure 5. Variational autoencoder. </i>
