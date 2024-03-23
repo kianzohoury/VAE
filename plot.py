@@ -194,8 +194,7 @@ def plot_reconstructed_digits(
     checkpoints = sorted(
         checkpoints, key=lambda f: int(str(f.stem).split("_")[-1])
     )
-    print(checkpoints)
-    latent_dims = []
+    latent_dims = set()
 
     # initialize image grid
     n = 28
@@ -215,7 +214,7 @@ def plot_reconstructed_digits(
             model = utils.load_from_checkpoint(checkpoint, device=device)
             model_type = model.__class__.__name__
             num_latent = model.num_latent
-            latent_dims.append(num_latent)
+            latent_dims.add(num_latent)
             model.eval()
 
             if model.__class__.__name__ == "ConditionalVAE":
@@ -237,9 +236,7 @@ def plot_reconstructed_digits(
 
     # set y ticks
     y_ticks = np.arange(0, (1 + len(checkpoints)), 1) + (n // 2)
-    y_labels = ["Original"] + [f"d={d}" for d in latent_dims]
-    print(len(y_ticks))
-    print(len(y_labels))
+    y_labels = ["Original"] + sorted([f"d={d}" for d in latent_dims])
     ax.set_yticks(y_ticks)
     ax.set_yticklabels(y_labels)
 
