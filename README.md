@@ -140,6 +140,12 @@ $d=2$ generates:
     <i> Figure 3. Generated digits sampling $z$ ~ $N(0, 1)$. </i>
 </p>
 
+Figure 3 shows weird reconstructed digits, which partially resemble the MNIST
+data set, but are not identifiable digits. Because the encoder is essentially
+a "black box," we cannot predict the structure of the latent space, and because
+of that, we cannot know exactly which $z$ will cleanly produce a digit.
+
+
 To generate new data points, we pick a latent vector $z$, usually
 randomly sampled, i.e. $z$ ~ $N(0, 1)$, and feed it to the decoder. But, what happens
 when $z$ is unlike anything in the training data? It turns out that autoencoders fail
