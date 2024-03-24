@@ -124,7 +124,7 @@ are for $d=2$, how large should the dimensionality of the latent space really be
 We see that for $d > 20$, there really isn't much improvement, both visually and 
 quantitatively.
 
-### Benefits: Rich Feature Extraction
+### Pros: Rich Feature Extraction
 Okay, so suppose we've trained an optimal autoencoder that minimizes the reconstruction loss between $X$
 and $X'$. What does this help us achieve? For one, we can obtain a rich feature
 extractor in the form of the encoder, which can certainly be used for downstream applications
@@ -143,7 +143,7 @@ anomalous, then we should be happy with this behavior. However, beyond the typic
 cases for vanilla autoencoders, this behavior is actually a significant limitation that makes
 them a poor choice for generating new data points.
 
-### Limitations: Data Generation
+### Cons: Data Generation
 Up until this point, we've only looked at end-to-end generation, but what about 
 generating new data points? To do so, we typically choose a random latent vector via
 sampling, i.e. $z$ ~ $N(0, 1)$ and feed it to the decoder. Why choose $z$ randomly?
