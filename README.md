@@ -63,7 +63,7 @@ opposite roles.
 #### Encoder
 An encoder is a non-linear mapping $g_{\phi}: X \mapsto Z$, parameterized by 
 $\phi$. The primary function of the encoder is to "encode" data $X$ 
-into its compact latent representation $Z$, by learning the most salient features of $X$.
+into a compact latent representation $Z$, by learning the most salient features of $X$.
 A good encoder will produce similar latent representations for similar inputs (and vice versa), 
 meaning that different latent representations will be closer, or farther way from each other
 in the latent space, depending on how similar, or dissimilar their inputs are.
@@ -124,7 +124,7 @@ are for $d=2$, how large should the dimensionality of the latent space really be
 We see that for $d > 20$, there really isn't much improvement, both visually and 
 quantitatively.
 
-### Benefits of Autoencoders for Feature Extraction
+### Benefits: Rich Feature Extraction
 Okay, so suppose we've trained an optimal autoencoder that minimizes the reconstruction loss between $X$
 and $X'$. What does this help us achieve? For one, we can obtain a rich feature
 extractor in the form of the encoder, which can certainly be used for downstream applications
@@ -143,7 +143,7 @@ anomalous, then we should be happy with this behavior. However, beyond the typic
 cases for vanilla autoencoders, this behavior is actually a significant limitation that makes
 them a poor choice for generating new data points.
 
-### Limitations of Autoencoders for Data Generation
+### Limitations: Data Generation
 Up until this point, we've only looked at end-to-end generation, but what about 
 generating new data points? To do so, we typically choose a random latent vector via
 sampling, i.e. $z$ ~ $N(0, 1)$ and feed it to the decoder. Why choose $z$ randomly?
@@ -193,7 +193,7 @@ and enforcing the structure of the latent space to be gaussian, radically improv
 interpolation/extrapolation.
 
 
-### Variational Autoencoders
+## Variational Autoencoders
 Unlike vanilla autoencoders, variational autoencoders (VAEs) are _probabilistic_ 
 generative models that explicitly aim to model $p(x)$ with an approximation
 $p_{\theta}(x)$. Coupled with their ability to learn deep representations of such data, 
